@@ -1,0 +1,105 @@
+---
+import { navigation } from '../content/navigation';
+import { site } from '../content/site';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <a class="brand" href="/">{site.name}</a>
+  <nav aria-label="Navegación principal">
+    <ul class="primary-navigation">
+      {navigation.map((item) => {
+        if ('children' in item) {
+          const isGroupActive = item.children.some(
+            (child) => currentPath === child.href,
+          );
+
+          return (
+            <li class:list={['nav-group', { 'is-active': isGroupActive }]}>
+              <button
+                class="nav-group-trigger"
+                type="button"
+                aria-expanded="false"
+                aria-controls="experience-projects-menu"
+                aria-current={isGroupActive ? 'page' : undefined}
+              >
+                {item.label}
+              </button>
+              <ul class="nav-submenu" id="experience-projects-menu">
+                {item.children.map((child) => (
+                  <li>
+                    <a
+                      href={child.href}
+                      aria-current={
+                        currentPath === child.href ? 'page' : undefined
+                      }
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          );
+        }
+
+        return (
+          <li class:list={{ 'nav-service': 'variant' in item }}>
+            <a
+              href={item.href}
+              aria-current={currentPath === item.href ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const navigationGroups = document.querySelectorAll('.nav-group');
+
+  navigationGroups.forEach((group) => {
+    const trigger = group.querySelector<HTMLButtonElement>('.nav-group-trigger');
+    if (!trigger) return;
+
+    const closeGroup = (suppressFocusWithin = false) => {
+      group.classList.remove('is-open');
+      group.classList.toggle('is-escape-closed', suppressFocusWithin);
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+
+    trigger.addEventListener('click', () => {
+      group.classList.remove('is-escape-closed');
+      const willOpen = !group.classList.contains('is-open');
+      group.classList.toggle('is-open', willOpen);
+      trigger.setAttribute('aria-expanded', String(willOpen));
+    });
+
+    group.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeGroup(true);
+        trigger.focus();
+      }
+    });
+
+    group.addEventListener('pointerenter', () => {
+      group.classList.remove('is-escape-closed');
+    });
+
+    group.addEventListener('focusout', () => {
+      queueMicrotask(() => {
+        if (!group.contains(document.activeElement)) {
+          group.classList.remove('is-escape-closed');
+        }
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!group.contains(event.target as Node)) closeGroup();
+    });
+  });
+</script>

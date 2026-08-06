@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { privacyPolicy } from '../content/legal';
+---
+
+<BaseLayout title={privacyPolicy.title}>
+  <article class="legal-page">
+    <header>
+      <p class="eyebrow">Información legal</p>
+      <h1>{privacyPolicy.title}</h1>
+      <p class="lead">{privacyPolicy.introduction}</p>
+    </header>
+
+    <div class="legal-sections">
+      {privacyPolicy.sections.map((section, index) => (
+        <section>
+          <p class="legal-index" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </p>
+          <div>
+            <h2>{section.title}</h2>
+            {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+            {'links' in section && (
+              <ul class="legal-links">
+                {section.links.map((link) => (
+                  <li>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
+      ))}
+    </div>
+
+  </article>
+</BaseLayout>

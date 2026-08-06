@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { legalNotice } from '../content/legal';
+---
+
+<BaseLayout title={legalNotice.title}>
+  <article class="legal-page">
+    <header>
+      <p class="eyebrow">Información legal</p>
+      <h1>{legalNotice.title}</h1>
+      <p class="lead">{legalNotice.introduction}</p>
+    </header>
+
+    <div class="legal-sections">
+      {legalNotice.sections.map((section, index) => (
+        <section>
+          <p class="legal-index" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </p>
+          <div>
+            <h2>{section.title}</h2>
+            {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        </section>
+      ))}
+    </div>
+
+  </article>
+</BaseLayout>
