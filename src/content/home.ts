@@ -9,29 +9,6 @@ export const home = {
     label: 'Hablemos',
     href: '/contacto/',
   },
-  areasTitle: 'Áreas de trabajo',
-  areas: [
-    {
-      title: 'Analytics & Data',
-      description:
-        'Análisis de datos para entender problemas, identificar oportunidades y apoyar la toma de decisiones.',
-    },
-    {
-      title: 'Consultoría',
-      description:
-        'Estructuración de problemas, priorización y conexión entre datos, contexto y necesidades de negocio.',
-    },
-    {
-      title: 'Formación & Workshops',
-      description:
-        'Formación en Analytics y Data, programas para equipos, mentoring y creación de contenidos formativos.',
-    },
-    {
-      title: 'IA aplicada',
-      description:
-        'Incorporación de nuevas herramientas y formas de trabajo basadas en IA a Analytics, investigación, automatización y aprendizaje.',
-    },
-  ],
   experience: {
     value: '+15',
     label: 'años de experiencia',

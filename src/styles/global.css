@@ -116,6 +116,18 @@ footer {
   text-decoration: none;
 }
 
+.nav-language {
+  margin-left: 0.35rem;
+  color: var(--color-muted);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.nav-service .nav-language {
+  color: inherit;
+}
+
 .site-header nav a:hover,
 .site-header nav button:hover {
   text-decoration: underline;

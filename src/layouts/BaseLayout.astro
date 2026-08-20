@@ -2,34 +2,58 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../content/site';
+import type { Locale } from '../content/i18n';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description?: string;
+  locale?: Locale;
+  alternates?: Array<{ locale: Locale; href: string }>;
 }
 
-const { title, description = site.description } = Astro.props;
+const {
+  title,
+  description = site.description,
+  locale = site.locale,
+  alternates = [],
+} = Astro.props;
 const pageTitle = title === 'Inicio' ? site.name : `${title} | ${site.name}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang={site.locale}>
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {alternates.map((alternate) => (
+      <link
+        rel="alternate"
+        hreflang={alternate.locale}
+        href={new URL(alternate.href, Astro.site)}
+      />
+    ))}
+    {alternates.length > 0 && (
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={new URL(alternates.find((item) => item.locale === 'es')?.href ?? Astro.url.pathname, Astro.site)}
+      />
+    )}
     <title>{pageTitle}</title>
   </head>
   <body>
-    <a class="skip-link" href="#contenido">Saltar al contenido</a>
-    <Header />
+    <a class="skip-link" href="#contenido">
+      {locale === 'en' ? 'Skip to content' : 'Saltar al contenido'}
+    </a>
+    <Header locale={locale} />
     <main id="contenido">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>

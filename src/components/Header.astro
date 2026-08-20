@@ -1,18 +1,24 @@
 ---
-import { navigation } from '../content/navigation';
+import { navigation, sharedUi } from '../content/navigation';
 import { site } from '../content/site';
+import type { Locale } from '../content/i18n';
 
+interface Props { locale?: Locale }
+const { locale = 'es' } = Astro.props;
+const items = navigation[locale];
+const ui = sharedUi[locale];
 const currentPath = Astro.url.pathname;
 ---
 
 <header class="site-header">
   <a class="brand" href="/">{site.name}</a>
-  <nav aria-label="Navegación principal">
+  <nav aria-label={ui.navigationLabel}>
     <ul class="primary-navigation">
-      {navigation.map((item) => {
+      {items.map((item) => {
         if ('children' in item) {
           const isGroupActive = item.children.some(
-            (child) => currentPath === child.href,
+            (child) =>
+              currentPath === child.href || currentPath.startsWith(child.href),
           );
 
           return (
@@ -31,11 +37,14 @@ const currentPath = Astro.url.pathname;
                   <li>
                     <a
                       href={child.href}
+                      hreflang={child.destinationLocale}
+                      title={child.destinationLocale === 'es' && locale === 'en' ? ui.spanishOnly : undefined}
                       aria-current={
                         currentPath === child.href ? 'page' : undefined
                       }
                     >
                       {child.label}
+                      {child.destinationLocale === 'es' && locale === 'en' && <span class="nav-language">ES</span>}
                     </a>
                   </li>
                 ))}
@@ -48,9 +57,12 @@ const currentPath = Astro.url.pathname;
           <li class:list={{ 'nav-service': 'variant' in item }}>
             <a
               href={item.href}
+              hreflang={item.destinationLocale}
+              title={item.destinationLocale === 'es' && locale === 'en' ? ui.spanishOnly : undefined}
               aria-current={currentPath === item.href ? 'page' : undefined}
             >
               {item.label}
+              {item.destinationLocale === 'es' && locale === 'en' && <span class="nav-language">ES</span>}
             </a>
           </li>
         );

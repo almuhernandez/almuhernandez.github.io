@@ -45,30 +45,6 @@ export const about = {
       },
     ],
   },
-  education: {
-    title: 'Formación & Certificaciones',
-    academicTitle: 'Formación académica',
-    academic: [
-      {
-        name: 'Física',
-        institution: 'Universidad Complutense de Madrid',
-        year: '2010',
-      },
-      {
-        name: 'Máster en Estadística Aplicada',
-        institution: 'Birkbeck, University of London',
-        year: '2015',
-      },
-    ],
-    certificationsTitle: 'Certificaciones',
-    certifications: [
-      {
-        name: 'Professional Scrum Product Owner I (PSPO I)',
-        institution: 'Scrum.org',
-        year: '2020',
-      },
-    ],
-  },
   closing: {
     title: '¿Quieres saber más sobre mi trabajo?',
     links: [

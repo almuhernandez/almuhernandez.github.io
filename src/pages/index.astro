@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { home } from '../content/home';
+import { expertiseContent } from '../content/expertise';
+
+const expertise = expertiseContent;
 ---
 
 <BaseLayout title="Inicio">
@@ -34,19 +37,28 @@ import { home } from '../content/home';
 
     <section class="areas" id="areas" aria-labelledby="areas-title">
       <header class="section-heading">
-        <h2 id="areas-title">{home.areasTitle}</h2>
+        <h2 id="areas-title">{expertise.homeTitle.es}</h2>
+        <p>{expertise.homeIntroduction.es}</p>
       </header>
       <div class="area-list">
-        {home.areas.map((area, index) => (
+        {expertise.areas.map((area) => (
           <article class="area">
-            <p class="area-number" aria-hidden="true">
-              {String(index + 1).padStart(2, '0')}
-            </p>
-            <h3>{area.title}</h3>
-            <p>{area.description}</p>
+            <p class="area-number" aria-hidden="true">{area.number}</p>
+            <h3>{area.title.es}</h3>
+            <p>{area.homeSkills.es.join(' · ')}</p>
           </article>
         ))}
       </div>
+      <footer class="areas-footer">
+        <div>
+          <p>{expertise.coreToolkit.label.es}</p>
+          <p class="core-toolkit">{expertise.coreToolkit.items.join(' · ')}</p>
+        </div>
+        <nav aria-label="Profundizar en capacidades analíticas">
+          <a class="text-link" href={expertise.homeLinks.about.href}>{expertise.homeLinks.about.label.es}</a>
+          <a class="text-link text-link--accent" href={expertise.homeLinks.work.href.es}>{expertise.homeLinks.work.label.es}</a>
+        </nav>
+      </footer>
     </section>
 
     <section class="experience-highlight" aria-labelledby="experience-title">
@@ -173,18 +185,20 @@ import { home } from '../content/home';
   }
 
   .areas .section-heading {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(16rem, 1fr) minmax(20rem, 0.8fr);
   }
 
   .areas .area-list {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    border-top: 1px solid var(--color-ink);
     border-bottom: 1px solid var(--color-ink);
   }
 
   .areas .area {
     display: block;
-    min-height: 20rem;
+    grid-column: span 2;
+    min-height: 18rem;
     padding: 2rem 1.25rem;
     border-bottom: 0;
   }
@@ -193,12 +207,53 @@ import { home } from '../content/home';
     border-left: 1px solid var(--color-line);
   }
 
+  .areas .area:nth-child(4) {
+    grid-column: 1 / span 3;
+    border-top: 1px solid var(--color-line);
+    border-left: 0;
+  }
+
+  .areas .area:nth-child(5) {
+    grid-column: 4 / span 3;
+    border-top: 1px solid var(--color-line);
+  }
+
   .areas .area h3 {
     margin: clamp(2.5rem, 5vw, 4rem) 0 1.25rem;
   }
 
   .areas .area > p:last-child {
     color: var(--color-muted);
+  }
+
+  .areas-footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    align-items: end;
+    padding: clamp(2rem, 4vw, 3rem) 0;
+  }
+
+  .areas-footer > div > p:first-child {
+    margin-bottom: 0.5rem;
+    color: var(--color-aubergine);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .core-toolkit {
+    margin-bottom: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.5vw, 2rem);
+  }
+
+  .areas-footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-end;
   }
 
   .experience-highlight {
@@ -343,13 +398,30 @@ import { home } from '../content/home';
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .areas .area:nth-child(3) {
+    .areas .area,
+    .areas .area:nth-child(4),
+    .areas .area:nth-child(5) {
+      grid-column: auto;
+    }
+
+    .areas .area:nth-child(odd) {
       border-left: 0;
+    }
+
+    .areas .area:nth-child(n + 3) {
       border-top: 1px solid var(--color-line);
     }
 
-    .areas .area:nth-child(4) {
-      border-top: 1px solid var(--color-line);
+    .areas .area:nth-child(even) {
+      border-left: 1px solid var(--color-line);
+    }
+
+    .areas-footer {
+      grid-template-columns: 1fr;
+    }
+
+    .areas-footer nav {
+      justify-content: flex-start;
     }
 
     .home-pathways {
@@ -431,8 +503,8 @@ import { home } from '../content/home';
       border-left: 0;
     }
 
-    .areas .area:nth-child(4) {
-      border-top: 0;
+    .areas .area:nth-child(n + 2) {
+      border-top: 1px solid var(--color-line);
     }
 
     .areas .area h3 {

@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { about } from '../content/about';
+import { expertiseContent } from '../content/expertise';
+
+const expertise = expertiseContent;
 ---
 
 <BaseLayout title="Sobre Mí">
@@ -45,31 +48,94 @@ import { about } from '../content/about';
     </ol>
   </section>
 
+  <section class="analytics-expertise" id="experiencia-analitica" aria-labelledby="expertise-title">
+    <header class="section-heading">
+      <h2 id="expertise-title">{expertise.sectionTitle.es}</h2>
+    </header>
+    <div class="expertise-list">
+      {expertise.areas.map((area) => (
+        <article>
+          <p class="expertise-number" aria-hidden="true">{area.number}</p>
+          <div>
+            <h3>{area.title.es}</h3>
+            <ul class="capability-list">
+              {area.skills.es.map((skill) => <li>{skill}</li>)}
+            </ul>
+            {area.evidence.length > 0 && (
+              <nav class="evidence-links" aria-label={`Evidencia relacionada con ${area.title.es}`}>
+                {area.evidence.map((item) => <a href={item.href.es}>{item.label.es}<span aria-hidden="true">↗</span></a>)}
+              </nav>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="current-focus" aria-labelledby="focus-title">
+    <header>
+      <p class="section-kicker">Analytics · Now</p>
+      <h2 id="focus-title">{expertise.currentFocus.title.es}</h2>
+      <p>{expertise.currentFocus.introduction.es}</p>
+    </header>
+    <div class="focus-content">
+      {expertise.currentFocus.areas.map((area) => (
+        <article>
+          <h3>{area.title.es}</h3>
+          <ul class="capability-list capability-list--light">
+            {area.items.map((item) => <li>{item}</li>)}
+          </ul>
+          <a class="focus-evidence" href={area.evidence.href.es}>
+            <span>{area.evidence.tools.join(' · ')}</span>
+            {area.evidence.label.es}<span aria-hidden="true">↗</span>
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="technical-toolkit" aria-labelledby="toolkit-title">
+    <header class="section-heading">
+      <h2 id="toolkit-title">{expertise.toolkit.title.es}</h2>
+    </header>
+    <div class="toolkit-groups">
+      {expertise.toolkit.groups.map((group) => (
+        <article class:list={['toolkit-group', `toolkit-group--${group.emphasis}`]}>
+          <h3>{group.title.es}</h3>
+          <ul>{group.items.map((item) => <li>{item}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+    <div class="toolkit-notes">
+      {expertise.toolkit.notes.map((note) => <p><strong>{note.tool}</strong> — {note.text.es}</p>)}
+    </div>
+  </section>
+
   <section class="education" aria-labelledby="education-title">
     <header class="section-heading">
-      <h2 id="education-title">{about.education.title}</h2>
+      <h2 id="education-title">{expertise.education.title.es}</h2>
     </header>
     <div class="education-columns">
       <section aria-labelledby="academic-title">
-        <h3 id="academic-title">{about.education.academicTitle}</h3>
+        <h3 id="academic-title">{expertise.education.academicTitle.es}</h3>
         <ul>
-          {about.education.academic.map((item) => (
+          {expertise.education.academic.map((item) => (
             <li>
               <p class="education-name">{item.name}</p>
               <p>{item.institution}</p>
-              <p class="education-year">{item.year}</p>
+              <p class="education-year">{item.period}</p>
             </li>
           ))}
         </ul>
       </section>
       <section aria-labelledby="certifications-title">
-        <h3 id="certifications-title">{about.education.certificationsTitle}</h3>
+        <h3 id="certifications-title">{expertise.education.certificationsTitle.es}</h3>
         <ul>
-          {about.education.certifications.map((item) => (
+          {expertise.education.certifications.map((item) => (
             <li>
               <p class="education-name">{item.name}</p>
               <p>{item.institution}</p>
-              <p class="education-year">{item.year}</p>
+              <p class="education-year">{item.period}</p>
             </li>
           ))}
         </ul>
@@ -160,12 +226,16 @@ import { about } from '../content/about';
   }
 
   .about-journey,
+  .analytics-expertise,
+  .technical-toolkit,
   .education {
     padding-block: clamp(4rem, 9vw, 8rem);
     border-top: 1px solid var(--color-ink);
   }
 
   .about-journey .section-heading,
+  .analytics-expertise .section-heading,
+  .technical-toolkit .section-heading,
   .education .section-heading {
     grid-template-columns: 1fr;
     margin-bottom: clamp(2.5rem, 6vw, 5rem);
@@ -257,6 +327,203 @@ import { about } from '../content/about';
     font-size: 1.02rem;
   }
 
+  .expertise-list {
+    border-top: 1px solid var(--color-ink);
+  }
+
+  .expertise-list article {
+    display: grid;
+    grid-template-columns: minmax(2rem, 0.25fr) minmax(0, 1.75fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    padding-block: clamp(2rem, 4vw, 3.25rem);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .expertise-number {
+    color: var(--color-accent);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1;
+  }
+
+  .expertise-list h3,
+  .current-focus h3 {
+    margin-bottom: 1.5rem;
+    color: var(--color-aubergine);
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 3vw, 2.75rem);
+    font-weight: 400;
+    line-height: 1.05;
+  }
+
+  .capability-list,
+  .toolkit-group ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .capability-list li,
+  .toolkit-group li {
+    padding-bottom: 0.15rem;
+    border-bottom: 0.2rem solid var(--color-accent);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .evidence-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-top: 1.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .evidence-links a {
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 0.25rem;
+  }
+
+  .evidence-links a span {
+    margin-left: 0.4rem;
+  }
+
+  .current-focus {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    padding: clamp(3rem, 7vw, 6rem);
+    border-top: 0.45rem solid var(--color-aubergine);
+    border-bottom: 1px solid var(--color-line);
+    color: var(--color-ink);
+    background: var(--color-surface);
+  }
+
+  .current-focus .section-kicker {
+    margin-bottom: 1rem;
+    color: var(--color-aubergine);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .current-focus h2 {
+    margin-bottom: 1.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.75rem);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+  .current-focus header > p:last-child {
+    color: var(--color-muted);
+  }
+
+  .focus-content {
+    align-self: end;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .current-focus h3 {
+    color: var(--color-aubergine);
+  }
+
+  .capability-list--light li {
+    border-color: var(--color-line);
+  }
+
+  .focus-evidence {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-line);
+    color: var(--color-aubergine);
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration-color: var(--color-accent);
+  }
+
+  .focus-evidence > span:first-child {
+    color: var(--color-muted);
+    font-weight: 400;
+  }
+
+  .toolkit-groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--color-ink);
+  }
+
+  .toolkit-group {
+    padding: clamp(2rem, 4vw, 3rem);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .toolkit-group:nth-child(odd):not(:first-child) {
+    border-left: 1px solid var(--color-line);
+  }
+
+  .toolkit-group h3 {
+    margin-bottom: 2rem;
+    color: var(--color-aubergine);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .toolkit-group li {
+    border-bottom: 1px solid var(--color-line);
+    font-weight: 600;
+  }
+
+  .toolkit-group--core {
+    grid-column: 1 / -1;
+    background: var(--color-surface);
+  }
+
+  .toolkit-group--core ul {
+    gap: 0.8rem 2rem;
+  }
+
+  .toolkit-group--core li {
+    border-bottom: 0.2rem solid var(--color-aubergine);
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 2.25rem);
+    font-weight: 400;
+  }
+
+  .toolkit-group--secondary li {
+    color: var(--color-muted);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--color-line);
+    font-weight: 400;
+  }
+
+  .toolkit-notes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 3rem;
+    padding-top: 2rem;
+    color: var(--color-muted);
+    font-size: 0.82rem;
+  }
+
+  .toolkit-notes p {
+    margin-bottom: 0;
+  }
+
   .education-columns {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -291,7 +558,7 @@ import { about } from '../content/about';
   }
 
   .education-name {
-    padding-right: 4rem;
+    padding-right: 7rem;
     font-weight: 700;
     text-transform: uppercase;
   }
@@ -388,9 +655,28 @@ import { about } from '../content/about';
       border-top: 1px solid var(--color-line);
     }
 
+    .current-focus,
+    .toolkit-groups,
+    .toolkit-notes,
     .education-columns,
     .about-closing {
       grid-template-columns: 1fr;
+    }
+
+    .toolkit-group--core {
+      grid-column: auto;
+    }
+
+    .toolkit-group:nth-child(odd):not(:first-child) {
+      border-left: 0;
+    }
+
+    .focus-evidence {
+      grid-template-columns: 1fr auto;
+    }
+
+    .focus-evidence > span:first-child {
+      grid-column: 1 / -1;
     }
 
     .closing-actions {
@@ -399,8 +685,25 @@ import { about } from '../content/about';
   }
 
   @media (max-width: 36rem) {
+    .expertise-list article {
+      grid-template-columns: 1fr;
+    }
+
+    .current-focus {
+      padding-inline: 1.5rem;
+    }
+
     .education-columns {
       gap: 3rem;
+    }
+
+    .education-name {
+      padding-right: 0;
+    }
+
+    .education-year {
+      position: static;
+      margin-top: 0.35rem;
     }
 
     .about-closing {
