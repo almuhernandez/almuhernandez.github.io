@@ -105,6 +105,25 @@ footer {
   list-style: none;
 }
 
+.site-header .language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.site-header .language-switch a {
+  width: auto;
+  min-height: 2.4rem;
+}
+
+.site-header .language-switch a[aria-current="page"] {
+  color: var(--color-ink);
+  text-decoration-color: var(--color-aubergine);
+}
+
 .site-header nav a,
 .site-header nav button {
   display: inline-flex;
@@ -679,9 +698,19 @@ footer nav a:hover {
   }
 
   .site-header .primary-navigation > .nav-group,
-  .site-header .primary-navigation > .nav-service {
+  .site-header .primary-navigation > .nav-service,
+  .site-header .primary-navigation > .language-switch {
     grid-column: 1 / -1;
     border-left: 0;
+  }
+
+  .site-header .language-switch {
+    justify-content: flex-start;
+    padding-inline: 0.5rem;
+  }
+
+  .site-header .language-switch a {
+    width: auto;
   }
 
   .site-header nav a,

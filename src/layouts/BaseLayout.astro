@@ -18,7 +18,7 @@ const {
   locale = site.locale,
   alternates = [],
 } = Astro.props;
-const pageTitle = title === 'Inicio' ? site.name : `${title} | ${site.name}`;
+const pageTitle = title === 'Inicio' || title === 'Home' ? site.name : `${title} | ${site.name}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -41,7 +41,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <link
         rel="alternate"
         hreflang="x-default"
-        href={new URL(alternates.find((item) => item.locale === 'es')?.href ?? Astro.url.pathname, Astro.site)}
+        href={new URL(alternates.find((item) => item.locale === 'en')?.href ?? Astro.url.pathname, Astro.site)}
       />
     )}
     <title>{pageTitle}</title>

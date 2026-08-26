@@ -1,0 +1,209 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { experienceContent } from '../content/localized';
+import type { Locale } from '../content/i18n';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const experience = experienceContent[locale];
+---
+
+<BaseLayout title={experience.title} locale={locale} alternates={[{locale:'en',href:'/experience/'},{locale:'es',href:'/es/experiencia/'}]}>
+  <section class="hero page-hero experience-hero" aria-labelledby="experience-title">
+    <div class="hero-grid">
+      <h1 id="experience-title">{experience.title}</h1>
+      <div class="hero-copy">
+        {experience.introduction.map((paragraph, index) => (
+          <p class={index === 0 ? 'lead' : undefined}>{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="timeline" aria-labelledby="timeline-title">
+    <header class="section-heading">
+      <h2 id="timeline-title">{experience.timelineTitle}</h2>
+    </header>
+    <ol>
+      {experience.timeline.map((item) => (
+        <li>
+          <p class="timeline-period">{item.period}</p>
+          <span class="timeline-marker" aria-hidden="true"></span>
+          <div class="timeline-entry">
+            <p class="timeline-organization">{item.organization}</p>
+            <p class="timeline-role">
+              {item.role}
+              <span class="timeline-location"> · {item.location}</span>
+            </p>
+            <p class="timeline-description">{item.description}</p>
+            <div class="timeline-meta">
+              <p><span>{locale==='en'?'Industry':'Industria'}</span>{item.industry}</p>
+              {'technologies' in item && (
+                <p><span>{locale==='en'?'Technologies':'Tecnologías'}</span>{item.technologies}</p>
+              )}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <div class="experience-actions">
+    <a class="text-link" href={locale==='en'?'/projects/':'/es/proyectos/'}>{locale==='en'?'View projects':'Ver proyectos'}</a>
+    {experience.cv.available ? (
+      <a class="text-link text-link--accent" href={experience.cv.url} download>
+        {experience.cv.label}
+      </a>
+    ) : (
+      <span class="text-link text-link--pending" aria-disabled="true">
+        {experience.cv.label}
+      </span>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .timeline .section-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-period {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .timeline {
+    margin-top: clamp(2rem, 5vw, 4rem);
+  }
+
+  .timeline ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .timeline li {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.5fr) 1.25rem minmax(0, 2fr);
+    gap: 1.25rem;
+    align-items: start;
+    padding-block: clamp(1.75rem, 4vw, 3rem);
+    padding-left: 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .timeline-marker {
+    display: block;
+    width: 0.45rem;
+    height: 0.45rem;
+    background: var(--color-accent);
+    border-radius: 50%;
+  }
+
+  .timeline li p {
+    margin-bottom: 0;
+  }
+
+  .timeline-organization {
+    margin-bottom: 0.2rem !important;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .timeline-role {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.5vw, 2rem);
+    line-height: 1.2;
+  }
+
+  .timeline-location {
+    color: var(--color-muted);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .timeline-description {
+    max-width: 48rem;
+    margin-top: 1.25rem;
+    color: var(--color-muted);
+  }
+
+  .timeline-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-line);
+    color: var(--color-muted);
+    font-size: 0.78rem;
+  }
+
+  .timeline-meta p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .timeline-meta span {
+    color: var(--color-ink);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .experience-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 3rem;
+  }
+
+  .text-link--pending {
+    padding: 0.7rem 0.9rem;
+    color: #555;
+    background: #e8e8e4;
+    cursor: not-allowed;
+  }
+
+  .text-link--pending::after {
+    content: "";
+  }
+
+  @media (max-width: 50rem) {
+    .timeline li {
+      grid-template-columns: 1.25rem 1fr;
+      gap: 0.35rem 0.75rem;
+    }
+
+    .timeline-period {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .timeline-marker {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .timeline-entry {
+      grid-column: 2;
+    }
+
+    .timeline-period {
+      margin-bottom: 0.5rem;
+    }
+
+    .experience-actions {
+      justify-content: flex-start;
+    }
+  }
+</style>

@@ -8,7 +8,7 @@ const { locale } = Astro.props;
 const copy = hubCopy[locale];
 const primaryProject = portfolioProjects[0];
 const secondaryProjects = portfolioProjects.slice(1);
-const relatedLabel = locale === 'es' ? 'Case studies relacionados' : 'Related case studies';
+const relatedLabel = locale === 'es' ? 'Casos prácticos relacionados' : 'Related case studies';
 const visualPending = locale === 'es' ? 'Visual del proyecto en preparación' : 'Project visual in preparation';
 ---
 <BaseLayout title={copy.pageTitle} description={copy.metaDescription} locale={locale} alternates={[{locale:'es',href:analyticsWorkPaths.es},{locale:'en',href:analyticsWorkPaths.en}]}>

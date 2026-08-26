@@ -8,9 +8,9 @@ const { locale, caseStudy } = Astro.props;
 const businessContent = caseStudyBusinessContent[caseStudy.slug];
 const related = caseStudy.related.map(slug=>caseStudies.find(item=>item.slug===slug)).filter((item):item is CaseStudy=>Boolean(item));
 const ui = locale === 'es' ? {
-  back:'Todos los proyectos', label:'Case Study', challenge:'El reto de negocio', questions:'Preguntas clave de negocio', evidence:'Datos y evidencia', approach:'Cómo lo abordaría', outputs:'Qué recibirías', action:'Del análisis a la acción', illustrative:'Ejemplo ilustrativo', measurement:'Cómo medir el éxito', alternatives:'Otros enfoques a considerar', industries:'Industrias relevantes', related:'Case studies relacionados', explore:'Explorar case study', pdf:'Ver / descargar case study', pdfNote:'Recurso visual complementario para profundizar en el caso.', contactTitle:'¿Trabajas en un reto analítico similar?', contact:'Hablemos', switchLabel:'Idioma', approaches:'Enfoques'
+  back:'Todos los proyectos', label:'Caso práctico', challenge:'El reto de negocio', questions:'Preguntas clave de negocio', evidence:'Datos y evidencia', approach:'Cómo lo abordaría', outputs:'Qué recibirías', action:'Del análisis a la acción', illustrative:'Ejemplo ilustrativo', measurement:'Cómo medir el éxito', alternatives:'Otros enfoques a considerar', industries:'Industrias relevantes', related:'Casos prácticos relacionados', explore:'Explorar caso práctico', pdf:'Descargar PDF', pdfNote:'Recurso visual complementario para profundizar en el caso.', contactTitle:'¿Trabajas en un reto analítico similar?', contact:'Hablemos', switchLabel:'Idioma', approaches:'Enfoques'
 } : {
-  back:'All projects', label:'Case Study', challenge:'The business challenge', questions:'Key business questions', evidence:'Data & evidence', approach:'How I would approach it', outputs:'What you would get', action:'From analysis to action', illustrative:'Illustrative example', measurement:'How success should be measured', alternatives:'Other approaches to consider', industries:'Relevant industries', related:'Related case studies', explore:'Explore case study', pdf:'View / download case study', pdfNote:'A complementary visual resource for a deeper view of the case.', contactTitle:'Working on a similar analytics challenge?', contact:"Let's talk", switchLabel:'Language', approaches:'Approaches'
+  back:'All projects', label:'Case Study', challenge:'The business challenge', questions:'Key business questions', evidence:'Data & evidence', approach:'How I would approach it', outputs:'What you would get', action:'From analysis to action', illustrative:'Illustrative example', measurement:'How success should be measured', alternatives:'Other approaches to consider', industries:'Relevant industries', related:'Related case studies', explore:'Explore case study', pdf:'Download PDF', pdfNote:'A complementary visual resource for a deeper view of the case.', contactTitle:'Working on a similar analytics challenge?', contact:"Let's talk", switchLabel:'Language', approaches:'Approaches'
 };
 const esHref=caseStudyPath('es',caseStudy.slug); const enHref=caseStudyPath('en',caseStudy.slug);
 ---
@@ -32,7 +32,7 @@ const esHref=caseStudyPath('es',caseStudy.slug); const enHref=caseStudyPath('en'
     </div>
 
     <section class="related" aria-labelledby="related-title"><h2 id="related-title">{ui.related}</h2><div class="related-grid">{related.map(item=><article><p>{item.category[locale]}</p><h3>{item.title[locale]}</h3><a href={caseStudyPath(locale,item.slug)}>{ui.explore}<span aria-hidden="true">↗</span></a></article>)}</div></section>
-    <aside class="contact-cta"><h2>{ui.contactTitle}</h2><a class="text-link text-link--accent" href="/contacto/">{ui.contact}</a></aside>
+    <aside class="contact-cta"><h2>{ui.contactTitle}</h2><a class="text-link text-link--accent" href={locale==='en'?'/contact/':'/es/contacto/'}>{ui.contact}</a></aside>
   </article>
 </BaseLayout>
 <style>

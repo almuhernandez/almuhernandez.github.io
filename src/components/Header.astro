@@ -1,5 +1,5 @@
 ---
-import { navigation, sharedUi } from '../content/navigation';
+import { alternatePath, navigation, sharedUi } from '../content/navigation';
 import { site } from '../content/site';
 import type { Locale } from '../content/i18n';
 
@@ -8,10 +8,13 @@ const { locale = 'es' } = Astro.props;
 const items = navigation[locale];
 const ui = sharedUi[locale];
 const currentPath = Astro.url.pathname;
+const enHref=alternatePath(currentPath,'en');
+const esHref=alternatePath(currentPath,'es');
+const hasPageSwitcher=currentPath.startsWith('/projects/')||currentPath.startsWith('/es/proyectos/')||currentPath.startsWith('/proyectos/')||currentPath.startsWith('/en/projects/');
 ---
 
 <header class="site-header">
-  <a class="brand" href="/">{site.name}</a>
+  <a class="brand" href={locale==='en'?'/':'/es/'}>{site.name}</a>
   <nav aria-label={ui.navigationLabel}>
     <ul class="primary-navigation">
       {items.map((item) => {
@@ -37,14 +40,11 @@ const currentPath = Astro.url.pathname;
                   <li>
                     <a
                       href={child.href}
-                      hreflang={child.destinationLocale}
-                      title={child.destinationLocale === 'es' && locale === 'en' ? ui.spanishOnly : undefined}
                       aria-current={
                         currentPath === child.href ? 'page' : undefined
                       }
                     >
                       {child.label}
-                      {child.destinationLocale === 'es' && locale === 'en' && <span class="nav-language">ES</span>}
                     </a>
                   </li>
                 ))}
@@ -57,16 +57,16 @@ const currentPath = Astro.url.pathname;
           <li class:list={{ 'nav-service': 'variant' in item }}>
             <a
               href={item.href}
-              hreflang={item.destinationLocale}
-              title={item.destinationLocale === 'es' && locale === 'en' ? ui.spanishOnly : undefined}
               aria-current={currentPath === item.href ? 'page' : undefined}
             >
               {item.label}
-              {item.destinationLocale === 'es' && locale === 'en' && <span class="nav-language">ES</span>}
             </a>
           </li>
         );
       })}
+      {!hasPageSwitcher&&<li class="language-switch" aria-label={ui.languageLabel}>
+        <a href={enHref} hreflang="en" aria-current={locale==='en'?'page':undefined}>EN</a><span aria-hidden="true">|</span><a href={esHref} hreflang="es" aria-current={locale==='es'?'page':undefined}>ES</a>
+      </li>}
     </ul>
   </nav>
 </header>

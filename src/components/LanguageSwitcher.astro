@@ -4,7 +4,7 @@ interface Props { locale: Locale; esHref: string; enHref: string; label: string 
 const { locale, esHref, enHref, label } = Astro.props;
 ---
 <nav class="language-switcher" aria-label={label}>
-  <a href={esHref} lang="es" hreflang="es" aria-current={locale === 'es' ? 'page' : undefined}>ES</a><span aria-hidden="true">/</span><a href={enHref} lang="en" hreflang="en" aria-current={locale === 'en' ? 'page' : undefined}>EN</a>
+  <a href={enHref} lang="en" hreflang="en" aria-current={locale === 'en' ? 'page' : undefined}>EN</a><span aria-hidden="true">|</span><a href={esHref} lang="es" hreflang="es" aria-current={locale === 'es' ? 'page' : undefined}>ES</a>
 </nav>
 <style>
   .language-switcher{display:flex;gap:.55rem;align-items:center;justify-content:flex-end;margin-bottom:1.5rem;font-size:.75rem;font-weight:700;letter-spacing:.1em}.language-switcher a{display:grid;min-width:2.75rem;min-height:2.75rem;place-items:center;text-decoration:none}.language-switcher a[aria-current=page]{color:var(--color-surface);background:var(--color-aubergine)}.language-switcher a:not([aria-current=page]):hover{background:var(--color-accent)}

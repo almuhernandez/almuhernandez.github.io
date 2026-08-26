@@ -9,8 +9,8 @@ export const localeLabels: Record<Locale, string> = {
 };
 
 export const analyticsWorkPaths = {
-  es: '/proyectos/',
-  en: '/en/projects/',
+  es: '/es/proyectos/',
+  en: '/projects/',
 } as const;
 
 export const caseStudyPath = (locale: Locale, slug: string) =>
