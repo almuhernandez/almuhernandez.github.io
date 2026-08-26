@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { contactContent } from '../content/localized';
+import { site } from '../content/site';
+import type { Locale } from '../content/i18n';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const contact = contactContent[locale];
+---
+
+<BaseLayout title={contact.title} locale={locale} alternates={[{locale:'en',href:'/contact/'},{locale:'es',href:'/es/contacto/'}]}>
+  <section class="contact-hero page-hero" aria-labelledby="contact-title">
+    <div class="contact-grid">
+      <h1 id="contact-title">{contact.title}</h1>
+      <div>
+        <p class="contact-headline">{contact.headline}</p>
+        <p>{contact.introduction}</p>
+      </div>
+    </div>
+  </section>
+
+  <address class="contact-channels">
+    <a href={`mailto:${site.email}`}>
+      <span class="channel-label">{contact.channels.email.label}</span>
+      <span>{site.email}</span>
+      <span aria-hidden="true">↗</span>
+    </a>
+    <a href={site.linkedIn} target="_blank" rel="noopener noreferrer">
+      <span class="channel-label">{contact.channels.linkedIn.label}</span>
+      <span>LinkedIn</span>
+      <span aria-hidden="true">↗</span>
+    </a>
+  </address>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.7fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: end;
+  }
+
+  .contact-headline {
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    line-height: 1.2;
+  }
+
+  .contact-grid div p:last-child {
+    margin-bottom: 0;
+    color: var(--color-muted);
+  }
+
+  .contact-channels {
+    display: block;
+    border-top: 1px solid var(--color-ink);
+    font-style: normal;
+  }
+
+  .contact-channels a {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.6fr) minmax(0, 2fr) auto;
+    gap: 2rem;
+    align-items: center;
+    padding-block: clamp(1.5rem, 3vw, 2.2rem);
+    border-bottom: 1px solid var(--color-line);
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 3vw, 2.2rem);
+    text-decoration: none;
+    transition:
+      padding-inline 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .contact-channels a:hover {
+    padding-inline: 1rem;
+    background: var(--color-accent);
+  }
+
+  .channel-label {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 50rem) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .contact-channels a {
+      grid-template-columns: 1fr auto;
+      gap: 0.35rem 1rem;
+      overflow-wrap: anywhere;
+    }
+
+    .channel-label {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-channels a {
+      transition: none;
+    }
+  }
+</style>

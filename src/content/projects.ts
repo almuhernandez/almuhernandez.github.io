@@ -1,125 +1,284 @@
-export type Project = {
-  title: string;
-  description: string;
-  categories?: string[];
-  url?: string;
-  repository?: string;
-};
+import type { Locale, LocalizedText } from './i18n';
 
-export const projects: Project[] = [];
-
+type LocalizedList = Record<Locale, string[]>;
+export type ProfessionalWork = { title: LocalizedText; company: string; engagement?: LocalizedText; domain: LocalizedText; description: LocalizedText; tags: LocalizedList; related: string[] };
+export type PortfolioProject = { title: string; label: LocalizedText; description: LocalizedText; meta: LocalizedText; tags: LocalizedList; link?: { label: LocalizedText; url: string } };
 export type CaseStudy = {
-  title: string;
-  description: string;
-  category: string;
-  status: string;
-  image?: string;
-  context?: string;
-  businessQuestions?: string[];
-  kpis?: string[];
-  data?: string;
-  technologies?: string[];
-  analysis?: string;
-  insights?: string[];
-  recommendations?: string[];
-  deliverables?: string[];
-  executiveSummary?: string;
-  github?: string;
-  links?: Array<{ label: string; url: string }>;
-  plannedContent?: string[];
+  slug: string;
+  category: LocalizedText;
+  title: LocalizedText;
+  question: LocalizedText;
+  metaDescription: LocalizedText;
+  industries: string[];
+  industryLabels: LocalizedList;
+  problems: string[];
+  problemLabels: LocalizedList;
+  tags: LocalizedList;
+  professionalEvidence: boolean;
+  businessQuestion: LocalizedText;
+  whyItMatters: LocalizedText;
+  evidence: LocalizedList;
+  approach: LocalizedList;
+  alternatives: LocalizedText;
+  interpretation: LocalizedText;
+  actions: LocalizedList;
+  measurement: LocalizedList;
+  related: string[];
+  pdfPath?: string;
 };
+
+export const hubCopy = {
+  es: {
+    pageTitle: 'Proyectos y trabajo analítico',
+    metaDescription: 'Trabajo profesional, proyectos de portfolio y casos prácticos de Analytics aplicados a problemas de cliente, marketing, producto, operaciones y negocio.',
+    eyebrow: 'Trabajo analítico',
+    title: 'Analytics aplicado a problemas de negocio e industrias',
+    introduction: 'Una selección de trabajo analítico profesional, proyectos end-to-end y casos prácticos que recorren Analytics de cliente, marketing, comercial, producto y operaciones.',
+    industries: 'Banca · Retail · Telecom · Tecnología · Salud · FMCG · Digital',
+    professional: { number: '01', label: 'Experiencia profesional', title: 'Selección de trabajo profesional en Analytics', introduction: 'Una selección de retos en los que he trabajado profesionalmente, presentados desde el problema analítico y el contexto de negocio, respetando la confidencialidad de clientes y entregables.' },
+    portfolio: { number: '03', title: 'Proyectos de portfolio destacados', introduction: 'Proyectos desarrollados de principio a fin que permiten conocer con más detalle mi manera de conectar análisis, comunicación y aplicación práctica.' },
+    library: { number: '02', title: 'Casos prácticos de analítica de negocio', introduction: 'Marcos prácticos para explorar cómo estructuraría preguntas habituales de Analytics, qué evidencia utilizaría y cómo conectaría el análisis con decisiones de negocio.', searchLabel: 'Buscar casos prácticos', searchPlaceholder: 'Buscar por tema, industria o técnica', industryLabel: 'Industria', problemLabel: 'Problema de negocio', allIndustries: 'Todas las industrias', allProblems: 'Todos los problemas', results: 'casos prácticos disponibles', noResults: 'No hay casos prácticos que coincidan con estos criterios.', explore: 'Explorar caso práctico', evidence: 'Experiencia profesional en esta área' },
+    switchLabel: 'Idioma',
+  },
+  en: {
+    pageTitle: 'Projects and analytics work',
+    metaDescription: 'Professional analytics work, portfolio projects and practical case studies across customer, marketing, product, operations and commercial analytics.',
+    eyebrow: 'Analytics Work',
+    title: 'Analytics across business problems and industries',
+    introduction: 'A selection of professional analytics work, end-to-end portfolio projects and practical case studies spanning customer, marketing, commercial, product and operational analytics.',
+    industries: 'Banking · Retail · Telecom · Technology · Healthcare · FMCG · Digital',
+    professional: { number: '01', label: 'Professional Experience', title: 'Selected Professional Analytics Work', introduction: 'A selection of challenges I have worked on professionally, presented through the analytics problem and business context while respecting client and deliverable confidentiality.' },
+    portfolio: { number: '03', title: 'Featured Portfolio Projects', introduction: 'End-to-end projects that offer a closer view of how I connect analysis, communication and practical application.' },
+    library: { number: '02', title: 'Business Analytics Case Studies', introduction: 'Practical frameworks showing how I would structure common analytics questions, what evidence I would use and how I would connect analysis with business decisions.', searchLabel: 'Search case studies', searchPlaceholder: 'Search by topic, industry or technique', industryLabel: 'Industry', problemLabel: 'Business problem', allIndustries: 'All industries', allProblems: 'All problems', results: 'case studies available', noResults: 'No case studies match these criteria.', explore: 'Explore case study', evidence: 'Professional experience in this area' },
+    switchLabel: 'Language',
+  },
+} as const;
+
+export const industryOptions = [
+  { value: 'retail-ecommerce', es: 'Retail y e-commerce', en: 'Retail & E-commerce' },
+  { value: 'banking-financial', es: 'Banca y servicios financieros', en: 'Banking & Financial Services' },
+  { value: 'saas-digital', es: 'SaaS y productos digitales', en: 'SaaS & Digital Products' },
+  { value: 'telecom', es: 'Telecomunicaciones', en: 'Telecom' },
+  { value: 'insurance', es: 'Seguros', en: 'Insurance' },
+  { value: 'travel-services', es: 'Viajes y servicios', en: 'Travel & Services' },
+  { value: 'healthcare-public', es: 'Salud y salud pública', en: 'Healthcare / Public Health' },
+] as const;
+
+export const problemOptions = [
+  { value: 'customer-understanding', es: 'Conocimiento de cliente', en: 'Customer Understanding' },
+  { value: 'retention-loyalty', es: 'Retención y fidelización', en: 'Retention & Loyalty' },
+  { value: 'growth-revenue', es: 'Crecimiento e ingresos', en: 'Growth & Revenue' },
+  { value: 'marketing-effectiveness', es: 'Efectividad de marketing', en: 'Marketing Effectiveness' },
+  { value: 'product-engagement', es: 'Producto y engagement', en: 'Product & Engagement' },
+  { value: 'sales-conversion', es: 'Ventas y conversión', en: 'Sales & Conversion' },
+  { value: 'planning-forecasting', es: 'Planificación y forecasting', en: 'Planning & Forecasting' },
+] as const;
+
+const shared = (es: string[], en: string[]): LocalizedList => ({ es, en });
+
+export const professionalWork: ProfessionalWork[] = [
+  { title:{es:'Segmentación de clientes y Customer Lifetime Value',en:'Customer Segmentation & Lifetime Value'}, company:'Kernel Analytics', domain:{es:'Retail · Customer Analytics',en:'Retail · Customer Analytics'}, description:{es:'Segmentación de clientes y modelado predictivo de Customer Lifetime Value a partir de compras históricas, conectando los grupos con objetivos estratégicos e iniciativas de marketing.',en:'Customer segmentation and predictive Customer Lifetime Value modelling from historical purchases, connecting the groups with strategic objectives and marketing initiatives.'}, tags:shared(['Segmentación','CLV','Predictive Analytics'],['Segmentation','CLV','Predictive Analytics']), related:['customer-segmentation','customer-lifetime-value'] },
+  { title:{es:'Modelos de adquisición de clientes',en:'Customer Acquisition Modelling'}, company:'Kernel Analytics', domain:{es:'Telecomunicaciones · Customer Analytics',en:'Telecommunications · Customer Analytics'}, description:{es:'Desarrollo de modelos predictivos para apoyar la priorización de adquisición de clientes en telecomunicaciones.',en:'Development of predictive models supporting customer acquisition prioritisation in telecommunications.'}, tags:shared(['Modelado predictivo','Adquisición','Customer Analytics'],['Predictive Modelling','Acquisition','Customer Analytics']), related:['propensity-modelling'] },
+  { title:{es:'Predicción de ventas y optimización de stock',en:'Sales Forecasting & Stock Distribution Optimisation'}, company:'Kernel Analytics', domain:{es:'Retail · Operations Analytics',en:'Retail · Operations Analytics'}, description:{es:'Algoritmo predictivo para estimar ventas y apoyar la distribución de stock desde almacén a distintos destinos.',en:'Predictive algorithm to estimate sales and support stock distribution from warehouse to destinations.'}, tags:shared(['Forecasting','Optimización','Operations Analytics'],['Forecasting','Optimisation','Operations Analytics']), related:['demand-sales-forecasting'] },
+  { title:{es:'Optimización de inventario y personal en tienda',en:'Inventory & Store Labour Optimisation'}, company:'Boston Consulting Group (BCG)', domain:{es:'Retail · Operations Analytics',en:'Retail · Operations Analytics'}, description:{es:'Analytics para apoyar la gestión estratégica de inventario y la optimización de personal en tiendas de un retailer de supermercados e hipermercados.',en:'Analytics supporting strategic inventory management and store labour optimisation for a supermarket and hypermarket retailer.'}, tags:shared(['Inventario','Optimización','Retail'],['Inventory','Optimisation','Retail']), related:[] },
+  { title:{es:'Analytics para estrategia de pricing en banca retail',en:'Retail Banking Pricing Analytics'}, company:'Boston Consulting Group (BCG)', domain:{es:'Banca · Analytics Consulting',en:'Banking · Analytics Consulting'}, description:{es:'Apoyo analítico a una iniciativa de estrategia de pricing en banca retail, con trabajo adicional de automatización y validación de información documental.',en:'Analytical support for a retail banking pricing strategy initiative, alongside automation and validation of document-based information.'}, tags:shared(['Pricing','Banca','Consultoría analítica'],['Pricing','Banking','Analytics Consulting']), related:['pricing-revenue-analysis'] },
+  { title:{es:'Comportamiento digital del consumidor',en:'Digital Consumer Behaviour Analytics'}, company:'GfK', domain:{es:'Tecnología · Retail · Viajes · Digital',en:'Technology · Retail · Travel · Digital'}, description:{es:'Análisis de comportamiento digital mediante datos de medición en desktop y móvil, incluyendo compra online y proyectos de retail, viajes y social media.',en:'Analysis of digital behaviour using desktop and mobile metering data, including online purchasing and retail, travel and social media projects.'}, tags:shared(['Behavioural Analytics','Digital Analytics','Consumer Insights'],['Behavioural Analytics','Digital Analytics','Consumer Insights']), related:[] },
+  { title:{es:'Customer & Purchase Behaviour Analytics',en:'Customer & Purchase Behaviour Analytics'}, company:'Hello Time', domain:{es:'E-commerce · Small Business',en:'E-commerce · Small Business'}, description:{es:'Segmentación de clientes y Market Basket Analysis para identificar patrones de cliente y compra y transformarlos en recomendaciones prácticas de negocio.',en:'Customer segmentation and Market Basket Analysis to uncover customer and purchasing patterns and translate them into practical business recommendations.'}, tags:shared(['Customer Segmentation','Market Basket Analysis','Customer Behaviour'],['Customer Segmentation','Market Basket Analysis','Customer Behaviour']), related:['customer-segmentation','market-basket-analysis'] },
+  { title:{es:'Customer Analytics & Route Optimisation',en:'Customer Analytics & Route Optimisation'}, company:'Chiper', engagement:{es:'Freelance',en:'Freelance'}, domain:{es:'Retail / E-commerce',en:'Retail / E-commerce'}, description:{es:'Análisis RFM de clientes y optimización de rutas como parte de un apoyo más amplio de Analytics y estrategia de datos.',en:'RFM customer analysis and route optimisation delivered as part of broader analytics and data-strategy support.'}, tags:shared(['RFM','Customer Analytics','Route Optimisation','Data Strategy'],['RFM','Customer Analytics','Route Optimisation','Data Strategy']), related:['customer-segmentation'] },
+  { title:{es:'Vigilancia epidemiológica y automatización de reporting',en:'Epidemiological Surveillance & Reporting Automation'}, company:'TheWhiteam · Proyecto ECDC', domain:{es:'Salud pública · Data Automation',en:'Public Health · Data Automation'}, description:{es:'Recogida, análisis y automatización de datos de vigilancia de países de la UE/EEE, con apoyo a informes epidemiológicos y peticiones analíticas específicas por enfermedad.',en:'Collection, analysis and automation of surveillance data from EU/EEA countries, supporting epidemiological reporting and disease-specific analytical requests.'}, tags:shared(['Automatización','Reporting','Análisis estadístico'],['Data Automation','Reporting','Statistical Analysis']), related:[] },
+];
+
+export const portfolioProjects: PortfolioProject[] = [
+  { title: 'Understanding Customer Behaviour', label: { es: 'Proyecto de portfolio', en: 'Portfolio Project' }, description: { es: 'Proyecto de analítica de clientes orientado a entender el comportamiento de los clientes y transformar los datos en información útil para la toma de decisiones.', en: 'A Customer Analytics project focused on understanding customer behaviour and transforming data into useful information for decision-making.' }, meta: { es: 'Analítica de clientes · En desarrollo', en: 'Customer Analytics · In development' }, tags: { es: ['Comportamiento de cliente', 'Análisis integral'], en: ['Customer Behaviour', 'End-to-end Analysis'] } },
+  { title: 'Candidata', label: { es: 'Proyecto educativo', en: 'Education Project' }, description: { es: 'Candidata es un proyecto educativo creado para ayudar a futuros profesionales de Data Analytics a conectar el aprendizaje técnico con su aplicación en el mercado laboral.', en: 'Candidata is an education project created to help future Data Analytics professionals connect technical learning with its application in the job market.' }, meta: { es: 'Formación · Recursos · Mentorías', en: 'Education · Resources · Mentoring' }, tags: { es: ['Newsletter', 'Recursos', 'Contenido educativo'], en: ['Newsletter', 'Resources', 'Educational Content'] }, link: { label: { es: 'Visitar Candidata', en: 'Visit Candidata' }, url: 'https://candidata.co/' } },
+];
 
 export const caseStudies: CaseStudy[] = [
   {
-    title: 'Understanding Customer Behaviour',
-    category: 'Customer Analytics',
-    status: 'En desarrollo',
-    description:
-      'Proyecto de Customer Analytics orientado a entender el comportamiento de los clientes y transformar los datos en información útil para la toma de decisiones.',
+    slug: 'customer-segmentation', category: { es: 'Analítica de clientes', en: 'Customer Analytics' }, title: { es: 'Segmentación de clientes', en: 'Customer Segmentation' },
+    question: { es: '¿Cómo identificar grupos de clientes útiles para diseñar estrategias diferenciadas?', en: 'How can useful customer groups be identified to support differentiated strategies?' },
+    metaDescription: { es: 'Marco práctico para diseñar, validar y activar una segmentación de clientes orientada a decisiones de negocio.', en: 'A practical framework for designing, validating and activating customer segmentation for business decisions.' },
+    industries: ['retail-ecommerce', 'banking-financial', 'telecom', 'insurance', 'travel-services'], industryLabels: shared(['Retail y e-commerce', 'Banca', 'Telecom', 'Seguros', 'Servicios'], ['Retail & E-commerce', 'Banking', 'Telecom', 'Insurance', 'Services']),
+    problems: ['customer-understanding', 'marketing-effectiveness'], problemLabels: shared(['Conocimiento de cliente', 'Efectividad de marketing'], ['Customer Understanding', 'Marketing Effectiveness']), tags: shared(['Clustering', 'RFM', 'Validación', 'Activación'], ['Clustering', 'RFM', 'Validation', 'Activation']), professionalEvidence: true,
+    businessQuestion: { es: '¿Qué grupos de clientes presentan necesidades, comportamientos o valor diferentes y qué decisiones deberían cambiar para cada uno?', en: 'Which customer groups show different needs, behaviours or value, and which decisions should change for each group?' },
+    whyItMatters: { es: 'Una segmentación útil reduce la dependencia de comunicaciones y ofertas genéricas. Su valor no está en producir clusters, sino en crear grupos reconocibles, estables y accionables.', en: 'Useful segmentation reduces reliance on generic communications and offers. Its value is not in producing clusters, but in creating recognisable, stable and actionable groups.' },
+    evidence: shared(['Transacciones, frecuencia, antigüedad y valor monetario.', 'Interacciones por canal, respuesta a campañas y comportamiento digital.', 'Características de producto, servicio y relación.', 'Investigación cualitativa o encuestas para interpretar necesidades.'], ['Transactions, frequency, recency and monetary value.', 'Channel interactions, campaign response and digital behaviour.', 'Product, service and relationship characteristics.', 'Qualitative research or surveys to interpret needs.']),
+    approach: shared(['Acordar qué decisiones debe apoyar y definir la unidad de análisis.', 'Construir variables evitando fugas de información y sesgos temporales.', 'Comparar soluciones estadísticas con reglas más interpretables.', 'Validar tamaño, estabilidad, diferenciación y capacidad de activación.'], ['Agree which decisions it should support and define the unit of analysis.', 'Build features while avoiding data leakage and temporal bias.', 'Compare statistical solutions with more interpretable rules.', 'Validate size, stability, differentiation and activation potential.']),
+    alternatives: { es: 'Clustering jerárquico, k-means, modelos de mezcla y reglas pueden ser válidos. La elección depende de los datos, la explicación necesaria y el uso operativo.', en: 'Hierarchical clustering, k-means, mixture models and rules can all be valid. The choice depends on the data, explainability needs and operational use.' },
+    interpretation: { es: 'Un segmento con mayor gasto medio no es automáticamente más rentable ni responde mejor a una campaña. Las diferencias descriptivas no demuestran causalidad.', en: 'A segment with higher average spend is not automatically more profitable or more responsive to a campaign. Descriptive differences do not establish causality.' },
+    actions: shared(['Adaptar mensajes, propuestas de valor y journeys.', 'Priorizar investigación o experimentos por segmento.', 'Ajustar modelos de servicio y asignación de recursos.'], ['Adapt messages, value propositions and journeys.', 'Prioritise research or experiments by segment.', 'Adjust service models and resource allocation.']),
+    measurement: shared(['Estabilidad y diferenciación.', 'Cobertura y adopción por los equipos.', 'Resultados incrementales validados mediante experimentos.'], ['Stability and differentiation.', 'Coverage and adoption by teams.', 'Incremental outcomes validated through experiments.']), related: ['customer-lifetime-value', 'customer-churn-retention', 'propensity-modelling'],
+    pdfPath: '/case-studies/customer-segmentation-case-study.pdf',
+  },
+  {
+    slug: 'market-basket-analysis', category: { es: 'Analítica comercial', en: 'Commercial Analytics' }, title: { es: 'Análisis de cesta de compra', en: 'Market Basket Analysis' },
+    question: { es: '¿Qué productos se compran juntos y cómo puede utilizarse esa asociación de forma responsable?', en: 'Which products are purchased together, and how can those associations be used responsibly?' }, metaDescription: { es: 'Caso práctico sobre análisis de cesta, asociaciones de producto y decisiones comerciales.', en: 'A practical case study on basket analysis, product associations and commercial decisions.' },
+    industries: ['retail-ecommerce'], industryLabels: shared(['Retail y e-commerce'], ['Retail & E-commerce']), problems: ['customer-understanding', 'growth-revenue'], problemLabels: shared(['Conocimiento de cliente', 'Crecimiento e ingresos'], ['Customer Understanding', 'Growth & Revenue']), tags: shared(['Association Rules', 'Support', 'Confidence', 'Lift'], ['Association Rules', 'Support', 'Confidence', 'Lift']), professionalEvidence: true,
+    businessQuestion: { es: '¿Qué combinaciones de productos aparecen juntas con una frecuencia relevante y qué hipótesis comerciales merece la pena probar?', en: 'Which product combinations occur together with meaningful frequency, and which commercial hypotheses are worth testing?' },
+    whyItMatters: { es: 'Comprender las cestas puede orientar merchandising, recomendaciones y promociones. Popularidad, disponibilidad y estacionalidad pueden explicar patrones sin que exista causalidad entre productos.', en: 'Understanding baskets can inform merchandising, recommendations and promotions. Popularity, availability and seasonality can explain patterns without a causal relationship between products.' },
+    evidence: shared(['Tickets o pedidos con identificadores consistentes.', 'Fecha, tienda, canal, promoción y disponibilidad.', 'Jerarquía y atributos de producto.', 'Devoluciones y cancelaciones relevantes.'], ['Receipts or orders with consistent identifiers.', 'Date, store, channel, promotion and availability.', 'Product hierarchy and attributes.', 'Relevant returns and cancellations.']),
+    approach: shared(['Definir cesta, ventana temporal y reglas de inclusión.', 'Explorar penetración y tamaño de cesta.', 'Calcular support, confidence y lift.', 'Revisar estabilidad por periodo, canal y tienda.'], ['Define the basket, time window and inclusion rules.', 'Explore penetration and basket size.', 'Calculate support, confidence and lift.', 'Review stability by period, channel and store.']),
+    alternatives: { es: 'Embeddings de producto, modelos de secuencia o redes pueden complementar las reglas de asociación cuando existe escala suficiente.', en: 'Product embeddings, sequence models or networks can complement association rules where sufficient scale exists.' },
+    interpretation: { es: 'Un lift elevado indica coincidencia superior a la esperada bajo independencia; no prueba que promocionar un producto provoque la compra del otro.', en: 'High lift indicates co-occurrence above that expected under independence; it does not prove that promoting one product causes purchase of another.' },
+    actions: shared(['Priorizar combinaciones para experimentos.', 'Revisar surtido o navegación.', 'Diseñar bundles con guardrails de margen.'], ['Prioritise combinations for experiments.', 'Review assortment or navigation.', 'Design bundles with margin guardrails.']),
+    measurement: shared(['Cobertura y estabilidad de reglas.', 'Conversión y valor incremental en tests.', 'Margen y efectos de sustitución.'], ['Rule coverage and stability.', 'Conversion and incremental value in tests.', 'Margin and substitution effects.']), related: ['customer-segmentation', 'pricing-revenue-analysis', 'marketing-campaign-effectiveness'],
+    pdfPath: '/case-studies/market_basket_analysis_case_study_v1_2pages.pdf',
+  },
+  {
+    slug: 'customer-churn-retention', category: { es: 'Analítica de clientes', en: 'Customer Analytics' }, title: { es: 'Abandono y retención de clientes', en: 'Customer Churn & Retention' },
+    question: { es: '¿Qué clientes presentan riesgo de abandono y qué intervención merece la pena realizar?', en: 'Which customers are at risk of leaving, and which intervention is worth making?' }, metaDescription: { es: 'Marco analítico para definir churn, estimar riesgo y diseñar acciones de retención medibles.', en: 'An analytics framework for defining churn, estimating risk and designing measurable retention actions.' },
+    industries: ['saas-digital', 'telecom', 'banking-financial', 'insurance', 'retail-ecommerce'], industryLabels: shared(['SaaS y digital', 'Telecom', 'Banca', 'Seguros', 'Retail'], ['SaaS & Digital', 'Telecom', 'Banking', 'Insurance', 'Retail']), problems: ['retention-loyalty'], problemLabels: shared(['Retención y fidelización'], ['Retention & Loyalty']), tags: shared(['Churn Definition', 'Risk Modelling', 'Survival Analysis', 'Experimentación'], ['Churn Definition', 'Risk Modelling', 'Survival Analysis', 'Experimentation']), professionalEvidence: false,
+    businessQuestion: { es: '¿Cómo identificar con suficiente anticipación a clientes con riesgo de abandono y decidir a quién, cuándo y cómo intervenir?', en: 'How can customers at risk of leaving be identified early enough, and how should the business decide whom, when and how to contact?' },
+    whyItMatters: { es: 'Retener indiscriminadamente puede ser caro. El reto combina una definición operativa de abandono, predicción calibrada, valor y efecto incremental de la intervención.', en: 'Indiscriminate retention can be expensive. The challenge combines an operational churn definition, calibrated prediction, value and incremental intervention effect.' },
+    evidence: shared(['Historial de actividad, uso, compras o renovaciones.', 'Interacciones de servicio e incidencias.', 'Exposición a acciones de retención.', 'Costes, margen y valor esperado.'], ['Activity, usage, purchase or renewal history.', 'Service interactions and issues.', 'Exposure to retention actions.', 'Costs, margin and expected value.']),
+    approach: shared(['Definir churn y horizonte según el ciclo de negocio.', 'Crear ventanas temporales sin información futura.', 'Comparar con una referencia simple y evaluar calibración.', 'Combinar riesgo, valor y elegibilidad.'], ['Define churn and horizon around the business cycle.', 'Create temporal windows without future information.', 'Compare with a simple baseline and evaluate calibration.', 'Combine risk, value and eligibility.']),
+    alternatives: { es: 'Clasificación, supervivencia y riesgos competitivos responden a preguntas distintas. Uplift requiere datos experimentales adecuados.', en: 'Classification, survival and competing risks answer different questions. Uplift requires suitable experimental data.' },
+    interpretation: { es: 'Una probabilidad alta de churn no significa que una oferta evitará el abandono. Predicción de riesgo y efecto causal son preguntas diferentes.', en: 'A high churn probability does not mean an offer will prevent departure. Risk prediction and causal effect are different questions.' },
+    actions: shared(['Diseñar journeys por riesgo, valor y motivo.', 'Priorizar mejoras de producto o servicio.', 'Crear aprendizaje mediante experimentos.'], ['Design journeys by risk, value and likely reason.', 'Prioritise product or service improvements.', 'Create learning through experiments.']),
+    measurement: shared(['Calibración y rendimiento por segmento.', 'Retención incremental frente a control.', 'Coste por cliente retenido y valor neto.'], ['Calibration and performance by segment.', 'Incremental retention versus control.', 'Cost per retained customer and net value.']), related: ['customer-lifetime-value', 'propensity-modelling', 'customer-segmentation'],
+    pdfPath: '/case-studies/03_customer_churn_retention.pdf',
+  },
+  {
+    slug: 'propensity-modelling', category: { es: 'Analítica predictiva', en: 'Predictive Analytics' }, title: { es: 'Modelado de propensión', en: 'Propensity Modelling' },
+    question: { es: '¿Qué clientes tienen mayor probabilidad de realizar una acción futura relevante?', en: 'Which customers are most likely to take a relevant future action?' }, metaDescription: { es: 'Caso práctico sobre modelos de propensión, priorización comercial y medición incremental.', en: 'A practical case study on propensity models, commercial prioritisation and incremental measurement.' },
+    industries: ['telecom', 'banking-financial', 'insurance', 'retail-ecommerce', 'saas-digital'], industryLabels: shared(['Telecom', 'Banca', 'Seguros', 'Retail', 'SaaS'], ['Telecom', 'Banking', 'Insurance', 'Retail', 'SaaS']), problems: ['growth-revenue', 'marketing-effectiveness', 'sales-conversion'], problemLabels: shared(['Crecimiento e ingresos', 'Efectividad de marketing', 'Ventas y conversión'], ['Growth & Revenue', 'Marketing Effectiveness', 'Sales & Conversion']), tags: shared(['Clasificación', 'Scoring', 'Calibración', 'Uplift'], ['Classification', 'Scoring', 'Calibration', 'Uplift']), professionalEvidence: true,
+    businessQuestion: { es: '¿Qué clientes deberían priorizarse para adquisición, venta o engagement dentro de una capacidad comercial limitada?', en: 'Which customers should be prioritised for acquisition, sales or engagement under limited commercial capacity?' },
+    whyItMatters: { es: 'Un ranking puede mejorar la asignación de esfuerzo, pero optimizar respuesta no siempre optimiza valor ni incrementalidad. El objetivo debe corresponder con la decisión real.', en: 'A ranking can improve effort allocation, but optimising response does not always optimise value or incrementality. The objective must match the real decision.' },
+    evidence: shared(['Comportamiento anterior al evento objetivo.', 'Características de cliente, producto, canal y contexto.', 'Elegibilidad y exposición a campañas.', 'Valor, margen y coste de acción.'], ['Behaviour before the target event.', 'Customer, product, channel and context attributes.', 'Eligibility and campaign exposure.', 'Value, margin and action cost.']),
+    approach: shared(['Definir evento, población, horizonte y scoring.', 'Validar respetando el tiempo.', 'Evaluar discriminación y calibración.', 'Traducir scores a reglas con capacidad y economía.'], ['Define event, population, horizon and scoring.', 'Validate while respecting time.', 'Evaluate discrimination and calibration.', 'Translate scores into rules with capacity and economics.']),
+    alternatives: { es: 'Regresión logística ofrece una base interpretable y boosting captura no linealidad. Para estimar quién cambiará por una intervención se necesita uplift o experimentación.', en: 'Logistic regression offers an interpretable baseline and boosting captures nonlinearity. Estimating who will change because of an intervention requires uplift or experimentation.' },
+    interpretation: { es: 'Un score alto estima probabilidad bajo patrones observados; no demuestra que contactar provoque la acción.', en: 'A high score estimates probability under observed patterns; it does not show that contact causes the action.' },
+    actions: shared(['Priorizar audiencias con restricciones explícitas.', 'Adaptar canal, mensaje y frecuencia.', 'Reservar controles y monitorizar deriva.'], ['Prioritise audiences under explicit constraints.', 'Adapt channel, message and frequency.', 'Reserve controls and monitor drift.']),
+    measurement: shared(['AUC/PR, lift y calibración temporal.', 'Conversión y valor incremental.', 'Coste por acción y estabilidad.'], ['AUC/PR, lift and temporal calibration.', 'Incremental conversion and value.', 'Cost per action and stability.']), related: ['customer-segmentation', 'customer-lifetime-value', 'marketing-campaign-effectiveness'],
+    pdfPath: '/case-studies/04_propensity_modelling.pdf',
+  },
+  {
+    slug: 'customer-lifetime-value', category: { es: 'Analítica de clientes', en: 'Customer Analytics' }, title: { es: 'Valor de vida del cliente', en: 'Customer Lifetime Value' },
+    question: { es: '¿Cómo estimar el valor futuro de la relación con cada cliente para orientar decisiones?', en: 'How can the future value of each customer relationship be estimated to inform decisions?' }, metaDescription: { es: 'Marco práctico para estimar Customer Lifetime Value y utilizarlo con incertidumbre y criterios de negocio.', en: 'A practical framework for estimating Customer Lifetime Value and using it with uncertainty and business context.' },
+    industries: ['retail-ecommerce', 'banking-financial', 'telecom', 'insurance', 'saas-digital'], industryLabels: shared(['Retail', 'Banca', 'Telecom', 'Seguros', 'SaaS'], ['Retail', 'Banking', 'Telecom', 'Insurance', 'SaaS']), problems: ['customer-understanding', 'retention-loyalty', 'growth-revenue'], problemLabels: shared(['Conocimiento de cliente', 'Retención', 'Crecimiento e ingresos'], ['Customer Understanding', 'Retention', 'Growth & Revenue']), tags: shared(['CLV', 'Modelos probabilísticos', 'Forecasting', 'Valor'], ['CLV', 'Probabilistic Models', 'Forecasting', 'Value']), professionalEvidence: true,
+    businessQuestion: { es: '¿Qué valor económico puede aportar una relación futura, con qué incertidumbre y para qué decisiones resulta suficientemente fiable?', en: 'What economic value might a future relationship generate, with what uncertainty, and for which decisions is it sufficiently reliable?' },
+    whyItMatters: { es: 'CLV conecta adquisición, retención y servicio con valor esperado. Una cifra sin horizonte, costes o incertidumbre puede conducir a prioridades equivocadas.', en: 'CLV connects acquisition, retention and service with expected value. A number without a horizon, costs or uncertainty can lead to poor priorities.' },
+    evidence: shared(['Compras, ingresos, margen y devoluciones.', 'Frecuencia, recencia y permanencia.', 'Costes de servicio, adquisición e incentivos.', 'Producto, canal y cohortes.'], ['Purchases, revenue, margin and returns.', 'Frequency, recency and tenure.', 'Service, acquisition and incentive costs.', 'Product, channel and cohorts.']),
+    approach: shared(['Definir horizonte, unidad económica y uso.', 'Separar frecuencia, valor y permanencia.', 'Validar en cohortes y periodos futuros.', 'Representar incertidumbre y sensibilidad.'], ['Define horizon, economic unit and use.', 'Separate frequency, value and tenure.', 'Validate on future cohorts and periods.', 'Represent uncertainty and sensitivity.']),
+    alternatives: { es: 'Modelos históricos, BG/NBD, supervivencia o modelos supervisados pueden ser adecuados. La complejidad debe justificarse por una mejor decisión.', en: 'Historical, BG/NBD, survival or supervised models may be appropriate. Complexity should be justified by a better decision.' },
+    interpretation: { es: 'CLV es una expectativa condicionada por datos y supuestos, no una promesa de ingresos.', en: 'CLV is an expectation conditional on data and assumptions, not a revenue promise.' },
+    actions: shared(['Ajustar límites de adquisición y servicio.', 'Priorizar estrategias por valor y necesidad.', 'Informar segmentación y planificación.'], ['Adjust acquisition and service thresholds.', 'Prioritise strategies by value and need.', 'Inform segmentation and planning.']),
+    measurement: shared(['Error y calibración por horizonte.', 'Estabilidad del ranking.', 'Valor incremental de decisiones informadas por CLV.'], ['Error and calibration by horizon.', 'Ranking stability.', 'Incremental value of decisions informed by CLV.']), related: ['customer-segmentation', 'customer-churn-retention', 'propensity-modelling'],
+    pdfPath: '/case-studies/05_customer_lifetime_value.pdf',
+  },
+  {
+    slug: 'marketing-campaign-effectiveness', category: { es: 'Analítica de marketing', en: 'Marketing Analytics' }, title: { es: 'Efectividad de campañas de marketing', en: 'Marketing Campaign Effectiveness' },
+    question: { es: '¿Qué efecto incremental genera una campaña y para quién funciona mejor?', en: 'What incremental effect does a campaign create, and for whom does it work best?' }, metaDescription: { es: 'Caso práctico sobre medición de campañas, incrementalidad y decisiones de optimización de marketing.', en: 'A practical case study on campaign measurement, incrementality and marketing optimisation decisions.' },
+    industries: ['retail-ecommerce', 'banking-financial', 'saas-digital', 'telecom', 'insurance', 'travel-services'], industryLabels: shared(['Retail', 'Banca', 'Digital', 'Telecom', 'Seguros', 'Servicios'], ['Retail', 'Banking', 'Digital', 'Telecom', 'Insurance', 'Services']), problems: ['marketing-effectiveness', 'growth-revenue'], problemLabels: shared(['Efectividad de marketing', 'Crecimiento e ingresos'], ['Marketing Effectiveness', 'Growth & Revenue']), tags: shared(['Experimentación', 'Incrementalidad', 'Atribución', 'Uplift'], ['Experimentation', 'Incrementality', 'Attribution', 'Uplift']), professionalEvidence: false,
+    businessQuestion: { es: '¿La campaña cambió el comportamiento respecto a lo que habría ocurrido sin ella y cómo debería reasignarse la inversión?', en: 'Did the campaign change behaviour compared with what would have happened without it, and how should investment be reallocated?' },
+    whyItMatters: { es: 'Respuestas y conversiones observadas no equivalen a impacto incremental. Clientes que ya comprarían pueden inflar el rendimiento aparente.', en: 'Observed responses and conversions are not the same as incremental impact. Customers already likely to buy can inflate apparent performance.' },
+    evidence: shared(['Asignación a tratamiento y control, exposición y elegibilidad.', 'Conversión, ingresos, margen y comportamiento posterior.', 'Coste por canal, frecuencia y creatividad.', 'Contexto previo y calendario comercial.'], ['Treatment and control assignment, exposure and eligibility.', 'Conversion, revenue, margin and later behaviour.', 'Cost by channel, frequency and creative.', 'Prior context and commercial calendar.']),
+    approach: shared(['Definir resultado, ventana y unidad antes del lanzamiento.', 'Priorizar experimentos con controles válidos.', 'Comprobar balance, contaminación y cumplimiento.', 'Estimar efecto y heterogeneidad con incertidumbre.'], ['Define outcome, window and unit before launch.', 'Prioritise experiments with valid controls.', 'Check balance, contamination and compliance.', 'Estimate effect and heterogeneity with uncertainty.']),
+    alternatives: { es: 'Sin experimento, diferencias en diferencias, matching o controles sintéticos pueden ayudar bajo supuestos explícitos.', en: 'Without an experiment, difference-in-differences, matching or synthetic controls may help under explicit assumptions.' },
+    interpretation: { es: 'Una campaña puede mostrar alta conversión y bajo efecto incremental. La lectura debe separar selección, causalidad y costes.', en: 'A campaign can show high conversion and low incremental effect. Interpretation should separate selection, causality and costs.' },
+    actions: shared(['Redistribuir inversión con evidencia incremental.', 'Ajustar frecuencia y exclusiones.', 'Diseñar nuevos tests para resolver incertidumbre.'], ['Reallocate investment using incremental evidence.', 'Adjust frequency and exclusions.', 'Design new tests to resolve uncertainty.']),
+    measurement: shared(['Lift incremental e incertidumbre.', 'Beneficio o margen incremental neto.', 'Efectos por segmento, canal y horizonte.'], ['Incremental lift and uncertainty.', 'Net incremental profit or margin.', 'Effects by segment, channel and horizon.']), related: ['propensity-modelling', 'market-basket-analysis', 'sales-funnel-conversion'],
+    pdfPath: '/case-studies/06_marketing_campaign_effectiveness.pdf',
+  },
+  {
+    slug: 'product-feature-adoption', category: { es: 'Analítica de producto', en: 'Product Analytics' }, title: { es: 'Adopción de producto y funcionalidades', en: 'Product & Feature Adoption' },
+    question: { es: '¿Cómo adoptan los usuarios una funcionalidad y qué fricciones limitan su valor?', en: 'How do users adopt a feature, and which frictions limit its value?' }, metaDescription: { es: 'Marco de Product Analytics para medir adopción, engagement y valor de funcionalidades.', en: 'A Product Analytics framework for measuring feature adoption, engagement and value.' },
+    industries: ['saas-digital', 'banking-financial', 'insurance', 'travel-services'], industryLabels: shared(['SaaS y digital', 'Banca', 'Seguros', 'Servicios'], ['SaaS & Digital', 'Banking', 'Insurance', 'Services']), problems: ['product-engagement', 'retention-loyalty'], problemLabels: shared(['Producto y engagement', 'Retención'], ['Product & Engagement', 'Retention']), tags: shared(['Eventos', 'Cohortes', 'Funnels', 'Experimentación'], ['Events', 'Cohorts', 'Funnels', 'Experimentation']), professionalEvidence: false,
+    businessQuestion: { es: '¿Qué parte de la población elegible descubre, activa y utiliza de forma recurrente una funcionalidad, y dónde se pierde valor?', en: 'What share of the eligible population discovers, activates and repeatedly uses a feature, and where is value lost?' },
+    whyItMatters: { es: 'Lanzar una funcionalidad no garantiza adopción ni valor. Una métrica agregada puede ocultar problemas de descubrimiento, acceso, utilidad o instrumentación.', en: 'Launching a feature does not guarantee adoption or value. An aggregate metric can hide discovery, access, utility or instrumentation problems.' },
+    evidence: shared(['Eventos de producto con calidad verificada.', 'Población elegible, permisos, versiones y exposición.', 'Cohortes, journeys y feedback cualitativo.', 'Resultados vinculados temporalmente.'], ['Product events with verified quality.', 'Eligible population, permissions, versions and exposure.', 'Cohorts, journeys and qualitative feedback.', 'Temporally linked outcomes.']),
+    approach: shared(['Definir adopción desde el valor esperado.', 'Construir un funnel de descubrimiento, activación y recurrencia.', 'Comparar cohortes controlando elegibilidad y tiempo.', 'Combinar patrones con investigación de fricciones.'], ['Define adoption from expected value.', 'Build a discovery, activation and recurrence funnel.', 'Compare cohorts controlling eligibility and time.', 'Combine patterns with friction research.']),
+    alternatives: { es: 'Secuencias, supervivencia y modelos de estados pueden complementar funnels. Estimar impacto requiere experimentos o diseños causales.', en: 'Sequence, survival and state models can complement funnels. Estimating impact requires experiments or causal designs.' },
+    interpretation: { es: 'Los usuarios frecuentes pueden adoptar más porque ya están comprometidos; la asociación no demuestra que la funcionalidad cause retención.', en: 'Frequent users may adopt more because they are already engaged; the association does not show that the feature causes retention.' },
+    actions: shared(['Mejorar descubrimiento, onboarding o fiabilidad.', 'Redefinir audiencia o caso de uso.', 'Experimentar con cambios concretos.'], ['Improve discovery, onboarding or reliability.', 'Refine audience or use case.', 'Experiment with specific changes.']),
+    measurement: shared(['Adopción sobre población elegible.', 'Tiempo hasta activación y recurrencia.', 'Impacto incremental validado.'], ['Adoption among the eligible population.', 'Time to activation and recurrence.', 'Validated incremental impact.']), related: ['sales-funnel-conversion', 'customer-churn-retention', 'propensity-modelling'],
+    pdfPath: '/case-studies/07_product_feature_adoption.pdf',
+  },
+  {
+    slug: 'sales-funnel-conversion', category: { es: 'Analítica comercial', en: 'Commercial Analytics' }, title: { es: 'Embudo de ventas y conversión', en: 'Sales Funnel & Conversion' },
+    question: { es: '¿Dónde se pierde conversión en el funnel comercial y qué mejoras deberían priorizarse?', en: 'Where is conversion lost in the sales funnel, and which improvements should be prioritised?' }, metaDescription: { es: 'Caso práctico para definir funnels, diagnosticar conversión y priorizar mejoras comerciales.', en: 'A practical case study for defining funnels, diagnosing conversion and prioritising commercial improvements.' },
+    industries: ['saas-digital', 'banking-financial', 'insurance', 'telecom', 'travel-services', 'retail-ecommerce'], industryLabels: shared(['SaaS', 'Banca', 'Seguros', 'Telecom', 'Servicios', 'Retail'], ['SaaS', 'Banking', 'Insurance', 'Telecom', 'Services', 'Retail']), problems: ['sales-conversion', 'growth-revenue'], problemLabels: shared(['Ventas y conversión', 'Crecimiento e ingresos'], ['Sales & Conversion', 'Growth & Revenue']), tags: shared(['Funnel', 'Cohortes', 'Journey Analytics', 'Experimentación'], ['Funnel', 'Cohorts', 'Journey Analytics', 'Experimentation']), professionalEvidence: false,
+    businessQuestion: { es: '¿Qué pasos del proceso comercial limitan la conversión, para qué segmentos y bajo qué condiciones?', en: 'Which stages of the commercial process constrain conversion, for which segments and under what conditions?' },
+    whyItMatters: { es: 'Un funnel compartido localiza fricción y alinea equipos. Sin definiciones consistentes y tiempos de maduración, las tasas pueden cambiar por mezcla de clientes.', en: 'A shared funnel locates friction and aligns teams. Without consistent definitions and maturation periods, rates can change because of customer mix.' },
+    evidence: shared(['Eventos o estados con timestamps.', 'Fuente, campaña, canal, producto y segmento.', 'Actividad, tiempos y motivos de pérdida.', 'Ingresos, margen y calidad posterior.'], ['Events or states with timestamps.', 'Source, campaign, channel, product and segment.', 'Activity, time and loss reasons.', 'Revenue, margin and later quality.']),
+    approach: shared(['Definir población, etapas y ventana.', 'Validar instrumentación entre sistemas.', 'Analizar tasas, tiempos y rutas por cohortes.', 'Priorizar cuellos de botella por volumen y valor.'], ['Define population, stages and window.', 'Validate instrumentation across systems.', 'Analyse rates, times and paths by cohort.', 'Prioritise bottlenecks by volume and value.']),
+    alternatives: { es: 'Funnels, análisis de rutas, modelos multiestado y supervivencia responden a procesos lineales o con caminos alternativos.', en: 'Funnels, path analysis, multi-state and survival models address linear processes or alternative paths.' },
+    interpretation: { es: 'Una caída no identifica por sí sola su causa. Diferencias entre canales pueden reflejar selección y deben validarse.', en: 'A drop does not identify its cause by itself. Channel differences may reflect selection and should be validated.' },
+    actions: shared(['Simplificar puntos de fricción.', 'Ajustar priorización y seguimiento.', 'Experimentar en etapas prioritarias.'], ['Simplify friction points.', 'Adjust prioritisation and follow-up.', 'Experiment at priority stages.']),
+    measurement: shared(['Conversión y tiempo por etapa.', 'Valor y margen por oportunidad.', 'Efecto incremental de cambios.'], ['Conversion and time by stage.', 'Value and margin per opportunity.', 'Incremental effect of changes.']), related: ['propensity-modelling', 'marketing-campaign-effectiveness', 'product-feature-adoption'],
+    pdfPath: '/case-studies/08_sales_funnel_conversion.pdf',
+  },
+  {
+    slug: 'pricing-revenue-analysis', category: { es: 'Analítica comercial', en: 'Commercial Analytics' }, title: { es: 'Análisis de precios e ingresos', en: 'Pricing & Revenue Analysis' },
+    question: { es: '¿Cómo entender precio, demanda, mix e ingresos sin confundir asociación con causalidad?', en: 'How can price, demand, mix and revenue be understood without confusing association with causality?' }, metaDescription: { es: 'Marco analítico para estudiar pricing, ingresos y demanda con interpretación comercial rigurosa.', en: 'An analytics framework for studying pricing, revenue and demand with rigorous commercial interpretation.' },
+    industries: ['banking-financial', 'retail-ecommerce', 'travel-services', 'insurance', 'saas-digital', 'telecom'], industryLabels: shared(['Banca', 'Retail', 'Viajes', 'Seguros', 'SaaS', 'Telecom'], ['Banking', 'Retail', 'Travel', 'Insurance', 'SaaS', 'Telecom']), problems: ['growth-revenue', 'planning-forecasting'], problemLabels: shared(['Crecimiento e ingresos', 'Planificación'], ['Growth & Revenue', 'Planning']), tags: shared(['Pricing', 'Elasticidad', 'Mix', 'Escenarios'], ['Pricing', 'Elasticity', 'Mix', 'Scenarios']), professionalEvidence: true,
+    businessQuestion: { es: '¿Cómo contribuyen precio, volumen y mix al rendimiento y qué escenarios de decisión deberían evaluarse?', en: 'How do price, volume and mix contribute to performance, and which decision scenarios should be evaluated?' },
+    whyItMatters: { es: 'Pricing conecta posicionamiento, demanda, margen y valor. Comparaciones simples pueden atribuir al precio cambios causados por estacionalidad, competencia o disponibilidad.', en: 'Pricing connects positioning, demand, margin and value. Simple comparisons can attribute to price changes caused by seasonality, competition or availability.' },
+    evidence: shared(['Precios, descuentos, volumen, ingresos y margen.', 'Producto, cliente, canal, región y calendario.', 'Disponibilidad, promociones y competencia.', 'Reglas y cambios simultáneos.'], ['Prices, discounts, volume, revenue and margin.', 'Product, customer, channel, region and calendar.', 'Availability, promotions and competition.', 'Rules and concurrent changes.']),
+    approach: shared(['Descomponer ingresos en precio, volumen y mix.', 'Comparar periodos y cohortes homogéneos.', 'Modelar demanda revisando supuestos.', 'Construir escenarios con restricciones.'], ['Decompose revenue into price, volume and mix.', 'Compare homogeneous periods and cohorts.', 'Model demand while reviewing assumptions.', 'Build scenarios with constraints.']),
+    alternatives: { es: 'Elasticidad, experimentos, conjoint y métodos cuasiexperimentales responden a necesidades distintas; la causalidad depende del diseño.', en: 'Elasticity, experiments, conjoint and quasi-experimental methods answer different needs; causality depends on design.' },
+    interpretation: { es: 'Una relación negativa entre precio y volumen no identifica necesariamente elasticidad causal. Debe comunicarse como asociación o escenario salvo evidencia más fuerte.', en: 'A negative price-volume relationship does not necessarily identify causal elasticity. It should be communicated as association or scenario without stronger evidence.' },
+    actions: shared(['Priorizar productos o segmentos para pruebas.', 'Revisar arquitectura de precios y descuentos.', 'Evaluar guardrails de margen y experiencia.'], ['Prioritise products or segments for tests.', 'Review price and discount architecture.', 'Evaluate margin and experience guardrails.']),
+    measurement: shared(['Ingresos, margen, volumen y mix.', 'Elasticidad con incertidumbre.', 'Impacto incremental cuando exista diseño causal.'], ['Revenue, margin, volume and mix.', 'Elasticity with uncertainty.', 'Incremental impact where a causal design exists.']), related: ['demand-sales-forecasting', 'market-basket-analysis', 'sales-funnel-conversion'],
+    pdfPath: '/case-studies/09_pricing_revenue_analysis.pdf',
+  },
+  {
+    slug: 'demand-sales-forecasting', category: { es: 'Analítica de operaciones', en: 'Operations Analytics' }, title: { es: 'Predicción de demanda y ventas', en: 'Demand & Sales Forecasting' },
+    question: { es: '¿Qué demanda cabe esperar y cómo convertir una previsión incierta en mejores decisiones?', en: 'What demand should be expected, and how can an uncertain forecast support better decisions?' }, metaDescription: { es: 'Caso práctico sobre forecasting de demanda, incertidumbre y conexión con decisiones operativas.', en: 'A practical case study on demand forecasting, uncertainty and operational decisions.' },
+    industries: ['retail-ecommerce', 'travel-services', 'saas-digital', 'healthcare-public'], industryLabels: shared(['Retail y e-commerce', 'Viajes y servicios', 'Digital', 'Salud'], ['Retail & E-commerce', 'Travel & Services', 'Digital', 'Healthcare']), problems: ['planning-forecasting', 'growth-revenue'], problemLabels: shared(['Planificación y forecasting', 'Crecimiento e ingresos'], ['Planning & Forecasting', 'Growth & Revenue']), tags: shared(['Series temporales', 'Forecasting', 'Incertidumbre', 'Planificación'], ['Time Series', 'Forecasting', 'Uncertainty', 'Planning']), professionalEvidence: true,
+    businessQuestion: { es: '¿Qué demanda o ventas cabe esperar por periodo y unidad de decisión, y qué coste tienen los distintos errores?', en: 'What demand or sales should be expected by period and decision unit, and what is the cost of different errors?' },
+    whyItMatters: { es: 'Las previsiones informan stock, capacidad, presupuesto y personal. Una métrica media puede ocultar costes asimétricos e incertidumbre.', en: 'Forecasts inform stock, capacity, budgets and staffing. An average metric can hide asymmetric costs and uncertainty.' },
+    evidence: shared(['Histórico con granularidad coherente.', 'Calendario, estacionalidad, promociones y disponibilidad.', 'Jerarquías de producto, ubicación y canal.', 'Cambios operativos y factores externos.'], ['History at a coherent granularity.', 'Calendar, seasonality, promotions and availability.', 'Product, location and channel hierarchies.', 'Operational changes and external factors.']),
+    approach: shared(['Definir horizonte, granularidad y decisión.', 'Crear baselines y validación temporal rolling.', 'Comparar modelos por segmentos.', 'Generar intervalos y traducir errores a costes.'], ['Define horizon, granularity and decision.', 'Create baselines and rolling temporal validation.', 'Compare models by segment.', 'Generate intervals and translate errors into costs.']),
+    alternatives: { es: 'Métodos naïve y ETS pueden superar modelos complejos; regresión, árboles o modelos jerárquicos aportan valor cuando existen buenos drivers.', en: 'Naive and ETS methods can outperform complex models; regression, trees or hierarchical models add value when strong drivers exist.' },
+    interpretation: { es: 'Una previsión es una distribución de resultados posibles, no una cifra segura. Inputs planificados no prueban su efecto causal histórico.', en: 'A forecast is a distribution of possible outcomes, not a certain number. Planned inputs do not prove their historical causal effect.' },
+    actions: shared(['Vincular stock o capacidad a la incertidumbre.', 'Priorizar revisión donde el riesgo sea mayor.', 'Monitorizar sesgo y degradación.'], ['Link stock or capacity to uncertainty.', 'Prioritise review where risk is highest.', 'Monitor bias and degradation.']),
+    measurement: shared(['MAE/WAPE y sesgo por horizonte.', 'Cobertura de intervalos.', 'Coste operativo y valor frente al baseline.'], ['MAE/WAPE and bias by horizon.', 'Interval coverage.', 'Operational cost and value versus baseline.']), related: ['pricing-revenue-analysis', 'sales-funnel-conversion', 'market-basket-analysis'],
+    pdfPath: '/case-studies/10_demand_sales_forecasting.pdf',
   },
 ];
 
-export const projectsPage = {
-  title: 'Proyectos',
-  introduction: [
-    'Del problema de negocio a la decisión.',
-    'Case studies y proyectos que muestran cómo conecto problemas de negocio, datos, análisis e insights con decisiones y entregables concretos.',
-  ],
-  caseStudySection: {
-    number: '01',
-    title: 'Portfolio & Case Studies',
-    introduction: [
-      'Casos de Analytics y Data que muestran cómo abordo problemas relevantes para empresas, desde la definición de las preguntas hasta los insights, recomendaciones y entregables.',
-    ],
+export const getCaseStudy = (slug: string) => caseStudies.find((item) => item.slug === slug);
+
+export const caseStudyBusinessContent: Record<string, { questions: LocalizedList; outputs: LocalizedList }> = {
+  'customer-segmentation': {
+    questions: shared(['¿Qué diferencias de comportamiento y valor son relevantes?', '¿Qué grupos son reconocibles, estables y suficientemente distintos?', '¿Qué decisiones de marketing, servicio o producto cambiarían por segmento?'], ['Which behavioural and value differences matter?', 'Which groups are recognisable, stable and sufficiently distinct?', 'Which marketing, service or product decisions would change by segment?']),
+    outputs: shared(['Marco de segmentos de clientes.', 'Perfiles, tamaño y diferencias clave de cada segmento.', 'Reglas de asignación y recomendaciones por segmento.', 'Marco de medición y actualización.'], ['Customer segment framework.', 'Segment profiles, sizing and key differences.', 'Assignment rules and recommendations by segment.', 'Measurement and refresh framework.']),
   },
-  experienceSection: {
-    number: '02',
-    title: 'Experiencia en proyectos',
-    introduction: [],
-    areas: [
-      {
-        title: 'Customer Analytics',
-        items: [
-          'Segmentación de clientes',
-          'Customer Lifetime Value',
-          'RFM Analysis',
-          'Basket Analysis',
-          'Customer Behaviour Analysis',
-        ],
-      },
-      {
-        title: 'Predictive Analytics & Optimization',
-        items: [
-          'Predicción de ventas',
-          'Optimización de stock',
-          'Optimización de rutas',
-          'Optimización de turnos',
-        ],
-      },
-      {
-        title: 'Business Intelligence & Data Strategy',
-        items: [
-          'Dashboards y reporting',
-          'Estrategia de datos',
-          'Integración y análisis de diferentes fuentes de datos',
-          'Product Performance',
-          'Análisis para apoyar decisiones de negocio',
-        ],
-      },
-      {
-        title: 'Health & Public Data',
-        items: [
-          'Análisis estadístico aplicado a salud',
-          'Análisis de datos de vigilancia epidemiológica',
-          'Automatización de procesos relacionados con datos epidemiológicos',
-          'Automatización de informes epidemiológicos',
-        ],
-      },
-    ],
-    confidentialityNote:
-      'Selección de proyectos realizados a lo largo de mi experiencia profesional. Por confidencialidad, se presentan por tipología y no como casos de estudio completos.',
+  'market-basket-analysis': {
+    questions: shared(['¿Qué productos aparecen juntos más de lo esperado?', '¿Qué patrones son estables por canal, tienda o periodo?', '¿Qué asociaciones merecen una prueba comercial?'], ['Which products appear together more often than expected?', 'Which patterns remain stable by channel, store or period?', 'Which associations warrant a commercial test?']),
+    outputs: shared(['Mapa priorizado de asociaciones de producto.', 'Reglas interpretables con contexto de volumen y relevancia.', 'Hipótesis para recomendaciones, merchandising o bundles.', 'Plan de validación incremental.'], ['Prioritised map of product associations.', 'Interpretable rules with volume and relevance context.', 'Hypotheses for recommendations, merchandising or bundles.', 'Incremental validation plan.']),
   },
-  ownProjectsSection: {
-    number: '03',
-    title: 'Proyectos propios',
-    projects: [
-      {
-        title: 'Candidata',
-        description: [
-          'Candidata es un proyecto educativo creado para ayudar a futuros profesionales de Data Analytics a conectar el aprendizaje técnico con su aplicación en el mercado laboral.',
-        ],
-        ecosystemTitle: 'Candidata',
-        ecosystem: [
-          'Newsletter',
-          'Recursos',
-          'Mentorías',
-          'Contenido educativo',
-        ],
-        link: {
-          label: 'Visitar Candidata',
-          url: 'https://candidata.co/',
-        },
-      },
-    ],
+  'customer-churn-retention': {
+    questions: shared(['¿Cómo debe definirse el abandono en este negocio?', '¿Qué señales permiten anticiparlo con tiempo útil?', '¿Qué clientes son elegibles para una intervención y cuál?'], ['How should churn be defined in this business?', 'Which signals anticipate it with useful lead time?', 'Which customers are eligible for an intervention, and which one?']),
+    outputs: shared(['Definición operativa y marco de seguimiento de churn.', 'Scoring de riesgo calibrado y perfiles prioritarios.', 'Criterios de intervención y exclusión.', 'Diseño de medición incremental de retención.'], ['Operational churn definition and monitoring framework.', 'Calibrated risk scoring and priority profiles.', 'Intervention and exclusion criteria.', 'Incremental retention measurement design.']),
   },
-} as const;
+  'propensity-modelling': {
+    questions: shared(['¿Qué acción futura queremos anticipar y en qué horizonte?', '¿Qué población es elegible y qué capacidad existe?', '¿Cómo separar probabilidad, valor e incrementalidad?'], ['Which future action should be anticipated, and over what horizon?', 'Which population is eligible, and what capacity exists?', 'How should probability, value and incrementality be separated?']),
+    outputs: shared(['Score de propensión y ranking de priorización.', 'Perfiles de oportunidad y reglas de elegibilidad.', 'Umbrales adaptados a capacidad y economía.', 'Plan de validación y monitorización.'], ['Propensity score and prioritisation ranking.', 'Opportunity profiles and eligibility rules.', 'Thresholds aligned with capacity and economics.', 'Validation and monitoring plan.']),
+  },
+  'customer-lifetime-value': {
+    questions: shared(['¿Qué valor futuro queremos estimar y durante cuánto tiempo?', '¿Qué componentes de ingreso, margen, coste y permanencia importan?', '¿Qué decisiones utilizarán la estimación?'], ['Which future value should be estimated, and over what horizon?', 'Which revenue, margin, cost and tenure components matter?', 'Which decisions will use the estimate?']),
+    outputs: shared(['Estimación de CLV con horizonte y supuestos explícitos.', 'Distribución y perfiles de valor de cliente.', 'Drivers, incertidumbre y escenarios.', 'Recomendaciones de uso en adquisición, servicio y retención.'], ['CLV estimate with explicit horizon and assumptions.', 'Customer value distribution and profiles.', 'Drivers, uncertainty and scenarios.', 'Recommendations for acquisition, service and retention use.']),
+  },
+  'marketing-campaign-effectiveness': {
+    questions: shared(['¿Qué comportamiento habría ocurrido sin la campaña?', '¿Cuál es el efecto incremental global y por audiencia?', '¿Cómo cambian las conclusiones al considerar costes y margen?'], ['What behaviour would have occurred without the campaign?', 'What is the overall and audience-level incremental effect?', 'How do conclusions change when costs and margin are considered?']),
+    outputs: shared(['Lectura incremental de resultados de campaña.', 'Comparación de audiencias, canales o creatividades.', 'Estimación de beneficio o margen incremental.', 'Recomendaciones para la siguiente ronda de inversión y tests.'], ['Incremental reading of campaign outcomes.', 'Comparison of audiences, channels or creative.', 'Incremental profit or margin estimate.', 'Recommendations for the next investment and testing cycle.']),
+  },
+  'product-feature-adoption': {
+    questions: shared(['¿Quién puede descubrir y utilizar la funcionalidad?', '¿Dónde aparecen fricciones entre descubrimiento y uso recurrente?', '¿Qué evidencia indicaría valor y no solo actividad?'], ['Who can discover and use the feature?', 'Where does friction appear between discovery and repeat use?', 'What evidence would indicate value rather than activity alone?']),
+    outputs: shared(['Definición de adopción y población elegible.', 'Funnel y cohortes de uso de la funcionalidad.', 'Diagnóstico de fricciones y segmentos afectados.', 'Hipótesis de producto y plan de medición.'], ['Adoption definition and eligible population.', 'Feature-use funnel and cohorts.', 'Friction diagnosis and affected segments.', 'Product hypotheses and measurement plan.']),
+  },
+  'sales-funnel-conversion': {
+    questions: shared(['¿Qué significa avanzar en cada etapa?', '¿Dónde se concentran volumen, tiempo y pérdida de valor?', '¿Qué fricciones pueden abordarse de forma medible?'], ['What does progression mean at each stage?', 'Where do volume, time and value loss concentrate?', 'Which frictions can be addressed measurably?']),
+    outputs: shared(['Definición y visualización coherente del funnel.', 'Conversión, tiempos y pérdidas por etapa y cohorte.', 'Priorización de cuellos de botella.', 'Plan de acciones y experimentos.'], ['Consistent funnel definition and view.', 'Conversion, time and loss by stage and cohort.', 'Bottleneck prioritisation.', 'Action and experimentation plan.']),
+  },
+  'pricing-revenue-analysis': {
+    questions: shared(['¿Qué parte del rendimiento procede de precio, volumen o mix?', '¿Qué factores pueden confundir la relación entre precio y demanda?', '¿Qué escenarios son viables bajo restricciones comerciales?'], ['Which part of performance comes from price, volume or mix?', 'Which factors may confound the price-demand relationship?', 'Which scenarios are feasible under commercial constraints?']),
+    outputs: shared(['Descomposición de precio, volumen y mix.', 'Lectura de demanda y sensibilidad con supuestos explícitos.', 'Escenarios de pricing y guardrails.', 'Marco de medición para pruebas o cambios.'], ['Price, volume and mix decomposition.', 'Demand and sensitivity view with explicit assumptions.', 'Pricing scenarios and guardrails.', 'Measurement framework for tests or changes.']),
+  },
+  'demand-sales-forecasting': {
+    questions: shared(['¿Qué decisión utilizará la previsión y con qué horizonte?', '¿Qué patrones, eventos y restricciones explican la demanda?', '¿Qué coste tienen el exceso y la falta de previsión?'], ['Which decision will use the forecast, and over what horizon?', 'Which patterns, events and constraints explain demand?', 'What is the cost of over- and under-forecasting?']),
+    outputs: shared(['Forecast y baseline por horizonte relevante.', 'Intervalos de incertidumbre y escenarios.', 'Diagnóstico de error, sesgo y segmentos difíciles.', 'Recomendaciones para stock, capacidad o planificación.'], ['Forecast and baseline by relevant horizon.', 'Uncertainty intervals and scenarios.', 'Error, bias and difficult-segment diagnosis.', 'Recommendations for stock, capacity or planning.']),
+  },
+};

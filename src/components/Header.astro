@@ -1,18 +1,27 @@
 ---
-import { navigation } from '../content/navigation';
+import { alternatePath, navigation, sharedUi } from '../content/navigation';
 import { site } from '../content/site';
+import type { Locale } from '../content/i18n';
 
+interface Props { locale?: Locale }
+const { locale = 'es' } = Astro.props;
+const items = navigation[locale];
+const ui = sharedUi[locale];
 const currentPath = Astro.url.pathname;
+const enHref=alternatePath(currentPath,'en');
+const esHref=alternatePath(currentPath,'es');
+const hasPageSwitcher=currentPath.startsWith('/projects/')||currentPath.startsWith('/es/proyectos/')||currentPath.startsWith('/proyectos/')||currentPath.startsWith('/en/projects/');
 ---
 
 <header class="site-header">
-  <a class="brand" href="/">{site.name}</a>
-  <nav aria-label="Navegación principal">
+  <a class="brand" href={locale==='en'?'/':'/es/'}>{site.name}</a>
+  <nav aria-label={ui.navigationLabel}>
     <ul class="primary-navigation">
-      {navigation.map((item) => {
+      {items.map((item) => {
         if ('children' in item) {
           const isGroupActive = item.children.some(
-            (child) => currentPath === child.href,
+            (child) =>
+              currentPath === child.href || currentPath.startsWith(child.href),
           );
 
           return (
@@ -55,6 +64,9 @@ const currentPath = Astro.url.pathname;
           </li>
         );
       })}
+      {!hasPageSwitcher&&<li class="language-switch" aria-label={ui.languageLabel}>
+        <a href={enHref} hreflang="en" aria-current={locale==='en'?'page':undefined}>EN</a><span aria-hidden="true">|</span><a href={esHref} hreflang="es" aria-current={locale==='es'?'page':undefined}>ES</a>
+      </li>}
     </ul>
   </nav>
 </header>
