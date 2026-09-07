@@ -178,6 +178,6 @@ export const experience = {
   cv: {
     label: 'Descargar CV completo',
     available: true,
-    url: '/cv/Almu_Hernandez_CV_ATS.pdf',
+    url: '/cv/Almu_Hernandez_CV_Master_V7_1_Editorial.pdf',
   },
 } as const;

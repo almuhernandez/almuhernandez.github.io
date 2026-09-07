@@ -30,7 +30,7 @@ El servidor local indicará la URL que debes abrir en el navegador.
 - `src/content/teaching.ts`: docencia y ponencias.
 - `src/content/projects.ts`: proyectos.
 - `src/content/students.ts`: contenido de la sección de estudiantes.
-- `public/cv/Almu_Hernandez_CV_ATS.pdf`: CV descargable actual. Para actualizarlo
+- `public/cv/Almu_Hernandez_CV_Master_V7_1_Editorial.pdf`: CV descargable actual. Para actualizarlo
   sin cambiar los enlaces del sitio, sustituye el archivo manteniendo la misma
   ruta y nombre.
 
