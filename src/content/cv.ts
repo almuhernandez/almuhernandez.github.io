@@ -6,7 +6,7 @@ export const cvPage = {
   languageNote: 'CV disponible en inglés.',
   download: {
     label: 'Descargar CV · English',
-    url: '/cv/Almu_Hernandez_CV_Master_V7_1_Editorial.pdf',
+    url: '/cv/Almu_Hernandez_CV.pdf',
   },
   areas: ['Analytics', 'Data', 'Consulting', 'AI', 'Education'],
   highlights: [
