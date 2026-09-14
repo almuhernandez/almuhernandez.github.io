@@ -2,7 +2,7 @@ import type { Locale, LocalizedText } from './i18n';
 
 type LocalizedList = Record<Locale, string[]>;
 export type ProfessionalWork = { title: LocalizedText; company: string; engagement?: LocalizedText; domain: LocalizedText; description: LocalizedText; tags: LocalizedList; related: string[] };
-export type PortfolioProject = { title: string; label: LocalizedText; description: LocalizedText; meta: LocalizedText; tags: LocalizedList; link?: { label: LocalizedText; url: string } };
+export type PortfolioProject = { title: string; label: LocalizedText; description: LocalizedText; meta: LocalizedText; tags: LocalizedList; image?: { src: string; alt: LocalizedText; width: number; height: number }; link?: { label: LocalizedText; url: string } };
 export type CaseStudy = {
   slug: string;
   category: LocalizedText;
@@ -89,7 +89,7 @@ export const professionalWork: ProfessionalWork[] = [
 ];
 
 export const portfolioProjects: PortfolioProject[] = [
-  { title: 'Understanding Customer Behaviour', label: { es: 'Proyecto de portfolio', en: 'Portfolio Project' }, description: { es: 'Proyecto de analítica de clientes orientado a entender el comportamiento de los clientes y transformar los datos en información útil para la toma de decisiones.', en: 'A Customer Analytics project focused on understanding customer behaviour and transforming data into useful information for decision-making.' }, meta: { es: 'Analítica de clientes · En desarrollo', en: 'Customer Analytics · In development' }, tags: { es: ['Comportamiento de cliente', 'Análisis integral'], en: ['Customer Behaviour', 'End-to-end Analysis'] } },
+  { title: 'Understanding Customer Behaviour', label: { es: 'Proyecto de portfolio', en: 'Portfolio Project' }, description: { es: 'Proyecto de analítica de clientes orientado a entender el comportamiento de los clientes y transformar los datos en información útil para la toma de decisiones.', en: 'A Customer Analytics project focused on understanding customer behaviour and transforming data into useful information for decision-making.' }, meta: { es: 'Analítica de clientes · En desarrollo', en: 'Customer Analytics · In development' }, tags: { es: ['Comportamiento de cliente', 'Análisis integral'], en: ['Customer Behaviour', 'End-to-end Analysis'] }, image: { src: '/images/customer-behaviour-dashboard.webp', alt: { es: 'Dashboard de analítica de comportamiento de clientes', en: 'Customer behaviour analytics dashboard' }, width: 1600, height: 977 } },
   { title: 'Candidata', label: { es: 'Proyecto educativo', en: 'Education Project' }, description: { es: 'Candidata es un proyecto educativo creado para ayudar a futuros profesionales de Data Analytics a conectar el aprendizaje técnico con su aplicación en el mercado laboral.', en: 'Candidata is an education project created to help future Data Analytics professionals connect technical learning with its application in the job market.' }, meta: { es: 'Formación · Recursos · Mentorías', en: 'Education · Resources · Mentoring' }, tags: { es: ['Newsletter', 'Recursos', 'Contenido educativo'], en: ['Newsletter', 'Resources', 'Educational Content'] }, link: { label: { es: 'Visitar Candidata', en: 'Visit Candidata' }, url: 'https://candidata.co/' } },
 ];
 
