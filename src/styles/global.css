@@ -803,3 +803,13 @@ footer nav a:hover {
     scroll-behavior: auto !important;
   }
 }
+
+/* Landing and resources: understated integrated wordmark, no decorative AH/number */
+.brand::after{display:none}
+.site-header .brand{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.2rem,1.7vw,1.7rem);font-weight:500;letter-spacing:-.035em}
+.site-header{border-bottom:0}
+.site-header .nav-service a{background:#4b123b;color:white;padding:.5rem 1rem;text-decoration:none}
+.site-header .nav-service a:hover{background:#e9c75f;color:#242124}
+.site-header .language-switch a[aria-current="page"]{text-decoration:underline;text-decoration-color:#4b123b;text-decoration-thickness:2px}
+main:has(.almu-landing),main:has(.resource-page){width:100%;padding:0}
+main:has(.almu-landing) .almu-landing,main:has(.resource-page) .resource-page{width:100%}
