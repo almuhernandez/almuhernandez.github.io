@@ -3,8 +3,8 @@ import type { Locale } from './i18n';
 type NavigationLink={label:string;href:string;variant?:'service'};
 type NavigationItem=NavigationLink|{label:string;children:NavigationLink[]};
 export const navigation:Record<Locale,NavigationItem[]>={
-  es:[{label:'Inicio',href:'/es/'},{label:'Sobre Mí',href:'/es/sobre-mi/'},{label:'Experiencia & Proyectos',children:[{label:'Experiencia',href:'/es/experiencia/'},{label:'Proyectos',href:'/es/proyectos/'}]},{label:'Docencia',href:'/es/docencia/'},{label:'Contacto',href:'/es/contacto/'},{label:'Servicios',href:'/es/servicios/',variant:'service'}],
-  en:[{label:'Home',href:'/'},{label:'About',href:'/about/'},{label:'Experience & Projects',children:[{label:'Experience',href:'/experience/'},{label:'Projects',href:'/projects/'}]},{label:'Teaching',href:'/teaching/'},{label:'Contact',href:'/contact/'},{label:'Services',href:'/services/',variant:'service'}],
+  es:[{label:'Inicio',href:'/es/#inicio'},{label:'Servicios',href:'/es/#servicios'},{label:'Sobre mí',href:'/es/#sobre-mi'},{label:'Hablemos',href:'/es/#hablemos'},{label:'Recursos',href:'/es/estudiantes/'}],
+  en:[{label:'Home',href:'/#inicio'},{label:'Services',href:'/#servicios'},{label:'About me',href:'/#sobre-mi'},{label:"Let's talk",href:'/#hablemos'},{label:'Resources',href:'/students/'}],
 };
 
 const pairs:[string,string][]=[['/','/es/'],['/about/','/es/sobre-mi/'],['/experience/','/es/experiencia/'],['/projects/','/es/proyectos/'],['/teaching/','/es/docencia/'],['/contact/','/es/contacto/'],['/services/','/es/servicios/'],['/students/','/es/estudiantes/'],['/cv/','/es/cv/']];
