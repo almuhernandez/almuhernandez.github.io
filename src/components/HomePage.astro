@@ -17,24 +17,29 @@ const contactHref = en ? '/contact/' : '/es/contacto/';
 <BaseLayout title={en ? 'Home' : 'Inicio'} locale={locale} alternates={[{locale:'en',href:'/'},{locale:'es',href:'/es/'}]}>
   <div class="landing">
     <section id="inicio" class="landing-hero" aria-labelledby="landing-title">
-      <div class="hero-intro">
-        <p class="eyebrow">{home.positioning}</p>
-        <h1 id="landing-title">{home.title}</h1>
-        <div class="hero-bottom">
-          <div class="hero-description">
-            {home.introduction.map((paragraph) => <p>{paragraph}</p>)}
-            <div class="hero-actions">
-              <a class="text-link text-link--accent" href="#servicios">{en ? 'Explore services' : 'Descubre mis servicios'}</a>
-              <a class="text-link" href={resourcesHref}>{en ? 'Resources' : 'Recursos'}</a>
-            </div>
-          </div>
-          <p class="hero-scroll">{en ? 'Scroll to explore ↓' : 'Desliza para descubrir ↓'}</p>
+      <div class="hero-copy">
+        <p class="hero-kicker">{home.positioning}</p>
+        <h1 id="landing-title">{en ? <>Data, context and <span class="hero-highlight">business</span> to make better decisions.</> : <>Datos, contexto y <span class="hero-highlight">negocio</span> para tomar mejores decisiones.</>}</h1>
+        <p class="hero-lead">{en ? 'I help turn data and complex problems into decisions, solutions and applicable knowledge.' : 'Ayudo a transformar datos y problemas complejos en decisiones, soluciones y conocimiento aplicable.'}</p>
+        <div class="hero-actions">
+          <a class="hero-cta" href="#servicios">{en ? 'How I can help' : 'Descubre cómo puedo ayudarte'} <span aria-hidden="true">↗</span></a>
         </div>
       </div>
-      <figure class="hero-image">
-        <img src="/images/profesional.jpeg" alt={en ? 'Portrait of Almu Hernández' : 'Retrato de Almu Hernández'} width="1800" height="1200" />
-      </figure>
+      <figure class="hero-portrait"><img src="/images/profesional.jpeg" alt={en ? 'Portrait of Almu Hernández' : 'Retrato de Almu Hernández'} fetchpriority="high" /></figure>
+      <div class="hero-signature" aria-hidden="true">Almu Hernández<span>✳</span></div>
     </section>
+    <div class="experience-marquee" aria-label={en ? '15+ years of experience across industries and international teams' : 'Más de 15 años de experiencia en múltiples sectores y equipos internacionales'}>
+      <div class="marquee-track" aria-hidden="true">
+        {Array.from({length:4}).map(() => <div class="marquee-set">
+          <span><strong>+15</strong> {en ? 'years of experience' : 'años de experiencia'}</span>
+          <span class="marquee-star">✳</span>
+          <span><strong>{en ? 'Multiple industries' : 'Múltiples sectores'}</strong> {en ? 'from retail to healthcare' : 'de retail a salud y entornos digitales'}</span>
+          <span class="marquee-star">✳</span>
+          <span><strong>{en ? 'International' : 'Internacional'}</strong> {en ? 'cross-country multidisciplinary teams' : 'equipos multidisciplinares en distintos países'}</span>
+          <span class="marquee-star">✳</span>
+        </div>)}
+      </div>
+    </div>
 
     <section id="servicios" class="landing-section services" aria-labelledby="services-title">
       <div class="section-topline"><span>01 / {en ? 'Services' : 'Servicios'}</span><span>{en ? 'What I do' : 'Qué puedo aportar'}</span></div>
@@ -76,15 +81,26 @@ const contactHref = en ? '/contact/' : '/es/contacto/';
 
 <style>
   .landing { width:100%; }
-  .landing-hero { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); min-height:min(48rem,90svh); gap:clamp(2rem,4vw,5rem); padding:clamp(1rem,3vw,3rem) 0 clamp(5rem,9vw,9rem); align-items:stretch; }
-  .hero-intro { display:flex; flex-direction:column; justify-content:space-between; min-width:0; }
-  .hero-intro h1 { max-width:13ch; font-size:clamp(3.7rem,6.6vw,8rem); line-height:.98; margin:clamp(2rem,5vw,5rem) 0; }
-  .hero-bottom { display:flex; justify-content:space-between; align-items:end; gap:2rem; }
-  .hero-description { max-width:31rem; }
-  .hero-description p { font-size:clamp(1.1rem,1.5vw,1.4rem); line-height:1.5; }
-  .hero-scroll { font-size:.7rem; text-transform:uppercase; letter-spacing:.12em; white-space:nowrap; writing-mode:vertical-rl; }
-  .hero-image { margin:0; min-height:28rem; overflow:hidden; background:var(--color-line); }
-  .hero-image img { width:100%; height:100%; object-fit:cover; object-position:center; }
+  .landing-hero { position:relative; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(19rem,.8fr); align-items:center; gap:clamp(2rem,5vw,7rem); min-height:clamp(38rem,78svh,58rem); padding:clamp(3rem,7vw,8rem) clamp(0rem,2vw,2rem); overflow:hidden; }
+  .hero-copy { position:relative; z-index:1; max-width:62rem; }
+  .hero-kicker { font-size:.78rem; font-weight:800; text-transform:uppercase; letter-spacing:.19em; margin-bottom:clamp(1.5rem,3vw,3rem); color:var(--color-aubergine); }
+  .hero-copy h1 { max-width:12ch; margin:0; font-family:var(--font-sans); font-size:clamp(3.5rem,6.2vw,7.8rem); line-height:1.02; letter-spacing:-.075em; font-weight:850; }
+  .hero-highlight { background:var(--color-aubergine); color:#fff; padding:0 .12em .05em; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+  .hero-lead { max-width:35rem; margin:clamp(1.6rem,3vw,3rem) 0 0; font-size:clamp(1.1rem,1.6vw,1.5rem); line-height:1.55; color:var(--color-muted); }
+  .hero-actions { margin-top:clamp(1.5rem,3vw,3rem); }
+  .hero-cta { display:inline-flex; align-items:center; gap:2rem; padding:1.05rem 1.5rem; color:white; background:var(--color-aubergine); font-size:.8rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; }
+  .hero-cta:hover { background:var(--color-ink); }
+  .hero-portrait { margin:0; position:relative; aspect-ratio:4/5; max-height:44rem; overflow:hidden; border-radius:46% 46% 4% 4%; background:#e8dce5; }
+  .hero-portrait img { width:100%; height:100%; object-fit:cover; object-position:center; }
+  .hero-signature { position:absolute; bottom:1.3rem; right:1rem; font-size:.9rem; font-weight:800; letter-spacing:-.02em; }
+  .hero-signature span { color:var(--color-aubergine); margin-left:.4rem; }
+  .experience-marquee { overflow:hidden; background:var(--color-aubergine); color:white; padding:1.25rem 0; margin:0 calc(-1 * clamp(1rem,3vw,3rem)) clamp(2rem,4vw,4rem); }
+  .marquee-track { display:flex; width:max-content; animation:marquee-move 38s linear infinite; }
+  .marquee-set { display:flex; align-items:center; gap:2.6rem; padding-right:2.6rem; flex:none; white-space:nowrap; font-size:.9rem; }
+  .marquee-set strong { color:var(--color-accent); font-family:var(--font-display); font-size:1.4rem; font-weight:400; }
+  .marquee-star { color:var(--color-accent); }
+  @keyframes marquee-move { to { transform:translateX(-50%); } }
+  @media(prefers-reduced-motion:reduce) { .marquee-track { animation:none; } }
   .landing-section { padding:clamp(5rem,9vw,9rem) 0; border-top:1px solid var(--color-ink); scroll-margin-top:2rem; }
   .section-topline { display:flex; justify-content:space-between; gap:1rem; margin-bottom:clamp(2.5rem,5vw,5rem); font-size:.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
   .section-intro { display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,6vw,6rem); align-items:end; margin-bottom:3rem; }
@@ -104,22 +120,6 @@ const contactHref = en ? '/contact/' : '/es/contacto/';
   .contact { padding-bottom:clamp(5rem,10vw,10rem); }
   .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:end; }
   .contact-grid .text-link { margin-top:1.5rem; }
-  @media(max-width:60rem) {
-    .landing-hero { min-height:auto; grid-template-columns:1fr 1fr; }
-    .hero-intro h1 { font-size:clamp(3rem,6vw,5rem); }
-    .hero-bottom { align-items:start; }
-    .hero-scroll { display:none; }
-    .service-card h3 { margin-top:2rem; }
-  }
-  @media(max-width:46rem) {
-    .landing-hero,.section-intro,.about-grid,.contact-grid { grid-template-columns:1fr; }
-    .landing-hero { gap:2.5rem; }
-    .hero-intro h1 { font-size:clamp(3.1rem,12vw,5.5rem); margin:2.5rem 0; }
-    .hero-image { min-height:0; aspect-ratio:4/3; }
-    .service-grid { grid-template-columns:1fr; }
-    .service-card,.service-card + .service-card { border-left:0; padding:2rem 0; }
-    .service-card + .service-card { border-top:1px solid var(--color-line); }
-    .service-card h3 { margin-top:1rem; }
-    .about-grid figure { max-height:30rem; }
-  }
+  @media(max-width:60rem) { .landing-hero { grid-template-columns:minmax(0,1fr) minmax(14rem,.7fr); } .hero-copy h1 { font-size:clamp(3rem,6vw,5rem); } .service-card h3 { margin-top:2rem; } }
+  @media(max-width:46rem) { .landing-hero { grid-template-columns:1fr; min-height:auto; gap:2.5rem; padding:3rem 0; } .hero-copy h1 { font-size:clamp(3rem,11vw,5rem); } .hero-portrait { width:min(100%,28rem); margin-inline:auto; aspect-ratio:4/4.5; } .hero-signature { display:none; } .section-intro,.about-grid,.contact-grid { grid-template-columns:1fr; } .service-grid { grid-template-columns:1fr; } .service-card,.service-card + .service-card { border-left:0; padding:2rem 0; } .service-card + .service-card { border-top:1px solid var(--color-line); } .service-card h3 { margin-top:1rem; } .about-grid figure { max-height:30rem; } }
 </style>
