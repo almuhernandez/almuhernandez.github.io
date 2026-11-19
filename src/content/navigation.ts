@@ -3,11 +3,11 @@ import type { Locale } from './i18n';
 type NavigationLink={label:string;href:string;variant?:'service'};
 type NavigationItem=NavigationLink|{label:string;children:NavigationLink[]};
 export const navigation:Record<Locale,NavigationItem[]>={
-  es:[{label:'Inicio',href:'/es/#inicio'},{label:'Servicios',href:'/es/#servicios'},{label:'Sobre mí',href:'/es/#sobre-mi'},{label:'Hablemos',href:'/es/#hablemos'},{label:'Recursos',href:'/es/estudiantes/'}],
-  en:[{label:'Home',href:'/#inicio'},{label:'Services',href:'/#servicios'},{label:'About me',href:'/#sobre-mi'},{label:"Let's talk",href:'/#hablemos'},{label:'Resources',href:'/students/'}],
+  es:[{label:'Inicio',href:'/es/#inicio'},{label:'Servicios',href:'/es/#servicios',variant:'service'},{label:'Sobre mí',href:'/es/#sobre-mi'},{label:'Hablemos',href:'/es/#hablemos'},{label:'Recursos',href:'/es/recursos/'}],
+  en:[{label:'Home',href:'/#inicio'},{label:'Services',href:'/#servicios',variant:'service'},{label:'About me',href:'/#sobre-mi'},{label:"Let's talk",href:'/#hablemos'},{label:'Resources',href:'/resources/'}],
 };
 
-const pairs:[string,string][]=[['/','/es/'],['/about/','/es/sobre-mi/'],['/experience/','/es/experiencia/'],['/projects/','/es/proyectos/'],['/teaching/','/es/docencia/'],['/contact/','/es/contacto/'],['/services/','/es/servicios/'],['/students/','/es/estudiantes/'],['/cv/','/es/cv/']];
+const pairs:[string,string][]=[['/','/es/'],['/about/','/es/sobre-mi/'],['/experience/','/es/experiencia/'],['/projects/','/es/proyectos/'],['/teaching/','/es/docencia/'],['/contact/','/es/contacto/'],['/services/','/es/servicios/'],['/students/','/es/estudiantes/'],['/resources/','/es/recursos/'],['/cv/','/es/cv/']];
 export const alternatePath=(path:string,target:Locale)=>{
   const legacyToCanonical:Record<string,string>={'/sobre-mi/':'/es/sobre-mi/','/experiencia/':'/es/experiencia/','/docencia/':'/es/docencia/','/contacto/':'/es/contacto/','/servicios/':'/es/servicios/','/estudiantes/':'/es/estudiantes/'};
   path=legacyToCanonical[path]??path;
