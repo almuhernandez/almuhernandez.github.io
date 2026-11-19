@@ -1,125 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { homeContent, servicesContent, aboutContent, contactContent } from '../content/localized';
 import type { Locale } from '../content/i18n';
-
 interface Props { locale: Locale }
-const { locale } = Astro.props;
-const home = homeContent[locale];
-const services = servicesContent[locale];
-const about = aboutContent[locale];
-const contact = contactContent[locale];
-const en = locale === 'en';
-const resourcesHref = en ? '/students/' : '/es/estudiantes/';
-const contactHref = en ? '/contact/' : '/es/contacto/';
+const {locale}=Astro.props; const en=locale==='en';
+const t=en?{
+eyebrow:'DATA · AI · BUSINESS',titleA:'Data, context and',titleB:'business',titleC:'for better decisions.',lead:'I help turn data and complex problems into decisions, solutions and practical knowledge.',sub:'Analytics grounded in business context.',cta:'Explore how I work',painA:'Many companies have',painB:'data and technology',painC:'but struggle to turn them into decisions.',p1:'Dashboards that do not answer important questions. Data projects that never reach the business. And new AI tools without a clear application.',p2:'Meanwhile, decisions still rely on intuition, manual processes or disconnected information.',p3:'More data and more tools are not always the answer.',p4:'The key is connecting the business problem to the right analysis and technology.',servicesLabel:'How we can work together',servicesTitle:'Two ways to collaborate.',servicesIntro:'I connect data, AI and business context to solve real problems and share practical knowledge.',consult:'Data & AI Consulting',consultBody:'Support to define problems, develop analytical solutions and turn results into useful business decisions. AI is incorporated when it adds real value.',training:'Training and workshops',trainingBody:'Data Analytics training and mentoring, hands-on workshops and talks that connect concepts, tools and real business situations.',tags1:['Data strategy','Analytics and insights','Applied AI','Dashboards and decisions'],tags2:['Analytics training','AI workshops','Mentoring','Talks and workshops'],aboutLabel:'The person behind the data',aboutTitle:'Analytics with business context.',about1:'My background combines Physics and Statistics with over 15 years of experience in Analytics, Data Science and consulting across sectors and international teams.',about2:'I connect business questions with data, analysis and practical solutions that help people make decisions.',about3:'I also enjoy sharing what I have learned through training, mentoring and workshops.',contactLabel:'Contact',contactTitle:"Let's talk?",contactBody:'Have a challenge involving data, AI or business? Looking for a collaboration, workshop or talk? I would love to hear from you.',email:'Email me',resource:'Resources',marquee:['15+ years of experience','Multiple industries · retail, banking, healthcare and digital','International · multidisciplinary teams']}:{
+eyebrow:'ANALYTICS · CONSULTORÍA · FORMACIÓN',titleA:'Datos, contexto y',titleB:'negocio',titleC:'para tomar mejores decisiones.',lead:'Ayudo a transformar datos y problemas complejos en decisiones, soluciones y conocimiento aplicable.',sub:'Analytics con contexto de negocio.',cta:'Descubre cómo trabajo',painA:'Muchas empresas tienen',painB:'datos y tecnología',painC:'pero les cuesta convertirlos en decisiones.',p1:'Dashboards que no responden a las preguntas importantes. Proyectos de datos que no llegan al negocio. Y nuevas herramientas de IA sin una aplicación clara.',p2:'Mientras tanto, las decisiones siguen dependiendo de intuiciones, procesos manuales o información desconectada.',p3:'No siempre hacen falta más datos ni más herramientas.',p4:'Hace falta conectar el problema de negocio con el análisis y la tecnología adecuados. Ahí es donde puedo ayudarte.',servicesLabel:'Cómo podemos colaborar',servicesTitle:'Dos formas de colaborar.',servicesIntro:'Conecto datos, IA y contexto de negocio para resolver problemas reales y compartir conocimiento que se pueda aplicar.',consult:'Consultoría de datos e IA',consultBody:'Apoyo para definir problemas, desarrollar soluciones analíticas y transformar resultados en decisiones útiles de negocio. La IA se incorpora cuando aporta valor real.',training:'Formación y talleres',trainingBody:'Formación y mentoring en Data Analytics, además de talleres prácticos y charlas que conectan conceptos, herramientas y situaciones reales de negocio.',tags1:['Estrategia de datos','Analytics e insights','IA aplicada','Dashboards y decisiones'],tags2:['Formación en Analytics','Talleres de IA','Mentoring','Charlas y talleres'],aboutLabel:'La persona detrás de los datos',aboutTitle:'Analytics con contexto de negocio.',about1:'Mi trayectoria combina formación en Física y Estadística con más de 15 años de experiencia en Analytics, Data Science y consultoría en diferentes sectores y entornos internacionales.',about2:'He trabajado conectando preguntas de negocio con datos, análisis y soluciones que ayudan a tomar decisiones. Me interesa que la tecnología —incluida la IA— tenga un propósito claro.',about3:'También disfruto compartiendo lo aprendido a través de la formación, el mentoring y los talleres.',contactLabel:'Contacto',contactTitle:'¿Hablamos?',contactBody:'Si tienes un reto relacionado con datos, IA o negocio, o buscas una colaboración, formación o charla, estaré encantada de escucharte.',email:'Escríbeme',resource:'Recursos',marquee:['+15 años de experiencia','Múltiples sectores · retail, banca, salud y digital','Internacional · equipos multidisciplinares']};
 ---
-
-<BaseLayout title={en ? 'Home' : 'Inicio'} locale={locale} alternates={[{locale:'en',href:'/'},{locale:'es',href:'/es/'}]}>
-  <div class="landing">
-    <section id="inicio" class="landing-hero" aria-labelledby="landing-title">
-      <div class="hero-copy">
-        <p class="hero-kicker">{home.positioning}</p>
-        <h1 id="landing-title">{en ? <>Data, context and <span class="hero-highlight">business</span> to make better decisions.</> : <>Datos, contexto y <span class="hero-highlight">negocio</span> para tomar mejores decisiones.</>}</h1>
-        <p class="hero-lead">{en ? 'I help turn data and complex problems into decisions, solutions and applicable knowledge.' : 'Ayudo a transformar datos y problemas complejos en decisiones, soluciones y conocimiento aplicable.'}</p>
-        <div class="hero-actions">
-          <a class="hero-cta" href="#servicios">{en ? 'How I can help' : 'Descubre cómo puedo ayudarte'} <span aria-hidden="true">↗</span></a>
-        </div>
-      </div>
-      <figure class="hero-portrait"><img src="/images/profesional.jpeg" alt={en ? 'Portrait of Almu Hernández' : 'Retrato de Almu Hernández'} fetchpriority="high" /></figure>
-      <div class="hero-signature" aria-hidden="true">Almu Hernández<span>✳</span></div>
-    </section>
-    <div class="experience-marquee" aria-label={en ? '15+ years of experience across industries and international teams' : 'Más de 15 años de experiencia en múltiples sectores y equipos internacionales'}>
-      <div class="marquee-track" aria-hidden="true">
-        {Array.from({length:4}).map(() => <div class="marquee-set">
-          <span><strong>+15</strong> {en ? 'years of experience' : 'años de experiencia'}</span>
-          <span class="marquee-star">✳</span>
-          <span><strong>{en ? 'Multiple industries' : 'Múltiples sectores'}</strong> {en ? 'from retail to healthcare' : 'de retail a salud y entornos digitales'}</span>
-          <span class="marquee-star">✳</span>
-          <span><strong>{en ? 'International' : 'Internacional'}</strong> {en ? 'cross-country multidisciplinary teams' : 'equipos multidisciplinares en distintos países'}</span>
-          <span class="marquee-star">✳</span>
-        </div>)}
-      </div>
-    </div>
-
-    <section id="servicios" class="landing-section services" aria-labelledby="services-title">
-      <div class="section-topline"><span>01 / {en ? 'Services' : 'Servicios'}</span><span>{en ? 'What I do' : 'Qué puedo aportar'}</span></div>
-      <div class="section-intro">
-        <h2 id="services-title">{services.title}</h2>
-        <p>{services.description}</p>
-      </div>
-      <div class="service-grid">
-        {services.services.map((service) => <article class="service-card">
-          <span class="service-number">{service.number}</span>
-          <h3>{service.title}</h3>
-          <p>{service.paragraphs[0]}</p>
-        </article>)}
-      </div>
-      <a class="text-link" href={en ? '/services/' : '/es/servicios/'}>{en ? 'More about my services' : 'Conoce mis servicios'}</a>
-    </section>
-
-    <section id="sobre-mi" class="landing-section about" aria-labelledby="about-title">
-      <div class="section-topline"><span>02 / {en ? 'About me' : 'Sobre mí'}</span><span>{en ? 'My background' : 'Mi trayectoria'}</span></div>
-      <div class="about-grid">
-        <figure><img src="/images/about.jpeg" alt={en ? 'Almu Hernández' : 'Almu Hernández'} loading="lazy" /></figure>
-        <div class="about-copy">
-          <h2 id="about-title">{about.title}</h2>
-          {about.paragraphs.slice(0,3).map((paragraph) => <p>{paragraph}</p>)}
-          <a class="text-link" href={en ? '/about/' : '/es/sobre-mi/'}>{en ? 'Read more about me' : 'Más sobre mí'}</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="hablemos" class="landing-section contact" aria-labelledby="contact-title">
-      <div class="section-topline"><span>03 / {en ? "Let's talk" : 'Hablemos'}</span><span>{en ? 'Get in touch' : 'Contacto'}</span></div>
-      <div class="contact-grid">
-        <h2 id="contact-title">{contact.headline}</h2>
-        <div><p>{contact.introduction}</p><a class="text-link text-link--accent" href={contactHref}>{en ? 'Contact me' : 'Contacta conmigo'}</a></div>
-      </div>
-    </section>
-  </div>
+<BaseLayout title={en?'Home':'Inicio'} locale={locale} alternates={[{locale:'es',href:'/es/'},{locale:'en',href:'/'}]}>
+<div class="almu-landing">
+<section id="inicio" class="almu-hero">
+ <div class="almu-photo"><img src="/images/about.jpeg" alt={en?'Almu Hernández portrait':'Retrato de Almu Hernández'} fetchpriority="high" /></div>
+ <div class="almu-hero-copy"><p class="almu-eyebrow">{t.eyebrow}</p><h1>{t.titleA} <em>{t.titleB}</em> {t.titleC}</h1><p class="almu-lead">{t.lead}</p><p class="almu-sub">{t.sub}</p><a class="almu-btn" href="#servicios">{t.cta}</a></div>
+</section>
+<div class="almu-marquee" aria-label={t.marquee.join('. ')}><div class="almu-marquee-track">{Array.from({length:4}).map(()=> <div class="almu-marquee-set">{t.marquee.map(item=><span>{item}<b>✳</b></span>)}</div>)}</div></div>
+<section class="almu-problem" aria-labelledby="problem-heading"><div class="almu-problem-mark" aria-hidden="true">✳</div><div><h2 id="problem-heading">{t.painA} <u>{t.painB}</u>, {t.painC}</h2><div class="almu-problem-text"><p><strong>{t.p1}</strong></p><p><strong>{t.p2}</strong></p><p>{t.p3}</p><p>{t.p4}</p></div></div></section>
+<section id="servicios" class="almu-services"><p class="almu-eyebrow">{t.servicesLabel}</p><div class="almu-services-intro"><h2>{t.servicesTitle}</h2><p>{t.servicesIntro}</p></div><div class="almu-cards"><article class="almu-card almu-card-dark"><h3>{t.consult}</h3><p>{t.consultBody}</p><div class="almu-tags">{t.tags1.map(tag=><span>{tag}</span>)}</div></article><article class="almu-card almu-card-plum"><h3>{t.training}</h3><p>{t.trainingBody}</p><div class="almu-tags">{t.tags2.map(tag=><span>{tag}</span>)}</div></article></div></section>
+<section id="sobre-mi" class="almu-about"><div class="almu-about-image"><img src="/images/profesional.jpeg" loading="lazy" alt={en?'Almu Hernández sitting outdoors':'Almu Hernández sentada en un sofá'} /></div><div><p class="almu-eyebrow">{t.aboutLabel}</p><h2>{t.aboutTitle}</h2><p>{t.about1}</p><p>{t.about2}</p><p>{t.about3}</p></div></section>
+<section id="hablemos" class="almu-contact"><div><p class="almu-eyebrow">{t.contactLabel}</p><h2>{t.contactTitle}</h2></div><div><p>{t.contactBody}</p><div class="almu-actions"><a class="almu-btn" href="mailto:info@almuhernandez.com">{t.email} ↗</a><a class="almu-btn almu-btn-outline" href="https://www.linkedin.com/in/almuhernandez" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div></div></section>
+</div>
 </BaseLayout>
-
 <style>
-  .landing { width:100%; }
-  .landing-hero { position:relative; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(19rem,.8fr); align-items:center; gap:clamp(2rem,5vw,7rem); min-height:clamp(38rem,78svh,58rem); padding:clamp(3rem,7vw,8rem) clamp(0rem,2vw,2rem); overflow:hidden; }
-  .hero-copy { position:relative; z-index:1; max-width:62rem; }
-  .hero-kicker { font-size:.78rem; font-weight:800; text-transform:uppercase; letter-spacing:.19em; margin-bottom:clamp(1.5rem,3vw,3rem); color:var(--color-aubergine); }
-  .hero-copy h1 { max-width:12ch; margin:0; font-family:var(--font-sans); font-size:clamp(3.5rem,6.2vw,7.8rem); line-height:1.02; letter-spacing:-.075em; font-weight:850; }
-  .hero-highlight { background:var(--color-aubergine); color:#fff; padding:0 .12em .05em; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
-  .hero-lead { max-width:35rem; margin:clamp(1.6rem,3vw,3rem) 0 0; font-size:clamp(1.1rem,1.6vw,1.5rem); line-height:1.55; color:var(--color-muted); }
-  .hero-actions { margin-top:clamp(1.5rem,3vw,3rem); }
-  .hero-cta { display:inline-flex; align-items:center; gap:2rem; padding:1.05rem 1.5rem; color:white; background:var(--color-aubergine); font-size:.8rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; }
-  .hero-cta:hover { background:var(--color-ink); }
-  .hero-portrait { margin:0; position:relative; aspect-ratio:4/5; max-height:44rem; overflow:hidden; border-radius:46% 46% 4% 4%; background:#e8dce5; }
-  .hero-portrait img { width:100%; height:100%; object-fit:cover; object-position:center; }
-  .hero-signature { position:absolute; bottom:1.3rem; right:1rem; font-size:.9rem; font-weight:800; letter-spacing:-.02em; }
-  .hero-signature span { color:var(--color-aubergine); margin-left:.4rem; }
-  .experience-marquee { overflow:hidden; background:var(--color-aubergine); color:white; padding:1.25rem 0; margin:0 calc(-1 * clamp(1rem,3vw,3rem)) clamp(2rem,4vw,4rem); }
-  .marquee-track { display:flex; width:max-content; animation:marquee-move 38s linear infinite; }
-  .marquee-set { display:flex; align-items:center; gap:2.6rem; padding-right:2.6rem; flex:none; white-space:nowrap; font-size:.9rem; }
-  .marquee-set strong { color:var(--color-accent); font-family:var(--font-display); font-size:1.4rem; font-weight:400; }
-  .marquee-star { color:var(--color-accent); }
-  @keyframes marquee-move { to { transform:translateX(-50%); } }
-  @media(prefers-reduced-motion:reduce) { .marquee-track { animation:none; } }
-  .landing-section { padding:clamp(5rem,9vw,9rem) 0; border-top:1px solid var(--color-ink); scroll-margin-top:2rem; }
-  .section-topline { display:flex; justify-content:space-between; gap:1rem; margin-bottom:clamp(2.5rem,5vw,5rem); font-size:.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
-  .section-intro { display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,6vw,6rem); align-items:end; margin-bottom:3rem; }
-  .landing-section h2 { font-family:var(--font-display); font-weight:400; font-size:clamp(3rem,6vw,6rem); line-height:1; letter-spacing:-.05em; margin:0; }
-  .section-intro p,.about-copy p,.contact-grid p { max-width:36rem; font-size:clamp(1.05rem,1.4vw,1.25rem); color:var(--color-muted); }
-  .service-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-bottom:2.5rem; border-block:1px solid var(--color-line); }
-  .service-card { padding:2rem clamp(1rem,2.5vw,2.5rem) 3rem 0; }
-  .service-card + .service-card { border-left:1px solid var(--color-line); padding-left:clamp(1rem,2.5vw,2.5rem); }
-  .service-number { font-size:.8rem; color:var(--color-aubergine); }
-  .service-card h3 { font-family:var(--font-display); font-size:clamp(1.8rem,2.6vw,2.8rem); font-weight:400; line-height:1.1; margin:4rem 0 1rem; }
-  .service-card p { color:var(--color-muted); }
-  .about-grid { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(2rem,8vw,9rem); align-items:center; }
-  .about-grid figure { margin:0; aspect-ratio:4/5; overflow:hidden; }
-  .about-grid img { width:100%; height:100%; object-fit:cover; }
-  .about-copy h2 { margin-bottom:2rem; }
-  .about-copy .text-link { margin-top:1rem; }
-  .contact { padding-bottom:clamp(5rem,10vw,10rem); }
-  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:end; }
-  .contact-grid .text-link { margin-top:1.5rem; }
-  @media(max-width:60rem) { .landing-hero { grid-template-columns:minmax(0,1fr) minmax(14rem,.7fr); } .hero-copy h1 { font-size:clamp(3rem,6vw,5rem); } .service-card h3 { margin-top:2rem; } }
-  @media(max-width:46rem) { .landing-hero { grid-template-columns:1fr; min-height:auto; gap:2.5rem; padding:3rem 0; } .hero-copy h1 { font-size:clamp(3rem,11vw,5rem); } .hero-portrait { width:min(100%,28rem); margin-inline:auto; aspect-ratio:4/4.5; } .hero-signature { display:none; } .section-intro,.about-grid,.contact-grid { grid-template-columns:1fr; } .service-grid { grid-template-columns:1fr; } .service-card,.service-card + .service-card { border-left:0; padding:2rem 0; } .service-card + .service-card { border-top:1px solid var(--color-line); } .service-card h3 { margin-top:1rem; } .about-grid figure { max-height:30rem; } }
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+.almu-landing{font-family:'DM Sans',sans-serif;color:#242124;background:#f8f6f3}.almu-landing h1,.almu-landing h2,.almu-landing h3{font-family:'Playfair Display',Georgia,serif;font-weight:400;letter-spacing:-.045em}.almu-hero{display:grid;grid-template-columns:50% 50%;min-height:680px}.almu-photo{min-height:650px;overflow:hidden}.almu-photo img{width:100%;height:100%;object-fit:cover;object-position:center}.almu-hero-copy{padding:clamp(60px,8vw,135px) clamp(35px,5vw,85px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.almu-eyebrow{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}.almu-hero h1{font-size:clamp(46px,4.5vw,80px);line-height:1.15;max-width:16ch;margin:35px auto}.almu-hero h1 em{color:#4b123b;font-weight:400}.almu-lead{font-size:18px;max-width:440px}.almu-sub{font-weight:700;margin:8px 0 35px}.almu-btn{display:inline-block;background:#4b123b;color:white;text-decoration:none;padding:15px 25px;text-transform:uppercase;font-size:12px;font-weight:700;letter-spacing:.1em;transition:background .2s,color .2s}.almu-btn:hover{background:#e9c75f;color:#242124}.almu-marquee{background:#4b123b;color:white;overflow:hidden;padding:19px 0}.almu-marquee-track{display:flex;width:max-content;animation:almu-scroll 38s linear infinite}.almu-marquee-set{display:flex;flex:none;gap:30px;padding-right:30px;white-space:nowrap}.almu-marquee-set span{display:flex;gap:30px;align-items:center}.almu-marquee-set b{color:#e9c75f}@keyframes almu-scroll{to{transform:translateX(-50%)}}.almu-problem{display:grid;grid-template-columns:25% 75%;padding:clamp(85px,10vw,170px) clamp(28px,8vw,130px);gap:30px;background:#f8f6f3}.almu-problem-mark{color:#e9c75f;font-size:clamp(70px,10vw,150px);line-height:1}.almu-problem h2{font-size:clamp(38px,4vw,68px);line-height:1.1;max-width:950px}.almu-problem h2 u{text-decoration-thickness:2px;text-underline-offset:8px}.almu-problem-text{max-width:750px;margin:55px 0 0 auto;font-size:17px}.almu-problem-text p{margin-bottom:22px}.almu-services{padding:110px clamp(28px,7vw,120px);background:#e9e1d9}.almu-services-intro{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:50px}.almu-services h2,.almu-about h2,.almu-contact h2{font-size:clamp(45px,5.2vw,90px);line-height:1.08}.almu-services-intro p{font-size:18px;max-width:460px}.almu-cards{display:grid;grid-template-columns:1fr 1fr;gap:22px}.almu-card{padding:clamp(35px,4vw,65px);min-height:430px;display:flex;flex-direction:column}.almu-card-dark{background:#171717;color:#fff}.almu-card-plum{background:#4b123b;color:#fff}.almu-card h3{font-size:clamp(35px,3vw,55px);margin-bottom:25px}.almu-card p{font-size:17px;line-height:1.7}.almu-tags{display:flex;gap:10px;flex-wrap:wrap;border-top:1px solid #ffffff77;margin-top:auto;padding-top:25px}.almu-tags span{border:1px solid #ffffff88;padding:8px 12px;font-size:12px}.almu-about{display:grid;grid-template-columns:42% 1fr;gap:clamp(35px,6vw,110px);background:#4b123b;color:white;padding:clamp(60px,7vw,110px)}.almu-about-image{min-height:530px;overflow:hidden}.almu-about-image img{width:100%;height:100%;object-fit:cover}.almu-about h2{margin:25px 0 40px}.almu-about p:not(.almu-eyebrow){font-size:17px;line-height:1.85;max-width:620px}.almu-contact{display:grid;grid-template-columns:1fr 1fr;gap:65px;background:#f8f6f3;padding:clamp(80px,10vw,160px) clamp(30px,8vw,130px)}.almu-contact p:not(.almu-eyebrow){font-size:19px;line-height:1.7}.almu-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:35px}.almu-btn-outline{background:transparent;color:#4b123b;border:1px solid #4b123b}.almu-btn-outline:hover{border-color:#e9c75f}@media(max-width:800px){.almu-hero{grid-template-columns:1fr}.almu-photo{min-height:420px;max-height:520px}.almu-hero-copy{padding:65px 25px}.almu-problem{grid-template-columns:1fr;padding:80px 25px}.almu-problem-mark{font-size:75px}.almu-services{padding:75px 25px}.almu-services-intro,.almu-cards,.almu-about,.almu-contact{grid-template-columns:1fr}.almu-about{padding:60px 25px}.almu-about-image{min-height:350px}.almu-contact{padding:75px 25px}.almu-services h2,.almu-about h2,.almu-contact h2{font-size:50px}}@media(prefers-reduced-motion:reduce){.almu-marquee-track{animation:none}}
 </style>
