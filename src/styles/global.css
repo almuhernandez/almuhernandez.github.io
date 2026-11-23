@@ -843,3 +843,12 @@ body:has(.resource-page) footer{background:#f1e8de;margin-top:0;width:100%;paddi
 .site-header .brand .brand-final-z{font-family:Arial,Helvetica,sans-serif;font-style:normal;font-weight:400;font-size:.61em;letter-spacing:-.06em;vertical-align:baseline;margin-left:-.035em}
 @media(max-width:68rem){body:has(.resource-page) .site-header{gap:12px;padding-block:15px}}
 @media(max-width:46rem){body:has(.resource-page) .site-header{min-height:90px}body:has(.resource-page) .site-header .brand{font-size:43px}}
+
+/* Explicit shared header: identical on Inicio, Recursos and Casos de uso. */
+body.unified-brand-header .site-header{width:100%;min-height:102px;margin:0;padding:0 clamp(24px,7vw,110px);background:#fff;border:0;box-shadow:none;align-items:center}
+body.unified-brand-header .site-header .brand{display:inline-flex;align-items:center;gap:.55rem;background:none;border:0;box-shadow:none;padding:0;color:#4b123b;font-family:'Caveat','Brush Script MT',cursive;font-style:italic;font-size:clamp(38px,3.5vw,57px);font-weight:500;letter-spacing:-.025em;line-height:1;text-decoration:none}
+body.unified-brand-header .site-header .brand .brand-star{display:inline-block;flex:none;color:#e9c75f;font-family:Arial,sans-serif;font-style:normal;font-size:54px;font-weight:400;line-height:1}
+body.unified-brand-header .site-header .brand .brand-final-z{font-family:Arial,Helvetica,sans-serif;font-style:normal;font-size:.61em;font-weight:400;letter-spacing:-.06em;vertical-align:baseline;margin-left:-.035em}
+body.unified-brand-header .site-header .brand::after{display:none;content:none}
+@media(max-width:68rem){body.unified-brand-header .site-header{gap:12px;padding-block:15px}}
+@media(max-width:46rem){body.unified-brand-header .site-header{min-height:90px}body.unified-brand-header .site-header .brand{font-size:43px}}
