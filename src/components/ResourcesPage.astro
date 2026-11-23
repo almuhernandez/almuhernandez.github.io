@@ -30,7 +30,7 @@ const pdfs:Record<string,string>={
 };
 ---
 <BaseLayout title={consulting?(en?'Case studies':'Casos de uso'):(en?'Resources':'Recursos')} locale={locale} alternates={consulting?[{locale:'es',href:'/es/consultoria/casos-de-uso/'},{locale:'en',href:'/consulting/case-studies/'}]:[{locale:'es',href:'/es/recursos/'},{locale:'en',href:'/resources/'}]}>
-<div class="resource-page">
+<div class:list={["resource-page",{"consulting-cases-page":consulting}]}>
 <section class="resource-intro" id="recursos"><h1>{consulting?(en?'Case studies':'Casos de uso'):(en?'Resources':'Recursos')}</h1><p>{consulting?(en?'A selection of practical examples of how data and analytics can help address real challenges.': 'Algunos ejemplos prácticos de cómo los datos y la analítica pueden ayudar a resolver problemas reales.'):(en?<>Ideas, case studies and tools to connect <strong>data, AI and business.</strong> A library of practical projects to explore real problems and learn how to solve them.</>:<>Ideas, casos y herramientas para conectar <strong>datos, IA y negocio.</strong> Una biblioteca de proyectos prácticos para explorar problemas reales y aprender a resolverlos.</>)}</p></section>
 <div class="resource-filters" role="group" aria-label={en?'Filter cases':'Filtrar casos'}>{filters.map(([id,label],i)=><button type="button" data-filter={id} class:list={{active:i===0}} aria-pressed={i===0?'true':'false'}>{label}</button>)}</div>
 <section class="resource-grid" aria-label={en?'Business analytics case studies':'Casos de Business Analytics'}>{cases.map((item,i)=><article class="resource-card" data-category={item.cat}><div class:list={['resource-art','art-'+item.art]} aria-hidden="true"><div class="resource-illustration">
@@ -98,4 +98,20 @@ const buttons=document.querySelectorAll<HTMLButtonElement>('.resource-filters bu
 .resource-card:nth-child(4n + 1) .resource-art,.resource-card:nth-child(4n + 2) .resource-art{color:#e9c75f}
 .resource-card:nth-child(4n + 3) .resource-art,.resource-card:nth-child(4n + 4) .resource-art{color:#4b123b}
 @media(max-width:580px){.ill-circles i{width:40px;height:40px}.ill-steps i{width:30px}}
+
+/* Larger editorial italic headings on both library pages. */
+.resource-intro h1{font:italic 400 clamp(88px,12vw,190px)/1.08 'Playfair Display',Georgia,serif;letter-spacing:-.07em;color:#4b123b;white-space:normal}
+@media(max-width:700px){.resource-intro h1{font-size:clamp(67px,14vw,110px)}}
+/* Consulting cases explicitly inherit the visual library treatment. */
+.consulting-cases-page .resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:65px 24px;max-width:1400px;margin-inline:auto}
+.consulting-cases-page .resource-card{display:block;text-align:center;min-width:0}
+.consulting-cases-page .resource-card[hidden]{display:none}
+.consulting-cases-page .resource-art{position:relative;display:grid;place-items:center;aspect-ratio:1.45;overflow:hidden}
+.consulting-cases-page .resource-card:nth-child(4n + 1) .resource-art{background:#171717;color:#e9c75f}
+.consulting-cases-page .resource-card:nth-child(4n + 2) .resource-art{background:#4b123b;color:#e9c75f}
+.consulting-cases-page .resource-card:nth-child(4n + 3) .resource-art{background:#e9c75f;color:#4b123b}
+.consulting-cases-page .resource-card:nth-child(4n + 4) .resource-art{background:#f1e8de;color:#4b123b;border:1px solid #d9cbc2}
+.consulting-cases-page .resource-illustration{position:absolute;inset:13%;display:grid;place-items:center;color:inherit}
+@media(max-width:900px){.consulting-cases-page .resource-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.consulting-cases-page .resource-grid{grid-template-columns:1fr}}
 </style>
