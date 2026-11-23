@@ -114,4 +114,11 @@ const buttons=document.querySelectorAll<HTMLButtonElement>('.resource-filters bu
 .consulting-cases-page .resource-illustration{position:absolute;inset:13%;display:grid;place-items:center;color:inherit}
 @media(max-width:900px){.consulting-cases-page .resource-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:580px){.consulting-cases-page .resource-grid{grid-template-columns:1fr}}
+
+/* Keep the longer consulting title inside the viewport on all screen sizes. */
+.consulting-cases-page .resource-intro{min-width:0;max-width:100%;box-sizing:border-box;overflow:hidden}
+.consulting-cases-page .resource-intro h1{font-size:clamp(48px,8.5vw,132px);line-height:1.12;letter-spacing:-.055em;max-width:100%;overflow-wrap:normal}
+.consulting-cases-page .resource-grid{width:100%;box-sizing:border-box}
+.consulting-cases-page .resource-card,.consulting-cases-page .resource-art{box-sizing:border-box;max-width:100%}
+@media(max-width:700px){.consulting-cases-page .resource-intro h1{font-size:clamp(44px,10vw,75px)}}
 </style>
