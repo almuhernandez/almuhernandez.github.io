@@ -833,3 +833,13 @@ body:has(.almu-landing) footer{background:#f1e8de;margin-top:0;width:100%;paddin
 .site-header .brand .brand-star{display:inline-block;flex:none;color:#e9c75f;font-family:Arial,sans-serif;font-style:normal;font-size:54px;font-weight:400;line-height:1}
 .site-header .brand::after{content:none}
 @media(max-width:46rem){.site-header .brand .brand-star{font-size:54px}}
+
+/* Shared wordmark and navigation on Home, Resources and Consulting case studies. */
+body:has(.resource-page){background:#f1e8de}
+body:has(.resource-page) .site-header{width:100%;min-height:102px;margin:0;padding:0 clamp(24px,7vw,110px);background:#fff;border:0;box-shadow:none}
+body:has(.resource-page) .site-header .brand{background:transparent;border:0;box-shadow:none;padding:0;font-family:'Caveat','Brush Script MT',cursive;font-style:italic;font-size:clamp(38px,3.5vw,57px);font-weight:500;letter-spacing:-.025em;line-height:1;color:#4b123b}
+body:has(.resource-page) footer{background:#f1e8de;margin-top:0;width:100%;padding:1.5rem clamp(24px,7vw,110px);box-sizing:border-box}
+.site-header .brand .brand-name{white-space:nowrap}
+.site-header .brand .brand-final-z{font-family:Arial,Helvetica,sans-serif;font-style:normal;font-weight:400;font-size:.61em;letter-spacing:-.06em;vertical-align:baseline;margin-left:-.035em}
+@media(max-width:68rem){body:has(.resource-page) .site-header{gap:12px;padding-block:15px}}
+@media(max-width:46rem){body:has(.resource-page) .site-header{min-height:90px}body:has(.resource-page) .site-header .brand{font-size:43px}}
