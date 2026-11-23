@@ -26,10 +26,7 @@ eyebrow:'ANALYTICS · IA · CONSULTORÍA · FORMACIÓN',titleA:'Datos e IA para 
 <section id="sobre-mi" class="almu-about"><div class="almu-about-image"><img src="/images/profesional.jpeg" loading="lazy" alt={en?'Almu Hernández sitting outdoors':'Almu Hernández sentada en un sofá'} /></div><div class="almu-about-quote"><p class="almu-eyebrow">{t.aboutLabel}</p><h2>{t.aboutTitle}</h2><p class="almu-about-text">{t.about1}</p><p class="almu-about-text">{t.about2}</p><p class="almu-about-text">{t.about3}</p><span class="almu-quote-mark" aria-hidden="true">“</span><blockquote>{en?'The key is connecting the business problem to the right analysis and technology.':'Hace falta conectar el problema de negocio con el análisis y la tecnología adecuados.'}</blockquote><a class="almu-btn almu-about-cta" href={en?'/about/':'/es/sobre-mi/'}>{en?'Discover my journey':'Conoce mi trayectoria'} ↗</a></div></section>
 <section class="almu-clients" aria-label={t.clientsLabel}>
 <p class="almu-clients-label">{t.clientsLabel}</p>
-<div class="almu-clients-version-label">{en?'OPTION 1 · NAMES':'OPCIÓN 1 · NOMBRES'}</div>
-<div class="almu-clients-marquee"><div class="almu-clients-track">{Array.from({length:2}).map(()=><div class="almu-clients-set">{clients.map(([name])=><><span class="almu-client-name">{name}</span><span class="almu-client-star" aria-hidden="true">✳</span></>)}</div>)}</div></div>
-<div class="almu-clients-version-label almu-clients-version-second">{en?'OPTION 2 · LOGOS':'OPCIÓN 2 · LOGOS'}</div>
-<div class="almu-clients-marquee"><div class="almu-clients-track almu-clients-track-reverse">{Array.from({length:2}).map(()=><div class="almu-clients-set">{clients.map(([name,domain])=><><span class="almu-client-logo" title={name}><img src={'https://www.google.com/s2/favicons?domain='+domain+'&sz=128'} alt="" loading="lazy" /><span>{name}</span></span><span class="almu-client-star" aria-hidden="true">✳</span></>)}</div>)}</div></div>
+<div class="almu-clients-marquee"><div class="almu-clients-track">{Array.from({length:2}).map(()=><div class="almu-clients-set">{clients.map(([name,domain])=><><span class="almu-client-logo" title={name}>{name==='Bankia'?<img class="almu-logo-bankia" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Bankia_logo.svg" alt="Bankia" loading="lazy" />:name==='Direct Line Group'?<><span class="almu-logo-phone" aria-hidden="true">☎</span><span>Direct Line Group</span></>:<><img src={'https://www.google.com/s2/favicons?domain='+(name==='Chiper'?'soychiper.com':domain)+'&sz=128'} alt="" loading="lazy" /><span>{name}</span></>}</span><span class="almu-client-star" aria-hidden="true">✳</span></>)}</div>)}</div></div>
 </section>
 <section id="hablemos" class="almu-contact"><div><p class="almu-eyebrow">{t.contactLabel}</p><h2>{t.contactTitle}</h2></div><div><p>{t.contactBody}</p><div class="almu-actions"><a class="almu-btn" href="mailto:info@almuhernandez.com">{t.email} ↗</a></div></div></section>
 </div>
@@ -107,6 +104,8 @@ eyebrow:'ANALYTICS · IA · CONSULTORÍA · FORMACIÓN',titleA:'Datos e IA para 
 .almu-client-star{color:#e9c75f;font-size:23px;flex:none}
 .almu-clients-track-reverse{animation-direction:reverse}
 @media(max-width:800px){.almu-about{grid-template-columns:1fr;justify-items:center;gap:24px;padding:40px 25px}.almu-about-image{width:min(100%,260px);height:300px}.almu-about-quote{width:min(100%,610px)}}
+.almu-logo-bankia{width:112px!important;height:42px!important;max-width:none!important;object-fit:contain!important;background:#fff;border-radius:4px;padding:5px}
+.almu-logo-phone{font-family:Arial,sans-serif;color:#e62832;font-size:39px;line-height:1;display:inline-block;transform:rotate(-12deg)}
 /* Keep the moving band in its own layout and paint layer, below the hero. */
 .almu-landing{display:flow-root}
 .almu-hero{position:relative;z-index:0;isolation:isolate;overflow:clip;grid-auto-rows:auto}
