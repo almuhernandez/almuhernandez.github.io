@@ -18,19 +18,19 @@ const cases=[
 const filters=en?[['all','All'],['customer','Customers'],['retail','Marketing & retail'],['product','Business & product'],['predictive','Predictive models']]:[['all','Todos'],['customer','Clientes'],['retail','Marketing y retail'],['product','Negocio y producto'],['predictive','Modelos predictivos']];
 
 const library=[
-{slug:'customer-segmentation',topic:'analytics',audience:'data',art:'seg',title:['Segmentación de clientes','Customer segmentation'],desc:['Cómo identificar grupos de clientes y oportunidades de negocio.','How to identify customer groups and business opportunities.']},
-{slug:'market-basket-analysis',topic:'analytics',audience:'data',art:'basket',title:['Análisis de cesta de compra','Market basket analysis'],desc:['Patrones de compra y relaciones entre productos.','Shopping patterns and product relationships.']},
-{slug:'customer-churn-retention',topic:'business',audience:'business',art:'churn',title:['Retención de clientes','Customer retention'],desc:['Cómo detectar señales de abandono y priorizar acciones.','How to detect churn signals and prioritize action.']},
-{slug:'propensity-modelling',topic:'analytics',audience:'data',art:'model',title:['Modelos de propensión','Propensity models'],desc:['Introducción a la predicción de comportamientos.','An introduction to predicting behaviour.']},
-{slug:'customer-lifetime-value',topic:'business',audience:'business',art:'clv',title:['Valor de vida del cliente (CLV)','Customer lifetime value (CLV)'],desc:['Una métrica para conectar análisis y estrategia.','A metric connecting analytics and strategy.']},
-{slug:'marketing-campaign-effectiveness',topic:'business',audience:'business',art:'campaign',title:['Medición de campañas','Campaign measurement'],desc:['Cómo evaluar resultados e impacto.','How to evaluate outcomes and impact.']},
-{slug:'product-feature-adoption',topic:'business',audience:'business',art:'adoption',title:['Analítica de producto','Product analytics'],desc:['Comprender cómo se utilizan las funcionalidades.','Understand how features are used.']},
-{slug:'sales-funnel-conversion',topic:'visualization',audience:'business',art:'funnel',title:['Análisis del embudo de conversión','Conversion funnel analysis'],desc:['Visualizar el recorrido y detectar fricciones.','Visualize the journey and spot friction.']},
-{slug:'pricing-revenue-analysis',topic:'business',audience:'business',art:'pricing',title:['Análisis de precios e ingresos','Pricing and revenue analysis'],desc:['Datos para apoyar decisiones comerciales.','Data to support commercial decisions.']},
-{slug:'demand-sales-forecasting',topic:'analytics',audience:'data',art:'forecast',title:['Previsión de demanda','Demand forecasting'],desc:['Explorar tendencias y anticipar necesidades.','Explore trends and anticipate demand.']}
+{slug:'customer-segmentation',topic:'analytics',audience:'students',art:'seg',title:['Segmentación de clientes','Customer segmentation'],desc:['Cómo identificar grupos de clientes y oportunidades de negocio.','How to identify customer groups and business opportunities.']},
+{slug:'market-basket-analysis',topic:'analytics',audience:'students',art:'basket',title:['Análisis de cesta de compra','Market basket analysis'],desc:['Patrones de compra y relaciones entre productos.','Shopping patterns and product relationships.']},
+{slug:'customer-churn-retention',topic:'business',audience:'analysts',art:'churn',title:['Retención de clientes','Customer retention'],desc:['Cómo detectar señales de abandono y priorizar acciones.','How to detect churn signals and prioritize action.']},
+{slug:'propensity-modelling',topic:'analytics',audience:'students',art:'model',title:['Modelos de propensión','Propensity models'],desc:['Introducción a la predicción de comportamientos.','An introduction to predicting behaviour.']},
+{slug:'customer-lifetime-value',topic:'business',audience:'analysts',art:'clv',title:['Valor de vida del cliente (CLV)','Customer lifetime value (CLV)'],desc:['Una métrica para conectar análisis y estrategia.','A metric connecting analytics and strategy.']},
+{slug:'marketing-campaign-effectiveness',topic:'business',audience:'analysts',art:'campaign',title:['Medición de campañas','Campaign measurement'],desc:['Cómo evaluar resultados e impacto.','How to evaluate outcomes and impact.']},
+{slug:'product-feature-adoption',topic:'business',audience:'analysts',art:'adoption',title:['Analítica de producto','Product analytics'],desc:['Comprender cómo se utilizan las funcionalidades.','Understand how features are used.']},
+{slug:'sales-funnel-conversion',topic:'visualization',audience:'students',art:'funnel',title:['Análisis del embudo de conversión','Conversion funnel analysis'],desc:['Visualizar el recorrido y detectar fricciones.','Visualize the journey and spot friction.']},
+{slug:'pricing-revenue-analysis',topic:'business',audience:'analysts',art:'pricing',title:['Análisis de precios e ingresos','Pricing and revenue analysis'],desc:['Datos para apoyar decisiones comerciales.','Data to support commercial decisions.']},
+{slug:'demand-sales-forecasting',topic:'analytics',audience:'analysts',art:'forecast',title:['Previsión de demanda','Demand forecasting'],desc:['Explorar tendencias y anticipar necesidades.','Explore trends and anticipate demand.']}
 ];
 const topicNames={analytics:['Analítica de datos','Data analytics'],ai:['IA aplicada','Applied AI'],visualization:['Visualización y BI','Visualization & BI'],business:['Estrategia y negocio','Strategy & business'],learning:['Aprendizaje','Learning']};
-const audienceNames={business:['Negocio','Business'],data:['Perfiles de datos','Data professionals'],learning:['Aprendizaje','Learners']};
+const audienceNames={analysts:['Analistas','Analysts'],students:['Estudiantes','Students']};
 
 const pdfs:Record<string,string>={
 'customer-segmentation':'/case-studies/customer-segmentation-case-study.pdf',
