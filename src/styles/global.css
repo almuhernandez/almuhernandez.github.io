@@ -861,3 +861,10 @@ body.unified-brand-header .site-header .brand .brand-star{
   -webkit-text-stroke:1.25px currentColor;
   paint-order:stroke fill;
 }
+
+/* LinkedIn icon next to the copyright in the shared footer. */
+footer .footer-identity{display:inline-flex;align-items:center;gap:13px;flex-wrap:wrap}
+footer .footer-identity p{margin:0}
+footer .footer-linkedin{display:inline-flex;align-items:center;justify-content:center;color:#4b123b;text-decoration:none;line-height:1}
+footer .footer-linkedin:hover{color:#171717}
+footer .footer-linkedin svg{display:block}
