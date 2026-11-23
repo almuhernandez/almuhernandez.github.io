@@ -33,7 +33,17 @@ const pdfs:Record<string,string>={
 <div class="resource-page">
 <section class="resource-intro" id="recursos"><h1>{consulting?(en?'Case studies':'Casos de uso'):(en?'Resources':'Recursos')}</h1><p>{consulting?(en?'A selection of practical examples of how data and analytics can help address real challenges.': 'Algunos ejemplos prácticos de cómo los datos y la analítica pueden ayudar a resolver problemas reales.'):(en?<>Ideas, case studies and tools to connect <strong>data, AI and business.</strong> A library of practical projects to explore real problems and learn how to solve them.</>:<>Ideas, casos y herramientas para conectar <strong>datos, IA y negocio.</strong> Una biblioteca de proyectos prácticos para explorar problemas reales y aprender a resolverlos.</>)}</p></section>
 <div class="resource-filters" role="group" aria-label={en?'Filter cases':'Filtrar casos'}>{filters.map(([id,label],i)=><button type="button" data-filter={id} class:list={{active:i===0}} aria-pressed={i===0?'true':'false'}>{label}</button>)}</div>
-<section class="resource-grid" aria-label={en?'Business analytics case studies':'Casos de Business Analytics'}>{cases.map((item,i)=><article class="resource-card" data-category={item.cat}><div class:list={['resource-art','art-'+item.art]} aria-hidden="true"><div class="art-orbit"></div><div class="art-bars"><i></i><i></i><i></i><i></i><i></i></div><span class="art-label">{item.label}</span></div><h2>{item.title[en?1:0]}</h2><p class="resource-category">{item.label}</p><p class="resource-subtitle">{item.subtitle[en?1:0]}</p><a class="resource-download" href={pdfs[item.slug]} target="_blank" rel="noopener noreferrer" aria-label={(en?'Download PDF: ':'Descargar PDF: ')+item.title[en?1:0]}>{en?'Download PDF':'Descargar PDF'} ↗</a></article>)}</section>
+<section class="resource-grid" aria-label={en?'Business analytics case studies':'Casos de Business Analytics'}>{cases.map((item,i)=><article class="resource-card" data-category={item.cat}><div class:list={['resource-art','art-'+item.art]} aria-hidden="true"><div class="resource-illustration">
+{item.art==='seg'&&<div class="ill-circles">{Array.from({length:7}).map(()=> <i></i>)}</div>}
+{item.art==='basket'&&<div class="ill-matrix">{Array.from({length:48}).map((_,j)=><i style={{opacity:String(.2+((j*7)%8)/10)}}></i>)}</div>}
+{(item.art==='churn'||item.art==='forecast')&&<svg class="ill-line" viewBox="0 0 300 140" aria-hidden="true"><polyline fill="none" points={item.art==='churn'?'0,28 45,39 85,30 120,61 165,54 205,89 245,99 300,130':'0,118 45,98 85,106 120,64 165,78 205,40 245,48 300,12'} stroke="currentColor" stroke-width="7"/></svg>}
+{item.art==='model'&&<div class="ill-bars">{[25,41,36,64,55,83,69,94].map(v=><i style={{height:v+'%'}}></i>)}</div>}
+{item.art==='clv'&&<div class="ill-number">€<span>∞</span></div>}
+{item.art==='campaign'&&<div class="ill-donut"></div>}
+{item.art==='adoption'&&<div class="ill-steps">{[50,80,120,160].map(v=><i style={{height:v+'px'}}></i>)}</div>}
+{item.art==='funnel'&&<div class="ill-funnel">{[240,185,130,75].map(v=><i style={{width:v+'px'}}></i>)}</div>}
+{item.art==='pricing'&&<div class="ill-number">↗<span>€</span></div>}
+</div><span class="art-caption">{item.subtitle[en?1:0]}</span></div><h2>{item.title[en?1:0]}</h2><p class="resource-category">{item.label}</p><p class="resource-subtitle">{item.subtitle[en?1:0]}</p><a class="resource-download" href={pdfs[item.slug]} target="_blank" rel="noopener noreferrer" aria-label={(en?'Download PDF: ':'Descargar PDF: ')+item.title[en?1:0]}>{en?'Download PDF':'Descargar PDF'} ↗</a></article>)}</section>
 {consulting?<section class="resource-contact"><div><h2>{en?"Can't find what you're looking for?":'¿No encuentras lo que buscas?'}</h2><p>{en?"These are just a few examples, but we can talk if what you need isn't in this catalogue.":'Estos son solo algunos ejemplos, pero podemos hablar si lo que necesitas no está en este catálogo.'}</p></div><a href={en?'/#hablemos':'/es/#hablemos'}>{en?"Let's talk":'Hablemos'} ↗</a></section>:<section class="resource-learning"><h2>{en?'Learning is also applying.':'Aprender también es aplicar.'}</h2><p>{en?'Beyond business cases, I share learning resources and tools to put analytics into practice.':'Además de los casos de negocio, comparto recursos de formación y herramientas para llevar la analítica a la práctica.'}</p><a href={en?'/students/':'/es/estudiantes/'}>{en?'Explore learning resources ↗':'Explorar recursos de aprendizaje ↗'}</a></section>}
 </div>
 </BaseLayout>
@@ -72,4 +82,20 @@ const buttons=document.querySelectorAll<HTMLButtonElement>('.resource-filters bu
 .resource-contact>a{flex:none;display:inline-block;padding:18px 28px;background:#e9c75f;color:#171717;text-decoration:none;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .resource-contact>a:hover{background:#fff}
 @media(max-width:700px){.resource-contact{flex-direction:column;align-items:flex-start;padding:75px 25px}.resource-intro h1{font-size:clamp(56px,13vw,78px)}}
+
+/* Distinct illustrations from the approved case-study preview. */
+.resource-art{display:grid;place-items:center}
+.resource-illustration{position:absolute;inset:13%;display:grid;place-items:center;opacity:.82;color:inherit}
+.art-caption{position:absolute;bottom:18px;left:22px;right:22px;max-width:75%;text-align:left;font:400 clamp(17px,1.6vw,24px)/1.15 'Playfair Display',Georgia,serif}
+.ill-circles{display:flex;flex-wrap:wrap;width:min(220px,85%);gap:12px;justify-content:center}.ill-circles i{width:52px;height:52px;max-width:25%;aspect-ratio:1;border-radius:50%;background:currentColor}.ill-circles i:nth-child(even){opacity:.28}
+.ill-matrix{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;width:min(220px,85%)}.ill-matrix i{background:currentColor;aspect-ratio:1}
+.ill-line{width:min(300px,95%);overflow:visible}
+.ill-bars{display:flex;align-items:end;gap:9px;width:70%;height:150px}.ill-bars i{background:currentColor;flex:1}
+.ill-number{font-family:Georgia,serif;font-size:clamp(70px,8vw,120px);line-height:1}.ill-number span{font-size:.6em}
+.ill-donut{width:165px;height:165px;border:35px solid currentColor;border-right-color:transparent;border-radius:50%;transform:rotate(30deg)}
+.ill-steps{display:flex;gap:10px;align-items:end}.ill-steps i{width:45px;max-width:20%;background:currentColor}
+.ill-funnel{display:grid;justify-items:center;gap:8px}.ill-funnel i{height:28px;background:currentColor;max-width:100%}
+.resource-card:nth-child(4n + 1) .resource-art,.resource-card:nth-child(4n + 2) .resource-art{color:#e9c75f}
+.resource-card:nth-child(4n + 3) .resource-art,.resource-card:nth-child(4n + 4) .resource-art{color:#4b123b}
+@media(max-width:580px){.ill-circles i{width:40px;height:40px}.ill-steps i{width:30px}}
 </style>
