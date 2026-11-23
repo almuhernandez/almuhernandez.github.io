@@ -16,6 +16,22 @@ const cases=[
 {slug:'demand-sales-forecasting',title:['Previsión de demanda','Demand forecasting'],subtitle:['Anticipar tendencias y necesidades','Anticipate trends and demand'],cat:'predictive',label:'PREDICTIVE ANALYTICS',art:'forecast'}
 ];
 const filters=en?[['all','All'],['customer','Customers'],['retail','Marketing & retail'],['product','Business & product'],['predictive','Predictive models']]:[['all','Todos'],['customer','Clientes'],['retail','Marketing y retail'],['product','Negocio y producto'],['predictive','Modelos predictivos']];
+
+const library=[
+{slug:'customer-segmentation',topic:'analytics',audience:'data',art:'seg',title:['Segmentación de clientes','Customer segmentation'],desc:['Cómo identificar grupos de clientes y oportunidades de negocio.','How to identify customer groups and business opportunities.']},
+{slug:'market-basket-analysis',topic:'analytics',audience:'data',art:'basket',title:['Análisis de cesta de compra','Market basket analysis'],desc:['Patrones de compra y relaciones entre productos.','Shopping patterns and product relationships.']},
+{slug:'customer-churn-retention',topic:'business',audience:'business',art:'churn',title:['Retención de clientes','Customer retention'],desc:['Cómo detectar señales de abandono y priorizar acciones.','How to detect churn signals and prioritize action.']},
+{slug:'propensity-modelling',topic:'analytics',audience:'data',art:'model',title:['Modelos de propensión','Propensity models'],desc:['Introducción a la predicción de comportamientos.','An introduction to predicting behaviour.']},
+{slug:'customer-lifetime-value',topic:'business',audience:'business',art:'clv',title:['Valor de vida del cliente (CLV)','Customer lifetime value (CLV)'],desc:['Una métrica para conectar análisis y estrategia.','A metric connecting analytics and strategy.']},
+{slug:'marketing-campaign-effectiveness',topic:'business',audience:'business',art:'campaign',title:['Medición de campañas','Campaign measurement'],desc:['Cómo evaluar resultados e impacto.','How to evaluate outcomes and impact.']},
+{slug:'product-feature-adoption',topic:'business',audience:'business',art:'adoption',title:['Analítica de producto','Product analytics'],desc:['Comprender cómo se utilizan las funcionalidades.','Understand how features are used.']},
+{slug:'sales-funnel-conversion',topic:'visualization',audience:'business',art:'funnel',title:['Análisis del embudo de conversión','Conversion funnel analysis'],desc:['Visualizar el recorrido y detectar fricciones.','Visualize the journey and spot friction.']},
+{slug:'pricing-revenue-analysis',topic:'business',audience:'business',art:'pricing',title:['Análisis de precios e ingresos','Pricing and revenue analysis'],desc:['Datos para apoyar decisiones comerciales.','Data to support commercial decisions.']},
+{slug:'demand-sales-forecasting',topic:'analytics',audience:'data',art:'forecast',title:['Previsión de demanda','Demand forecasting'],desc:['Explorar tendencias y anticipar necesidades.','Explore trends and anticipate demand.']}
+];
+const topicNames={analytics:['Analítica de datos','Data analytics'],ai:['IA aplicada','Applied AI'],visualization:['Visualización y BI','Visualization & BI'],business:['Estrategia y negocio','Strategy & business'],learning:['Aprendizaje','Learning']};
+const audienceNames={business:['Negocio','Business'],data:['Perfiles de datos','Data professionals'],learning:['Aprendizaje','Learners']};
+
 const pdfs:Record<string,string>={
 'customer-segmentation':'/case-studies/customer-segmentation-case-study.pdf',
 'market-basket-analysis':'/case-studies/market_basket_analysis_case_study_v1_2pages.pdf',
@@ -32,6 +48,7 @@ const pdfs:Record<string,string>={
 <BaseLayout title={consulting?(en?'Case studies':'Casos de uso'):(en?'Resources':'Recursos')} locale={locale} alternates={consulting?[{locale:'es',href:'/es/consultoria/casos-de-uso/'},{locale:'en',href:'/consulting/case-studies/'}]:[{locale:'es',href:'/es/recursos/'},{locale:'en',href:'/resources/'}]}>
 <div class:list={["resource-page",{"consulting-cases-page":consulting}]}>
 <section class="resource-intro" id="recursos"><h1>{consulting?(en?'Case studies':'Casos de uso'):(en?'Resources':'Recursos')}</h1><p>{consulting?(en?'A selection of practical examples of how data and analytics can help address real challenges.': 'Algunos ejemplos prácticos de cómo los datos y la analítica pueden ayudar a resolver problemas reales.'):(en?<>Ideas, case studies and tools to connect <strong>data, AI and business.</strong> A library of practical projects to explore real problems and learn how to solve them.</>:<>Ideas, casos y herramientas para conectar <strong>datos, IA y negocio.</strong> Una biblioteca de proyectos prácticos para explorar problemas reales y aprender a resolverlos.</>)}</p></section>
+{consulting ? <>
 <div class="resource-filters" role="group" aria-label={en?'Filter cases':'Filtrar casos'}>{filters.map(([id,label],i)=><button type="button" data-filter={id} class:list={{active:i===0}} aria-pressed={i===0?'true':'false'}>{label}</button>)}</div>
 <section class="resource-grid" aria-label={en?'Business analytics case studies':'Casos de Business Analytics'}>{cases.map((item,i)=><article class="resource-card" data-category={item.cat}><div class:list={['resource-art','art-'+item.art]} aria-hidden="true"><div class="resource-illustration">
 {item.art==='seg'&&<div class="ill-circles">{Array.from({length:7}).map(()=> <i></i>)}</div>}
@@ -44,11 +61,24 @@ const pdfs:Record<string,string>={
 {item.art==='funnel'&&<div class="ill-funnel">{[240,185,130,75].map(v=><i style={{width:v+'px'}}></i>)}</div>}
 {item.art==='pricing'&&<div class="ill-number">↗<span>€</span></div>}
 </div><span class="art-caption">{item.subtitle[en?1:0]}</span></div><h2>{item.title[en?1:0]}</h2><p class="resource-category">{item.label}</p><p class="resource-subtitle">{item.subtitle[en?1:0]}</p><a class="resource-download" href={pdfs[item.slug]} target="_blank" rel="noopener noreferrer" aria-label={(en?'Download PDF: ':'Descargar PDF: ')+item.title[en?1:0]}>{en?'Download PDF':'Descargar PDF'} ↗</a></article>)}</section>
+
+</> : <>
+<div class="library-controls" aria-label={en?'Resource filters':'Filtros de recursos'}>
+<div class="library-filter-group"><span>{en?'TOPIC':'TEMÁTICA'}</span><div class="library-options" data-filter-group="topic"><button class="active" data-value="all" aria-pressed="true">{en?'All':'Todas'}</button>{Object.entries(topicNames).map(([id,labels])=><button data-value={id} aria-pressed="false">{labels[en?1:0]}</button>)}</div></div>
+<div class="library-filter-row"><div class="library-filter-group"><span>{en?'FORMAT':'FORMATO'}</span><div class="library-options" data-filter-group="format"><button class="active" data-value="all" aria-pressed="true">{en?'All':'Todos'}</button><button data-value="pdf" aria-pressed="false">PDF</button><button data-value="article" aria-pressed="false">{en?'Article':'Artículo'}</button><button data-value="video" aria-pressed="false">{en?'Video':'Vídeo'}</button><button data-value="template" aria-pressed="false">{en?'Template':'Plantilla'}</button><button data-value="code" aria-pressed="false">{en?'Code':'Código'}</button></div></div><div class="library-filter-group"><span>{en?'FOR WHOM':'DESTINATARIO'}</span><div class="library-options" data-filter-group="audience"><button class="active" data-value="all" aria-pressed="true">{en?'All':'Todos'}</button>{Object.entries(audienceNames).map(([id,labels])=><button data-value={id} aria-pressed="false">{labels[en?1:0]}</button>)}</div></div></div>
+</div>
+<p class="library-count" aria-live="polite"><span id="library-count">{library.length}</span> {en?'resources':'recursos'}</p>
+<section class="resource-grid library-grid" aria-label={en?'Resource library':'Biblioteca de recursos'}>{library.map((item,i)=><article class="resource-card library-card" data-topic={item.topic} data-format="pdf" data-audience={item.audience}><div class:list={['resource-art','art-'+item.art]} aria-hidden="true"><div class="library-art-symbol">{['◉','▦','↘','▥','∞','◌','▤','▽','↗','⌁'][i]}</div><span class="art-caption">{topicNames[item.topic][en?1:0]}</span></div><div class="library-card-meta"><span>PDF</span><span>{audienceNames[item.audience][en?1:0]}</span></div><h2>{item.title[en?1:0]}</h2><p class="resource-subtitle">{item.desc[en?1:0]}</p><a class="resource-download" href={pdfs[item.slug]} target="_blank" rel="noopener noreferrer">{en?'View PDF':'Ver PDF'} ↗</a></article>)}</section>
+<p class="library-empty" hidden>{en?'No resources match these filters yet. Try another combination.':'Todavía no hay recursos para esta combinación. Prueba otros filtros.'}</p>
+</>}
 {consulting?<section class="resource-contact"><div><h2>{en?"Can't find what you're looking for?":'¿No encuentras lo que buscas?'}</h2><p>{en?"These are just a few examples, but we can talk if what you need isn't in this catalogue.":'Estos son solo algunos ejemplos, pero podemos hablar si lo que necesitas no está en este catálogo.'}</p></div><a href={en?'/#hablemos':'/es/#hablemos'}>{en?"Let's talk":'Hablemos'} ↗</a></section>:null}
 </div>
 </BaseLayout>
 <script>
-const buttons=document.querySelectorAll<HTMLButtonElement>('.resource-filters button');const cards=document.querySelectorAll<HTMLElement>('.resource-card');buttons.forEach(button=>button.addEventListener('click',()=>{const filter=button.dataset.filter;buttons.forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button))});cards.forEach(card=>{card.hidden=filter!=='all'&&card.dataset.category!==filter})}));
+const buttons=document.querySelectorAll<HTMLButtonElement>('.consulting-cases-page .resource-filters button');const cards=document.querySelectorAll<HTMLElement>('.consulting-cases-page .resource-card');buttons.forEach(button=>button.addEventListener('click',()=>{const filter=button.dataset.filter;buttons.forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button))});cards.forEach(card=>{card.hidden=filter!=='all'&&card.dataset.category!==filter})}));
+
+const groups=document.querySelectorAll<HTMLElement>('.library-options');const libraryCards=document.querySelectorAll<HTMLElement>('.library-card');const chosen:Record<string,string>={topic:'all',format:'all',audience:'all'};
+groups.forEach(group=>group.querySelectorAll<HTMLButtonElement>('button').forEach(button=>button.addEventListener('click',()=>{const key=group.dataset.filterGroup!;chosen[key]=button.dataset.value!;group.querySelectorAll('button').forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button))});let count=0;libraryCards.forEach(card=>{const show=Object.entries(chosen).every(([k,v])=>v==='all'||card.dataset[k as keyof DOMStringMap]===v);card.hidden=!show;if(show)count++});const el=document.getElementById('library-count');if(el)el.textContent=String(count);const empty=document.querySelector<HTMLElement>('.library-empty');if(empty)empty.hidden=count!==0})));
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap');
@@ -121,4 +151,13 @@ const buttons=document.querySelectorAll<HTMLButtonElement>('.resource-filters bu
 .consulting-cases-page .resource-grid{width:100%;box-sizing:border-box}
 .consulting-cases-page .resource-card,.consulting-cases-page .resource-art{box-sizing:border-box;max-width:100%}
 @media(max-width:700px){.consulting-cases-page .resource-intro h1{font-size:clamp(44px,10vw,75px)}}
+
+/* The resource library has its own filters; consulting case studies stay unchanged. */
+.library-controls{max-width:1280px;margin:0 auto 42px;padding:0 clamp(20px,4vw,55px)}
+.library-filter-group{margin:0 0 24px}.library-filter-group>span{display:block;font:700 11px 'DM Sans',sans-serif;letter-spacing:.16em;color:#4b123b;margin-bottom:13px}
+.library-options{display:flex;flex-wrap:wrap;gap:9px}.library-options button{font:500 12px 'DM Sans',sans-serif;border:1px solid #cbbcb5;border-radius:2px;padding:10px 14px;background:transparent;color:#171717;cursor:pointer}.library-options button.active,.library-options button:hover{background:#4b123b;border-color:#4b123b;color:#fff}
+.library-filter-row{display:grid;grid-template-columns:1fr 1fr;gap:35px}
+.library-count{max-width:1280px;padding:0 clamp(20px,4vw,55px);margin:0 auto 30px;color:#5b4a52;font-size:13px}
+.library-grid{max-width:1280px}.library-card{text-align:left}.library-card .resource-art{aspect-ratio:1.55}.library-art-symbol{font:normal 400 clamp(90px,12vw,170px)/1 Georgia,serif;opacity:.82}.library-card .art-caption{font-size:18px}.library-card-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:19px}.library-card-meta span{font:700 10px 'DM Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;border:1px solid #bfaea8;padding:6px 8px}.library-card h2{margin-top:13px}.library-card .resource-subtitle{font-size:15px;line-height:1.6}.library-empty{text-align:center;padding:55px 20px;color:#4b123b}
+@media(max-width:700px){.library-filter-row{grid-template-columns:1fr;gap:0}}
 </style>
