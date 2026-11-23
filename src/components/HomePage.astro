@@ -24,7 +24,7 @@ eyebrow:'ANALYTICS · IA · CONSULTORÍA · FORMACIÓN',titleA:'Datos e IA para 
 <article class="almu-card almu-card-cream almu-card-wide almu-card-school"><span class="almu-coming-soon">{t.soon}</span><span class="almu-card-audience">05 / {t.coursesAudience}</span><h3>{t.courses}</h3><p>{t.coursesBody}</p><a class="almu-card-cta" href="#hablemos">{t.schoolCta} ↗</a></article>
 </div></section>
 <section id="sobre-mi" class="almu-about"><div class="almu-about-image"><img src="/images/profesional.jpeg" loading="lazy" alt={en?'Almu Hernández sitting outdoors':'Almu Hernández sentada en un sofá'} /></div><div class="almu-about-quote"><p class="almu-eyebrow">{t.aboutLabel}</p><h2>{t.aboutTitle}</h2><p class="almu-about-text">{t.about1}</p><p class="almu-about-text">{t.about2}</p><p class="almu-about-text">{t.about3}</p><span class="almu-quote-mark" aria-hidden="true">“</span><blockquote>{en?'The key is connecting the business problem to the right analysis and technology.':'Hace falta conectar el problema de negocio con el análisis y la tecnología adecuados.'}</blockquote><a class="almu-btn almu-about-cta" href={en?'/about/':'/es/sobre-mi/'}>{en?'Discover my journey':'Conoce mi trayectoria'} ↗</a></div></section>
-<section class="almu-clients" aria-label={t.clientsLabel}><p class="almu-clients-label">{t.clientsLabel}</p><div class="almu-clients-marquee"><div class="almu-clients-track">{Array.from({length:4}).map(()=><div class="almu-clients-set">{clients.map(([name,domain])=><div class="almu-client" title={name}><img src={'https://logo.clearbit.com/'+domain} alt="" loading="lazy" onerror="this.style.display='none'" /><span>{name}</span></div>)}</div>)}</div></div></section>
+<section class="almu-clients" aria-label={t.clientsLabel}><p class="almu-clients-label">{t.clientsLabel}</p><div class="almu-clients-marquee"><div class="almu-clients-track">{Array.from({length:4}).map(()=><div class="almu-clients-set">{clients.map(([name,domain])=><div class="almu-client" title={name}><img src={'https://logo.clearbit.com/'+domain} alt={name} loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" /><span class="almu-client-fallback">{name}</span></div><span class="almu-client-star" aria-hidden="true">✳</span>)}</div>)}</div></div></section>
 <section id="hablemos" class="almu-contact"><div><p class="almu-eyebrow">{t.contactLabel}</p><h2>{t.contactTitle}</h2></div><div><p>{t.contactBody}</p><div class="almu-actions"><a class="almu-btn" href="mailto:info@almuhernandez.com">{t.email} ↗</a></div></div></section>
 </div>
 </BaseLayout>
@@ -68,6 +68,21 @@ eyebrow:'ANALYTICS · IA · CONSULTORÍA · FORMACIÓN',titleA:'Datos e IA para 
 @keyframes almu-clients-scroll{to{transform:translateX(-50%)}}
 @media(max-width:800px){.almu-about{grid-template-columns:1fr}.almu-about-image{width:min(100%,380px);height:360px;min-height:0;margin-inline:auto}.almu-clients-set{gap:28px;padding-right:28px}}
 @media(prefers-reduced-motion:reduce){.almu-clients-track{animation:none}}
+/* Tighter About section: portrait and copy aligned on a compact row. */
+.almu-about{grid-template-columns:minmax(0,29%) minmax(0,1fr);gap:clamp(26px,4vw,60px);padding:clamp(35px,4vw,60px) clamp(28px,7vw,110px);align-items:center}
+.almu-about-image{height:clamp(280px,29vw,370px);min-height:0;align-self:center}
+.almu-about-quote{justify-content:center}
+.almu-about-quote h2{font-size:clamp(34px,3.5vw,58px);margin:12px 0}
+.almu-about-quote .almu-about-text{font-size:clamp(14px,1.1vw,16px);line-height:1.48;margin:5px 0}
+.almu-about-quote .almu-quote-mark{display:none}
+.almu-about-quote blockquote{font-size:clamp(22px,2vw,33px);line-height:1.18;margin:10px 0}
+.almu-about-cta{margin-top:12px}
+.almu-clients-set{gap:26px;padding-right:26px}
+.almu-client{min-width:90px}
+.almu-client img{max-height:42px;max-width:135px}
+.almu-client-fallback{display:none}
+.almu-client-star{color:#e9c75f;font-size:24px;line-height:1;flex:none}
+@media(max-width:800px){.almu-about{grid-template-columns:1fr;padding:40px 25px;gap:25px}.almu-about-image{height:300px;width:min(100%,310px);min-height:0}.almu-about-quote h2{font-size:43px}.almu-about-quote .almu-about-text{font-size:15px}}
 /* Keep the moving band in its own layout and paint layer, below the hero. */
 .almu-landing{display:flow-root}
 .almu-hero{position:relative;z-index:0;isolation:isolate;overflow:clip;grid-auto-rows:auto}
