@@ -14,3 +14,10 @@ const ui = sharedUi[locale];
     <a href="/privacidad/" hreflang="es" title={locale === 'en' ? ui.spanishOnly : undefined}>{ui.privacy}{locale === 'en' && <span class="nav-language"> ES</span>}</a>
   </nav>
 </footer>
+
+<style>
+footer .footer-identity{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+footer .footer-identity p{margin:0}
+footer .footer-linkedin{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 auto;width:24px;height:24px;color:#4b123b;visibility:visible!important;opacity:1!important}
+footer .footer-linkedin svg{display:block;width:19px;height:19px;fill:currentColor}
+</style>
