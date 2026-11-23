@@ -20,6 +20,7 @@ const {
 } = Astro.props;
 const pageTitle = title === 'Inicio' || title === 'Home' ? site.name : `${title} | ${site.name}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const unifiedHeader = ['/', '/es/', '/resources/', '/es/recursos/', '/consulting/case-studies/', '/es/consultoria/casos-de-uso/'].includes(Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -46,7 +47,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     )}
     <title>{pageTitle}</title>
   </head>
-  <body>
+  <body class:list={{"unified-brand-header":unifiedHeader}}>
     <a class="skip-link" href="#contenido">
       {locale === 'en' ? 'Skip to content' : 'Saltar al contenido'}
     </a>
