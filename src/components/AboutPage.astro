@@ -23,15 +23,15 @@ tools:'Herramientas con las que trabajo',toolLines:['Analítica y BI: SQL · Pow
 ---
 <BaseLayout title={en?'About me':'Sobre mí'} locale={locale} alternates={[{locale:'en',href:'/about/'},{locale:'es',href:'/es/sobre-mi/'}]}>
 <div class="story">
-<header class="story-title"><p class="eyebrow">{t.eyebrow}</p><h1>{en?'About me':'Sobre mí'}</h1></header>
+<section class="resource-intro story-title"><h1>{en?'About me':'Sobre mí'}</h1></section>
 <section class="story-hero"><figure class="story-photo"><img src="/images/about.jpeg" alt={en?'Almu Hernández smiling with a cup':'Almu Hernández sonriendo con una taza'} loading="eager" /></figure><div class="story-quote"><span aria-hidden="true">“</span><blockquote>{en?'The key is connecting the business problem to the right analysis and technology.':'Hace falta conectar el problema de negocio con el análisis y la tecnología adecuados.'}</blockquote></div></section>
 <div class="story-section-break" aria-hidden="true"><span>✳</span></div>
 
 <section class="story-section story-journey"><h2>{en?'My journey':'Mi trayectoria'}</h2><div class="story-timeline-variant"><div class="story-timeline story-timeline-horizontal">{t.stages.map((st,i)=><article class="story-stage"><span class="story-index">0{i+1}</span><div><p class="story-period">{st[0]}</p><h3>{st[1]}</h3><p class="story-org">{st[2]}</p><p>{st[3]}</p></div></article>)}</div></div></section>
 <section class="story-direction"><p class="eyebrow">{en?'TODAY':'HOY'}</p><h2>{en?'Connecting data, business and people':'Conectar datos, negocio y personas'}</h2><p>{en?'My work brings together analytical rigour, an understanding of business and the ability to explain complex ideas clearly. I use AI when it adds practical value: to explore, analyse, prototype and communicate better.':'Mi forma de trabajar combina rigor analítico, comprensión del negocio y capacidad para explicar ideas complejas con claridad. Incorporo la IA cuando aporta valor práctico: para investigar, analizar, crear prototipos y comunicar mejor.'}</p></section>
 
-<section class="story-section"><h2>{en?'Specialities':'Especialidades'}</h2><div class="story-areas">{t.areas.map((a,i)=><article><span>0{i+1}</span><div><h3>{a[0]}</h3><p>{a[1]}</p></div></article>)}</div></section>
-<section class="story-section story-toolkit"><h2>{t.tools}</h2><div class="story-tool-grid">{t.toolLines.flatMap(line=>line.split(': ').slice(1).join(': ').split(' · ')).map(tool=><span class="story-tool-chip">{tool}</span>)}</div></section>
+<section class="story-section"><h2>{en?'Specialities':'Especialidades'}</h2><div class="story-areas">{t.areas.map((a,i)=><article><span>0{i+1}</span><div><h3>{a[0]}</h3><p>{a[1]}</p></div></article>)}</div><div class="story-tools-under-expertise"><h3>{t.tools}</h3><div class="story-tool-grid">{t.toolLines.flatMap(line=>line.split(': ').slice(1).join(': ').split(' · ')).map(tool=><span class="story-tool-chip">{tool}</span>)}</div></div></section>
+
 <section class="story-cta"><h2>{t.cta}</h2><p>{t.ctaText}</p><div><a href={en?'/consulting/case-studies/':'/es/consultoria/casos-de-uso/'}>{t.cases} ↗</a><a href="mailto:info@almuhernandez.com">{t.contact} ↗</a></div></section>
 </div>
 </BaseLayout>
@@ -103,4 +103,4 @@ tools:'Herramientas con las que trabajo',toolLines:['Analítica y BI: SQL · Pow
 .story-tool-chip{display:inline-flex;align-items:center;border:1px solid #e9c75f;color:#f1e8de;border-radius:3px;padding:10px 14px;font-size:13px;line-height:1.25;white-space:nowrap}
 .story-cta{padding:clamp(70px,8vw,120px) clamp(24px,7vw,110px)}
 @media(max-width:850px){.story-hero{grid-template-columns:1fr;padding:22px}.story-title h1{font-size:clamp(58px,9vw,90px)}.story-timeline-horizontal{overflow-x:auto;grid-template-columns:repeat(3,minmax(240px,1fr));padding-bottom:20px}.story-timeline-horizontal:before{right:auto;width:850px}}
-</style>
+.story .resource-intro.story-title{display:block;background:transparent;border:0;margin:0;padding:clamp(75px,9vw,125px) 25px 50px}.story .resource-intro.story-title h1{font:normal 400 clamp(58px,7vw,110px)/1.06 'Playfair Display',Georgia,serif;letter-spacing:-.055em;color:#4b123b;white-space:normal;margin:0 0 30px}.story-tools-under-expertise{margin-top:65px}.story-tools-under-expertise h3{font:normal 400 clamp(27px,3vw,42px)/1.2 'Playfair Display',Georgia,serif;margin:0 0 22px;color:#4b123b}.story-tools-under-expertise .story-tool-grid{display:flex;flex-wrap:wrap;gap:9px;max-width:none}.story-tools-under-expertise .story-tool-chip{background:#171717;color:#f1e8de;border:1px solid #171717;border-radius:3px;padding:8px 12px;font-size:12px}</style>
