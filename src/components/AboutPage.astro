@@ -23,12 +23,14 @@ tools:'Herramientas con las que trabajo',toolLines:['Analítica y BI: SQL · Pow
 ---
 <BaseLayout title={en?'About me':'Sobre mí'} locale={locale} alternates={[{locale:'en',href:'/about/'},{locale:'es',href:'/es/sobre-mi/'}]}>
 <div class="story">
-<section class="story-hero"><div class="story-hero-copy"><p class="eyebrow">{t.eyebrow}</p><h1>{t.title}</h1><p class="story-lead">{t.intro}</p>{homeAbout.map(p=><p class="story-home-copy">{p}</p>)}</div><figure class="story-photo"><img src="/images/about.jpeg" alt={en?'Almu Hernández smiling with a cup':'Almu Hernández sonriendo con una taza'} loading="eager" /><figcaption>{en?'A little more about my journey':'Un poco más sobre mi trayectoria'}</figcaption></figure></section>
+<header class="story-title"><p class="eyebrow">{t.eyebrow}</p><h1>{en?'About me':'Sobre mí'}</h1></header>
+<section class="story-hero"><figure class="story-photo"><img src="/images/about.jpeg" alt={en?'Almu Hernández smiling with a cup':'Almu Hernández sonriendo con una taza'} loading="eager" /></figure><div class="story-quote"><span aria-hidden="true">“</span><blockquote>{en?'The key is connecting the business problem to the right analysis and technology.':'Hace falta conectar el problema de negocio con el análisis y la tecnología adecuados.'}</blockquote></div></section>
+<div class="story-section-break" aria-hidden="true"><span>✳</span></div>
 
-<section class="story-section"><p class="eyebrow">01 / {en?'EXPERIENCE':'EXPERIENCIA'}</p><h2>{t.journey}</h2><div class="story-timeline-showcase"><div class="story-timeline-variant"><p class="timeline-variant-label">{en?'OPTION A · HORIZONTAL':'OPCIÓN A · HORIZONTAL'}</p><div class="story-timeline story-timeline-horizontal">{t.stages.map((st,i)=><article class="story-stage"><span class="story-index">0{i+1}</span><div><p class="story-period">{st[0]}</p><h3>{st[1]}</h3><p class="story-org">{st[2]}</p><p>{st[3]}</p></div></article>)}</div></div><div class="story-timeline-variant"><p class="timeline-variant-label">{en?'OPTION B · VERTICAL':'OPCIÓN B · VERTICAL'}</p><div class="story-timeline story-timeline-vertical">{t.stages.map((st,i)=><article class="story-stage"><span class="story-index">0{i+1}</span><div><p class="story-period">{st[0]}</p><h3>{st[1]}</h3><p class="story-org">{st[2]}</p><p>{st[3]}</p></div></article>)}</div></div></div></section>
-<section class="story-direction"><p class="eyebrow">{en?'TODAY':'HOY'}</p><h2>{t.direction}</h2><p>{t.directionText}</p></section>
-<section class="story-section"><p class="eyebrow">02 / {en?'EDUCATION':'FORMACIÓN'}</p><h2>{t.education}</h2><div class="story-degrees">{t.degrees.map(d=><article><p class="story-period">{d[2]}</p><h3>{d[0]}</h3><p>{d[1]}</p></article>)}</div></section>
-<section class="story-section"><p class="eyebrow">03 / {en?'EXPERTISE':'ESPECIALIDADES'}</p><h2>{t.expertise}</h2><div class="story-areas">{t.areas.map((a,i)=><article><span>0{i+1}</span><div><h3>{a[0]}</h3><p>{a[1]}</p></div></article>)}</div></section>
+<section class="story-section story-journey"><h2>{en?'My journey':'Mi trayectoria'}</h2><div class="story-timeline-variant"><div class="story-timeline story-timeline-horizontal">{t.stages.map((st,i)=><article class="story-stage"><span class="story-index">0{i+1}</span><div><p class="story-period">{st[0]}</p><h3>{st[1]}</h3><p class="story-org">{st[2]}</p><p>{st[3]}</p></div></article>)}</div></div></section>
+<section class="story-direction"><p class="eyebrow">{en?'MY APPROACH':'MI ENFOQUE'}</p><h2>{en?'Connecting data, business and people':'Conectar datos, negocio y personas'}</h2><p>{en?'My work brings together analytical rigour, an understanding of business and the ability to explain complex ideas clearly. I use AI when it adds practical value: to explore, analyse, prototype and communicate better.':'Mi forma de trabajar combina rigor analítico, comprensión del negocio y capacidad para explicar ideas complejas con claridad. Incorporo la IA cuando aporta valor práctico: para investigar, analizar, crear prototipos y comunicar mejor.'}</p></section>
+
+<section class="story-section"><h2>{en?'Specialities':'Especialidades'}</h2><div class="story-areas">{t.areas.map((a,i)=><article><span>0{i+1}</span><div><h3>{a[0]}</h3><p>{a[1]}</p></div></article>)}</div></section>
 <section class="story-section story-toolkit"><p class="eyebrow">04 / {en?'TOOLKIT':'HERRAMIENTAS'}</p><h2>{t.tools}</h2>{t.toolLines.map(line=><p>{line}</p>)}<p class="story-cert">{t.cert}</p></section>
 <section class="story-cta"><h2>{t.cta}</h2><p>{t.ctaText}</p><div><a href={en?'/consulting/case-studies/':'/es/consultoria/casos-de-uso/'}>{t.cases} ↗</a><a href="mailto:info@almuhernandez.com">{t.contact} ↗</a></div></section>
 </div>
@@ -60,4 +62,23 @@ tools:'Herramientas con las que trabajo',toolLines:['Analítica y BI: SQL · Pow
 .story-areas article{min-width:0;padding:24px}
 .story-areas h3{font-size:clamp(20px,1.7vw,26px)}
 @media(max-width:850px){.story-timeline-horizontal{grid-template-columns:repeat(3,minmax(220px,1fr));overflow-x:auto;padding-bottom:15px}.story-timeline-horizontal:before{right:auto;width:750px}.story-areas{grid-template-columns:repeat(5,minmax(220px,1fr))}}
+
+/* Unified editorial layout: same large italic heading as Resources and Case Studies. */
+.story-title{padding:70px 0 35px}
+.story-title h1{font:italic 400 clamp(88px,12vw,190px)/1.08 'Playfair Display',Georgia,serif;letter-spacing:-.055em;margin:12px 0 0;max-width:100%}
+.story-hero{grid-template-columns:1fr 1fr;gap:clamp(28px,6vw,100px);padding:20px 0 90px}
+.story-photo img{aspect-ratio:4/4.5}
+.story-quote{display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.story-quote>span{font:italic 150px/0.8 'Playfair Display',Georgia,serif;color:#4b123b}
+.story-quote blockquote{font:italic 400 clamp(30px,3.7vw,60px)/1.22 'Playfair Display',Georgia,serif;letter-spacing:-.045em;color:#4b123b;margin:20px 0}
+.story-section-break{background:#4b123b;height:92px;margin:0 calc(-1 * clamp(24px,7vw,110px));display:flex;align-items:center;justify-content:center;color:#e9c75f;font-size:36px}
+.story-journey{border-top:0;padding-top:95px}
+.story-journey h2{margin-bottom:48px}
+.story-journey .story-timeline-variant{padding:clamp(30px,5vw,75px)}
+.story-timeline-horizontal{gap:clamp(45px,6vw,110px)}
+.story-timeline-horizontal:before{top:15px}
+.story-timeline-horizontal .story-stage{padding-right:6px}
+.story-direction{background:#171717}
+.story-areas article:nth-child(5n+3){background:#f1e8de;color:#171717;border:1px solid #4b123b}
+@media(max-width:850px){.story-title h1{font-size:clamp(70px,13vw,110px)}.story-hero{grid-template-columns:1fr}.story-quote{padding:20px 0}.story-timeline-horizontal{gap:35px;grid-template-columns:repeat(3,minmax(240px,1fr))}}
 </style>
